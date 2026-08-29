@@ -301,7 +301,7 @@
 
           <rect class="n-frame" x="14" y="76" width="162" height="168" rx="10"></rect>
           <rect class="n-box" x="24" y="84" width="142" height="34" rx="7"></rect>
-          <text class="n-t" x="95" y="105" text-anchor="middle">Trendyol GO</text>
+          <text class="n-t" x="95" y="105" text-anchor="middle">Uber Eats</text>
           <rect class="n-box" x="24" y="126" width="142" height="34" rx="7"></rect>
           <text class="n-t" x="95" y="147" text-anchor="middle">Yemeksepeti</text>
           <rect class="n-box" x="24" y="168" width="142" height="34" rx="7"></rect>
@@ -476,13 +476,14 @@
         <thead><tr><th>Platform</th><th>Durum</th><th>Kontrol edilenler</th></tr></thead>
         <tbody>
           <tr>
-            <td>Trendyol GO</td>
+            <td>Uber Eats Trendyol Go</td>
             <td><span class="durum hazir">Hazır</span></td>
             <td>
               Her restoranda <strong>hazırlık süresi</strong> ve <strong>mağaza durumu.</strong>
               Asıl fren hazırlık süresi: sipariş kabul edilirken bildiriliyor, hem kuryeyi kapıda
               bekletmiyor hem müşterinin gördüğü teslimat süresini uzatıyor. Kendi kuryenle
               çalışıyorsan teslimat süresi ve teslimat bölgesi de ekleniyor, ayar daha ince oluyor.
+              Eskiden Trendyol GO'ydu; Uber satın aldıktan sonra adı değişti, bağlantı aynı kaldı.
             </td>
           </tr>
           <tr>
@@ -495,12 +496,11 @@
           </tr>
           <tr>
             <td>GetirYemek</td>
-            <td><span class="durum yolda">Anahtar bekliyor</span></td>
+            <td><span class="durum hazir">Uber Eats'te</span></td>
             <td>
-              Bağlantı yazıldı ve test edildi; Getir'in vereceği erişim anahtarları girilince
-              çalışıyor. Yavaşlatma burada daha basit: teslimat süresine 15, 30 veya 45 dakika
-              ekletiyoruz. Mağaza aç/kapa da var. Getir'de siparişlerine hiç dokunmuyoruz,
-              kabul eden yine sensin.
+              GetirYemek'i Uber aldı ve kendi API başvurularını kapattı. Siparişler artık
+              Uber Eats Trendyol Go üzerinden geliyor, yani üstteki satır bunu da kapsıyor.
+              GetirYemek'ten sipariş alıyorsan ayrıca bir şey yapman gerekmiyor.
             </td>
           </tr>
           <tr>
@@ -519,7 +519,9 @@
               Getir'in market dokümanı iş ortağı erişimi olmadan açılmıyor, biz de uçları
               doğrulanmış GetirYemek API'sinden modelledik. Yani şu an tahmine dayanıyor. Bu
               yüzden mağaza kapatma ve yavaşlatma, doküman elimize geçip kontrol edilene kadar
-              kilitli duruyor. Kendi market siteni bağlıyorsan yukarıdaki satır bugün de çalışıyor.
+              kilitli duruyor. Getir'in geliştirici hesabı başvurusu açık; hesap çıktığında
+              tahminlerin yerini doküman alacak. Getir'in market tarafı Uber'e geçmedi, burası
+              hâlâ Getir. Kendi market siteni bağlıyorsan yukarıdaki satır bugün de çalışıyor.
             </td>
           </tr>
         </tbody>
