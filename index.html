@@ -180,6 +180,24 @@
   .mailbox{display:flex; flex-wrap:wrap; align-items:center; gap:10px; margin-top:2px;}
   .mailaddr{font-family:var(--mono); font-size:15px; font-weight:500; color:var(--ink); background:var(--surface-2); border:1px solid var(--line); border-radius:8px; padding:10px 13px; user-select:all; word-break:break-all;}
   .live{font-family:var(--mono); font-size:12px; color:var(--accent);}
+  .form{display:flex; flex-direction:column; gap:13px; margin-top:4px;}
+  .row2{display:grid; gap:13px; grid-template-columns:1fr;}
+  @media (min-width:560px){ .row2{grid-template-columns:1fr 1fr;} }
+  .field{display:flex; flex-direction:column; gap:5px;}
+  .field label{font-size:13px; font-weight:600; color:var(--ink-2);}
+  .field input, .field textarea{
+    font-family:var(--ui); font-size:15px; color:var(--ink);
+    padding:10px 12px; border:1px solid var(--line-2); border-radius:8px;
+    background:var(--surface); width:100%;
+  }
+  .field textarea{resize:vertical; min-height:78px;}
+  .field input:focus, .field textarea:focus{border-color:var(--accent); outline:none;}
+  .kvkk{font-size:12.5px; color:var(--ink-3); line-height:1.5;}
+  .sonuc{font-size:14px; font-weight:600; min-height:20px;}
+  .sonuc.ok{color:var(--accent);} .sonuc.hata{color:var(--stop);}
+  .ayrac{display:flex; align-items:center; gap:12px; margin-top:20px;
+    font-family:var(--mono); font-size:11.5px; color:var(--ink-3);}
+  .ayrac::before, .ayrac::after{content:""; flex:1; height:1px; background:var(--line);}
   .btn-ghost.done{border-color:var(--accent); color:var(--accent);}
 
   footer{border-top:1px solid var(--line); padding-block:24px 38px;}
@@ -587,10 +605,54 @@
       </p>
     </div>
     <div class="contact">
-      <p>
-        Başlamak için işletme adını, şehrini, hangi platformlardan sipariş aldığını ve günlük
-        ortalama sipariş sayını yazman yeterli.
-      </p>
+      <form class="form" id="basvuru" method="POST" novalidate>
+        <div class="field">
+          <label for="f-isletme">İşletme adı</label>
+          <input id="f-isletme" name="isletme" type="text" required autocomplete="organization">
+        </div>
+        <div class="row2">
+          <div class="field">
+            <label for="f-eposta">E-posta</label>
+            <input id="f-eposta" name="email" type="email" required autocomplete="email">
+          </div>
+          <div class="field">
+            <label for="f-telefon">Telefon <span style="font-weight:400">(isteğe bağlı)</span></label>
+            <input id="f-telefon" name="telefon" type="tel" autocomplete="tel">
+          </div>
+        </div>
+        <div class="row2">
+          <div class="field">
+            <label for="f-sehir">Şehir / ilçe</label>
+            <input id="f-sehir" name="sehir" type="text">
+          </div>
+          <div class="field">
+            <label for="f-siparis">Günlük ortalama sipariş</label>
+            <input id="f-siparis" name="gunluk_siparis" type="text" inputmode="numeric">
+          </div>
+        </div>
+        <div class="field">
+          <label for="f-platform">Hangi platformlardan sipariş alıyorsun?</label>
+          <input id="f-platform" name="platformlar" type="text"
+                 placeholder="Trendyol, Yemeksepeti, kendi sitem…">
+        </div>
+        <div class="field">
+          <label for="f-not">Eklemek istediğin bir şey <span style="font-weight:400">(isteğe bağlı)</span></label>
+          <textarea id="f-not" name="mesaj"></textarea>
+        </div>
+
+        <!-- bot tuzagi: insan gormez, dolduran robottur -->
+        <input type="checkbox" name="botcheck" tabindex="-1" aria-hidden="true"
+               style="display:none" autocomplete="off">
+
+        <button class="btn btn-primary" type="submit" id="f-gonder">Ücretsiz denemeyi başlat</button>
+        <p class="sonuc" id="f-sonuc" role="status" aria-live="polite"></p>
+        <p class="kvkk">
+          Bıraktığın bilgiler yalnızca sana dönüş yapmak için kullanılır, üçüncü kişilerle
+          paylaşılmaz. İstediğin an silinmesini isteyebilirsin.
+        </p>
+      </form>
+
+      <div class="ayrac">veya doğrudan yaz</div>
       <div class="mailbox">
         <span class="mailaddr" id="mail">info@getdebi.com</span>
         <button class="btn btn-ghost" id="copy" type="button">Adresi kopyala</button>
@@ -708,6 +770,69 @@
   }
   window.addEventListener("hashchange", fromAddressBar);
   window.addEventListener("popstate", fromAddressBar);
+
+  /* ---------------- basvuru formu ---------------- */
+  //
+  // Site statik; sunucu tarafi yok. Form Web3Forms'un ucuna gonderiliyor,
+  // basvurular info@getdebi.com adresine e-posta olarak dusuyor.
+  //
+  // Anahtar asagiya yazilana kadar form GIZLI kalir, yalnizca e-posta adresi
+  // gorunur. Calismayan bir formu ziyaretciye gostermek en kotu sonuc olurdu:
+  // adam doldurur, gonderdim sanir, kimseye ulasmaz.
+  var FORM_ANAHTARI = "BURAYA_WEB3FORMS_ANAHTARI";
+
+  var form   = document.getElementById("basvuru");
+  var sonuc  = document.getElementById("f-sonuc");
+  var gonder = document.getElementById("f-gonder");
+  var ayrac  = document.querySelector(".ayrac");
+  var anahtarVar = FORM_ANAHTARI && FORM_ANAHTARI.indexOf("BURAYA") !== 0;
+
+  if (form && !anahtarVar) {
+    form.style.display = "none";
+    if (ayrac) { ayrac.style.display = "none"; }
+  }
+
+  if (form && anahtarVar) {
+    form.addEventListener("submit", function(ev){
+      ev.preventDefault();
+      if (!form.checkValidity()) { form.reportValidity(); return; }
+
+      var veri = {};
+      new FormData(form).forEach(function(v, k){ veri[k] = v; });
+      veri.access_key = FORM_ANAHTARI;
+      veri.subject = "Debi — yeni ücretsiz deneme başvurusu";
+      veri.from_name = "getdebi.com";
+
+      gonder.disabled = true;
+      sonuc.className = "sonuc";
+      sonuc.textContent = "Gönderiliyor…";
+
+      fetch("https://api.web3forms.com/submit", {
+        method: "POST",
+        headers: {"Content-Type": "application/json", "Accept": "application/json"},
+        body: JSON.stringify(veri)
+      })
+      .then(function(cevap){
+        return cevap.json().then(function(j){ return {ok: cevap.ok, j: j}; });
+      })
+      .then(function(r){
+        if (r.ok) {
+          sonuc.className = "sonuc ok";
+          sonuc.textContent = "Aldık. En kısa sürede dönüş yapacağız.";
+          form.reset();
+        } else {
+          // Ziyaretcinin yazdiklari kaybolmasin diye form SIFIRLANMIYOR.
+          sonuc.className = "sonuc hata";
+          sonuc.textContent = "Gönderilemedi. Aşağıdaki adrese doğrudan yazabilirsin.";
+        }
+      })
+      .catch(function(){
+        sonuc.className = "sonuc hata";
+        sonuc.textContent = "Bağlantı kurulamadı. Aşağıdaki adrese doğrudan yazabilirsin.";
+      })
+      .then(function(){ gonder.disabled = false; });
+    });
+  }
 
   /* adres kopyalama */
   var btn = document.getElementById("copy");
