@@ -479,10 +479,10 @@
             <td>Trendyol GO</td>
             <td><span class="durum hazir">Hazır</span></td>
             <td>
-              Hazırlık süresi ve mağaza durumu her restoranda çalışıyor. Teslimat süresi ile
-              teslimat bölgesi ise yalnızca <strong>kendi kuryesiyle</strong> teslimat yapan
-              restoranlarda değiştirilebiliyor; Trendyol kuryesi kullanıyorsan bu ikisi platform
-              tarafında kapalı. Getir Yemek siparişleri de bu entegrasyondan geliyor.
+              Her restoranda <strong>hazırlık süresi</strong> ve <strong>mağaza durumu.</strong>
+              Asıl fren hazırlık süresi: sipariş kabul edilirken bildiriliyor, hem kuryeyi kapıda
+              bekletmiyor hem müşterinin gördüğü teslimat süresini uzatıyor. Kendi kuryenle
+              çalışıyorsan teslimat süresi ve teslimat bölgesi de ekleniyor, ayar daha ince oluyor.
             </td>
           </tr>
           <tr>
@@ -491,6 +491,16 @@
             <td>
               Hepsi. Senin kontrol ettiğin sistem olduğu için kısıt yok. Kendi market siten de
               buraya giriyor.
+            </td>
+          </tr>
+          <tr>
+            <td>GetirYemek</td>
+            <td><span class="durum yolda">Anahtar bekliyor</span></td>
+            <td>
+              Bağlantı yazıldı ve test edildi; Getir'in vereceği erişim anahtarları girilince
+              çalışıyor. Yavaşlatma burada daha basit: teslimat süresine 15, 30 veya 45 dakika
+              ekletiyoruz. Mağaza aç/kapa da var. Getir'de siparişlerine hiç dokunmuyoruz,
+              kabul eden yine sensin.
             </td>
           </tr>
           <tr>
@@ -712,24 +722,32 @@
       <details>
         <summary>Bilgisayar ya da internet giderse mağazam kapalı mı kalır?</summary>
         <div class="a">
-          <p>Neredeyse her durumda hayır. Tek bir istisnası var, onu da söyleyelim.</p>
           <p>
-            <strong>İnternet giderse</strong> mağaza kapalı kalmıyor. Debi çalışmaya devam ediyor,
-            kapalı kalma sayacı işliyor ve süre dolunca açmayı deniyor; bağlantı gelir gelmez
-            mağaza açılıyor.
+            Önce şunu ayıralım: <strong>mağaza o an açıksa hiçbir şey olmuyor.</strong> Ne
+            elektrik kesintisi ne internet, açık bir mağazayı kapatmıyor. Soru yalnızca Debi'nin
+            mağazayı kapattığı o birkaç dakika için geçerli. Cevabı da dürüstçe: evet, o aralığa
+            denk gelirse kapalı kalmaya devam eder.
           </p>
           <p>
-            <strong>Bilgisayar kapanırsa</strong> mağaza o an açıksa hiçbir şey olmuyor, açık
-            kalır. Riskli tek an, bilgisayarın tam mağaza kapalıyken kapanması: o zaman mağazayı
-            açacak bir şey çalışmıyor demektir.
+            <strong>İnternet giderse</strong> Debi çalışmaya devam ediyor, açma vaktinin geldiğini
+            görüyor ama platforma ulaşamıyor. Mağaza, bağlantı gelene kadar kapalı kalır; internet
+            döndüğü anda ilk turda açılıyor.
           </p>
-          <p>Bunun için üç şey var:</p>
           <p>
-            Mağazanın kapalı kaldığı süre zaten kısa — dakikalarla ölçülüyor, üst sınırı varsayılan
-            olarak 15 dakika. Bilgisayarın tam o aralıkta kapanması gerekir. Debi bilgisayar açılır
-            açılmaz durumu diskten okuyup mağazayı ilk turda açıyor; kurulumda bilgisayarla birlikte
-            otomatik başlaması ayarlanıyor. Üçüncüsü de en basiti: mağazayı platformun kendi
-            uygulamasından her zaman sen de açabilirsin.
+            <strong>Bilgisayar kapanırsa</strong> aynı şey, üstüne Debi de durmuş oluyor. Bilgisayar
+            açıldığında durumu diskten okuyup mağazayı ilk turda açıyor — kurulumda bilgisayarla
+            birlikte otomatik başlaması bunun için ayarlanıyor.
+          </p>
+          <p>
+            İki durumda da elinde kalan şey aynı ve beş saniye sürüyor:
+            <strong>mağazayı platformun kendi uygulamasından telefonundan açarsın.</strong>
+            İşletmenin internetinin gitmesi telefonunun hattını etkilemiyor.
+          </p>
+          <p>
+            Bu pencerenin kısalığı da işine yarıyor: mağazanın kapalı kalma süresinin üst sınırı
+            varsayılan olarak 15 dakika. Kesintinin tam o aralığa denk gelmesi gerekiyor. Kapatma
+            kademesini hiç istemiyorsan zaten tamamen kapatabilirsin — o zaman bu sorunun konusu
+            da kalmıyor.
           </p>
         </div>
       </details>
