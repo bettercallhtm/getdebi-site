@@ -1,0 +1,843 @@
+<!doctype html>
+<html lang="tr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="description" content="Debi, restoran ve marketlerde yogun saatte siparis akisini kademe kademe kisarak gec teslimat ve iptal cezalarini olusmadan onler.">
+<meta name="theme-color" content="#0B6E63">
+<link rel="canonical" href="https://getdebi.com/">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='7' fill='%230B6E63'/%3E%3Crect x='7' y='21' width='18' height='4' rx='2' fill='white'/%3E%3Crect x='7' y='14' width='18' height='4' rx='2' fill='white'/%3E%3Crect x='7' y='7' width='18' height='4' rx='2' fill='white' opacity='.45'/%3E%3C/svg%3E">
+
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Debi">
+<meta property="og:title" content="Debi — siparis akisi kontrolu">
+<meta property="og:description" content="Debi, restoran ve marketlerde yogun saatte siparis akisini kademe kademe kisarak gec teslimat ve iptal cezalarini olusmadan onler.">
+<meta property="og:url" content="https://getdebi.com/">
+<meta property="og:locale" content="tr_TR">
+<meta name="twitter:card" content="summary">
+<title>Debi</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap">
+
+<style>
+  :root{
+    --paper:#F7F8F8; --surface:#FFFFFF; --surface-2:#EFF2F1;
+    --line:#DFE4E2; --line-2:#C4CDC9;
+    --ink:#111A19; --ink-2:#495A56; --ink-3:#71827D;
+    --accent:#0B6E63; --accent-ink:#FFFFFF; --accent-soft:#E0EEEA;
+    --go:#3FA34D; --slow:#E0A33E; --stop:#D6533C;
+    --shadow:0 1px 2px rgba(17,26,25,.05), 0 10px 26px -18px rgba(17,26,25,.35);
+    --ui:"Plus Jakarta Sans","Segoe UI",system-ui,sans-serif;
+    --mono:"JetBrains Mono",ui-monospace,Consolas,monospace;
+    --pad:clamp(18px,4vw,32px);
+  }
+  @media (prefers-color-scheme: dark){
+    :root:not([data-theme="light"]){
+      --paper:#0C1413; --surface:#131D1C; --surface-2:#1A2523;
+      --line:#25322F; --line-2:#3A4844;
+      --ink:#E9EFED; --ink-2:#AEBDB8; --ink-3:#82918C;
+      --accent:#4FBFAE; --accent-ink:#07100F; --accent-soft:#16302D;
+      --go:#5BBF69; --slow:#E8B45C; --stop:#E4705C;
+      --shadow:0 1px 2px rgba(0,0,0,.45), 0 12px 30px -20px rgba(0,0,0,.9);
+    }
+  }
+  :root[data-theme="dark"]{
+    --paper:#0C1413; --surface:#131D1C; --surface-2:#1A2523;
+    --line:#25322F; --line-2:#3A4844;
+    --ink:#E9EFED; --ink-2:#AEBDB8; --ink-3:#82918C;
+    --accent:#4FBFAE; --accent-ink:#07100F; --accent-soft:#16302D;
+    --go:#5BBF69; --slow:#E8B45C; --stop:#E4705C;
+    --shadow:0 1px 2px rgba(0,0,0,.45), 0 12px 30px -20px rgba(0,0,0,.9);
+  }
+
+  *{box-sizing:border-box;}
+  body{margin:0; background:var(--paper); color:var(--ink); font-family:var(--ui); font-size:16px; line-height:1.6; -webkit-font-smoothing:antialiased;}
+  ::selection{background:var(--accent-soft); color:var(--ink);}
+  :focus-visible{outline:2px solid var(--accent); outline-offset:2px; border-radius:4px;}
+  a{color:var(--accent); text-underline-offset:2px;}
+  .wrap{max-width:1040px; margin:0 auto; padding-inline:var(--pad);}
+  h1,h2,h3{margin:0; font-weight:700; letter-spacing:-.02em; line-height:1.2; text-wrap:balance;}
+  h1{font-size:clamp(27px,3.6vw,38px);}
+  h2{font-size:clamp(19px,2.1vw,23px); letter-spacing:-.015em;}
+  h3{font-size:15.5px; font-weight:600;}
+  p{margin:0;} strong{font-weight:600;}
+
+  /* gezinme */
+  .nav{position:sticky; top:0; z-index:30; background:var(--paper); border-bottom:1px solid var(--line);}
+  .nav-in{display:flex; align-items:center; gap:6px; padding-block:11px;}
+  .brand{display:flex; align-items:center; gap:9px; font-weight:700; font-size:16px; letter-spacing:-.03em; text-decoration:none; color:var(--ink); margin-inline-end:auto;}
+  .mark{width:21px; height:21px; border-radius:5px; flex:none; background:var(--accent); position:relative;}
+  .mark::after{content:""; position:absolute; left:4px; right:4px; bottom:4px; height:3px; background:var(--accent-ink); border-radius:2px; box-shadow:0 -5px 0 var(--accent-ink), 0 -10px 0 rgba(255,255,255,.42);}
+  .tabs{display:none; gap:2px;}
+  @media (min-width:820px){ .tabs{display:flex;} }
+  .tab{font-size:14px; font-weight:500; color:var(--ink-2); text-decoration:none; padding:7px 11px; border-radius:7px; white-space:nowrap;}
+  .tab:hover{background:var(--surface-2); color:var(--ink);}
+  .tab[aria-current="page"]{background:var(--surface-2); color:var(--ink); font-weight:600;}
+  .nav .cta{font-size:13.5px; font-weight:600; background:var(--accent); color:var(--accent-ink); padding:8px 13px; border-radius:7px; text-decoration:none; white-space:nowrap; margin-inline-start:10px;}
+  .tabs-mobile{display:flex; gap:2px; overflow-x:auto; padding-block:8px; border-bottom:1px solid var(--line); scrollbar-width:none;}
+  .tabs-mobile::-webkit-scrollbar{display:none;}
+  @media (min-width:820px){ .tabs-mobile{display:none;} }
+
+  /* sayfa */
+  .page{display:none; padding-block:clamp(30px,4.4vw,52px) clamp(44px,6vw,72px);}
+  .page.active{display:block;}
+  .page-head{display:flex; flex-direction:column; gap:11px; max-width:62ch; margin-bottom:26px;}
+  .page-head p{color:var(--ink-2);}
+  .prose{max-width:62ch; display:flex; flex-direction:column; gap:13px;}
+  .prose p{color:var(--ink-2);}
+
+  .btn{display:inline-flex; align-items:center; justify-content:center; cursor:pointer; font-family:var(--ui); font-weight:600; font-size:15px; padding:11px 18px; border-radius:8px; text-decoration:none; border:1px solid transparent; transition:background .12s ease, border-color .12s ease;}
+  .btn-primary{background:var(--accent); color:var(--accent-ink);}
+  .btn-primary:hover{background:color-mix(in srgb, var(--accent) 86%, black);}
+  .btn-ghost{background:var(--surface); color:var(--ink); border-color:var(--line-2);}
+  .btn-ghost:hover{background:var(--surface-2);}
+  .cta-row{display:flex; flex-wrap:wrap; gap:10px; margin-top:6px;}
+  .fine{font-family:var(--mono); font-size:11.5px; color:var(--ink-3);}
+
+  .hero{display:grid; gap:clamp(26px,4vw,42px); grid-template-columns:1fr; align-items:center;}
+  @media (min-width:900px){ .hero{grid-template-columns:1.02fr .98fr;} }
+  .hero .lead{font-size:17.5px; color:var(--ink-2);}
+
+  /* gosterge */
+  .gauge{background:var(--surface); border:1px solid var(--line); border-radius:12px; box-shadow:var(--shadow); padding:16px; display:flex; flex-direction:column; gap:12px;}
+  .gauge-head{display:flex; align-items:baseline; justify-content:space-between; gap:10px;}
+  .gauge-head .lbl{font-family:var(--mono); font-size:10.5px; letter-spacing:.08em; text-transform:uppercase; color:var(--ink-3);}
+  .verb{font-weight:700; font-size:clamp(18px,2.2vw,21px); letter-spacing:-.02em; transition:color .3s ease;}
+  .gauge-body{display:grid; grid-template-columns:auto 1fr; gap:16px; align-items:center;}
+  .count{font-family:var(--mono); font-weight:600; font-size:clamp(36px,5.6vw,48px); line-height:1; font-variant-numeric:tabular-nums;}
+  .count-lbl{font-family:var(--mono); font-size:10px; letter-spacing:.08em; text-transform:uppercase; color:var(--ink-3); margin-top:5px;}
+  .track{height:8px; border-radius:4px; background:var(--surface-2); border:1px solid var(--line); overflow:hidden;}
+  .fill{height:100%; width:0%; background:var(--go); transition:width .5s ease, background .4s ease;}
+  .track-cap{display:flex; justify-content:space-between; font-family:var(--mono); font-size:10px; color:var(--ink-3); margin-top:6px;}
+  .ladder{display:flex; gap:5px;}
+  .rung{flex:1; border:1px solid var(--line); border-radius:6px; background:var(--surface-2); padding:7px 3px; text-align:center; font-family:var(--mono); font-size:10px; color:var(--ink-3); transition:background .3s ease, color .3s ease, border-color .3s ease;}
+  .rung.on{background:var(--slow); border-color:var(--slow); color:#1B1405;}
+  .rung.z.on{background:var(--go); border-color:var(--go); color:#06210A;}
+  .rung.c.on{background:var(--stop); border-color:var(--stop); color:#FFF3F0;}
+  .gauge-log{font-family:var(--mono); font-size:11px; line-height:1.5; color:var(--ink-2); background:var(--surface-2); border:1px solid var(--line); border-radius:8px; padding:10px 12px; min-height:50px;}
+
+  /* sekiller */
+  .fig{margin:0; display:flex; flex-direction:column; gap:11px;}
+  /* Dar ekranda kucultup okunmaz hale getirmek yerine kendi kabinda kaydir. */
+  .fig-scroll{overflow-x:auto; border:1px solid var(--line); border-radius:12px; background:var(--surface);}
+  .fig svg{display:block; width:100%; min-width:600px; height:auto; color:var(--ink-2);}
+  figcaption{font-size:13.5px; color:var(--ink-3); max-width:64ch; line-height:1.55;}
+  .n-box{fill:var(--surface-2); stroke:currentColor; stroke-width:1;}
+  .n-key{fill:var(--accent-soft); stroke:var(--accent); stroke-width:1.4;}
+  .n-frame{fill:none; stroke:currentColor; stroke-width:1; stroke-dasharray:3 4; opacity:.5;}
+  .n-t{fill:var(--ink); font-family:var(--ui); font-size:13.5px; font-weight:600;}
+  .n-s{fill:var(--ink-3); font-family:var(--mono); font-size:11.5px;}
+  .n-l{fill:var(--ink-3); font-family:var(--mono); font-size:12px;}
+  .n-line{stroke:currentColor; stroke-width:1.2; fill:none; opacity:.75;}
+  .n-ctrl{stroke:var(--accent); stroke-width:1.5; fill:none; stroke-dasharray:5 4;}
+  .n-ac{fill:var(--accent); font-family:var(--mono); font-size:12px;}
+  .c-axis{stroke:currentColor; stroke-width:1; opacity:.3;}
+  .c-cap{stroke:currentColor; stroke-width:1.2; stroke-dasharray:5 4; opacity:.75; fill:none;}
+  .c-bad{stroke:var(--stop); stroke-width:2.2; fill:none; stroke-linejoin:round;}
+  .c-good{stroke:var(--accent); stroke-width:2.2; fill:none; stroke-linejoin:round;}
+  .c-zone{fill:var(--stop); opacity:.15;}
+  .c-badt{fill:var(--stop); font-family:var(--mono); font-size:12px;}
+
+  /* kademe merdiveni */
+  .steps{display:flex; flex-direction:column; border:1px solid var(--line); border-radius:10px; overflow:hidden; background:var(--surface); max-width:72ch; margin-block:6px 26px;}
+  .step{display:grid; grid-template-columns:96px 1fr; gap:14px; align-items:baseline; padding:12px 15px; border-bottom:1px solid var(--line);}
+  .step:last-child{border-bottom:none;}
+  .k{font-family:var(--mono); font-size:12.5px; font-weight:600;}
+  .step span:last-child{font-size:15px; color:var(--ink-2); line-height:1.5;}
+  .s0 .k{color:var(--go);} .st .k{color:var(--slow);} .sc .k{color:var(--stop);}
+
+  /* tablo */
+  .table-scroll{overflow-x:auto; border:1px solid var(--line); border-radius:11px; background:var(--surface);}
+  table{border-collapse:collapse; width:100%; min-width:560px; font-size:14.5px;}
+  th,td{text-align:left; padding:13px 16px; border-bottom:1px solid var(--line); vertical-align:top;}
+  tr:last-child td{border-bottom:none;}
+  th{font-family:var(--mono); font-size:10.5px; letter-spacing:.09em; text-transform:uppercase; color:var(--ink-3); font-weight:500; background:var(--surface-2); white-space:nowrap;}
+  th:first-child, td:first-child{width:34%;}
+  td:first-child{font-weight:600; color:var(--ink);}
+  td:last-child{color:var(--ink-2); line-height:1.55;}
+
+  /* guvenlik */
+  .safety{display:grid; gap:0 40px; grid-template-columns:1fr; max-width:80ch;}
+  @media (min-width:780px){ .safety{grid-template-columns:1fr 1fr;} }
+  .safety > div{padding-block:14px; border-top:1px solid var(--line);}
+  .safety h3{margin-bottom:4px;}
+  .safety p{font-size:14.5px; color:var(--ink-2); line-height:1.55;}
+
+  /* sss */
+  .faq{max-width:70ch; border-top:1px solid var(--line);}
+  details{border-bottom:1px solid var(--line);}
+  summary{cursor:pointer; list-style:none; padding:14px 30px 14px 0; position:relative; font-weight:600; font-size:15.5px;}
+  summary::-webkit-details-marker{display:none;}
+  summary::after{content:"+"; position:absolute; right:4px; top:50%; transform:translateY(-50%); font-family:var(--mono); font-size:17px; color:var(--ink-3);}
+  details[open] summary::after{content:"–";}
+  details .a{padding-bottom:16px; display:flex; flex-direction:column; gap:11px;}
+  details .a p{font-size:15px; color:var(--ink-2); max-width:62ch;}
+
+  /* iletisim */
+  .contact{background:var(--surface); border:1px solid var(--line); border-radius:12px; padding:clamp(20px,3vw,28px); box-shadow:var(--shadow); display:flex; flex-direction:column; gap:13px; max-width:64ch;}
+  .contact p{color:var(--ink-2);}
+  .mailbox{display:flex; flex-wrap:wrap; align-items:center; gap:10px; margin-top:2px;}
+  .mailaddr{font-family:var(--mono); font-size:15px; font-weight:500; color:var(--ink); background:var(--surface-2); border:1px solid var(--line); border-radius:8px; padding:10px 13px; user-select:all; word-break:break-all;}
+  .live{font-family:var(--mono); font-size:12px; color:var(--accent);}
+  .btn-ghost.done{border-color:var(--accent); color:var(--accent);}
+
+  footer{border-top:1px solid var(--line); padding-block:24px 38px;}
+  .foot{display:flex; flex-wrap:wrap; gap:12px 24px; justify-content:space-between; align-items:center;}
+  .foot p, .foot a{font-family:var(--mono); font-size:11.5px; color:var(--ink-3); text-decoration:none;}
+  .foot a:hover{color:var(--accent);}
+  .foot nav{display:flex; flex-wrap:wrap; gap:16px;}
+
+  @media (prefers-reduced-motion: reduce){ *{animation:none !important; transition:none !important;} }
+</style>
+</head>
+<body>
+
+
+<div class="nav">
+  <div class="wrap nav-in">
+    <a class="brand" href="#/"><span class="mark" aria-hidden="true"></span> Debi</a>
+    <nav class="tabs" id="tabs-desktop"></nav>
+    <a class="cta" href="#/iletisim">1 ay ücretsiz</a>
+  </div>
+  <div class="wrap"><nav class="tabs-mobile" id="tabs-mobile"></nav></div>
+</div>
+
+<main class="wrap">
+
+  <!-- ana sayfa -->
+  <section class="page" data-page="/">
+    <div class="hero">
+      <div class="prose">
+        <h1>Yoğun saatte sipariş akışını otomatik kısar.</h1>
+        <p class="lead">
+          Cuma akşamı 20:30. Mutfakta 14 açık sipariş var, çoğu son yirmi dakikada düştü. Bir kısmı
+          geç çıkacak, bir kısmını iptal etmek zorunda kalacaksın. İkisinin de cezası yazılıyor.
+        </p>
+        <p>
+          Debi bu noktaya gelmeden devreye giriyor. Açık sipariş sayısını izliyor, eşiği aşınca
+          hazırlık ve teslimat sürelerini kademeli olarak uzatıyor. Gelen sipariş hızı düşüyor,
+          mutfak açığı kapatıyor.
+        </p>
+        <p>
+          Mağazayı kapatmak en son yaptığı şey. Kapalı mağaza ceza almaz ama sipariş de almaz.
+        </p>
+        <div class="cta-row">
+          <a class="btn btn-primary" href="#/iletisim">Ücretsiz denemeyi başlat</a>
+          <a class="btn btn-ghost" href="#/nasil-calisir">Nasıl çalıştığını gör</a>
+        </div>
+        <p class="fine">İlk ay ücretsiz · kurulum ücreti yok</p>
+      </div>
+
+      <div class="gauge" id="gauge" aria-label="Canlı yoğunluk göstergesi">
+        <div class="gauge-head">
+          <span class="lbl">Canlı gösterim</span>
+          <span class="verb" id="g-verb">AÇIK</span>
+        </div>
+        <div class="gauge-body">
+          <div>
+            <div class="count" id="g-count">0</div>
+            <div class="count-lbl">açık sipariş</div>
+          </div>
+          <div>
+            <div class="track"><div class="fill" id="g-fill"></div></div>
+            <div class="track-cap"><span>0</span><span>kapatma eşiği 12</span></div>
+          </div>
+        </div>
+        <div class="ladder" id="g-ladder">
+          <div class="rung z" data-rung="0">normal</div>
+          <div class="rung" data-rung="1">%34</div>
+          <div class="rung" data-rung="2">%67</div>
+          <div class="rung" data-rung="3">%100</div>
+          <div class="rung c" data-rung="4">kapalı</div>
+        </div>
+        <div class="gauge-log" id="g-log">Yük normal. Sipariş akışına dokunulmuyor.</div>
+      </div>
+    </div>
+
+    <div style="margin-top:clamp(38px,5.5vw,58px); display:flex; flex-direction:column; gap:26px">
+      <figure class="fig">
+        <div class="fig-scroll"><svg viewBox="0 0 730 300" role="img" aria-label="Platformlardan gelen siparişler Debi üzerinden mutfağa geçer; Debi mutfaktaki açık sipariş sayısını ölçer ve platformlara hazırlık ile teslimat süresini uzatarak geri baskı uygular.">
+          <defs>
+            <marker id="ar" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+              <path d="M0,1 L9,5 L0,9 z" fill="currentColor"></path>
+            </marker>
+            <marker id="ar-a" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+              <path d="M0,1 L9,5 L0,9 z" fill="var(--accent)"></path>
+            </marker>
+          </defs>
+
+          <rect class="n-frame" x="14" y="76" width="162" height="168" rx="10"></rect>
+          <rect class="n-box" x="24" y="84" width="142" height="34" rx="7"></rect>
+          <text class="n-t" x="95" y="105" text-anchor="middle">Trendyol GO</text>
+          <rect class="n-box" x="24" y="126" width="142" height="34" rx="7"></rect>
+          <text class="n-t" x="95" y="147" text-anchor="middle">Yemeksepeti</text>
+          <rect class="n-box" x="24" y="168" width="142" height="34" rx="7"></rect>
+          <text class="n-t" x="95" y="189" text-anchor="middle">Getir</text>
+          <rect class="n-box" x="24" y="210" width="142" height="34" rx="7"></rect>
+          <text class="n-t" x="95" y="231" text-anchor="middle">Kendi siten · QR</text>
+
+          <line class="n-line" x1="176" y1="101" x2="296" y2="155" marker-end="url(#ar)"></line>
+          <line class="n-line" x1="176" y1="143" x2="296" y2="158" marker-end="url(#ar)"></line>
+          <line class="n-line" x1="176" y1="185" x2="296" y2="164" marker-end="url(#ar)"></line>
+          <line class="n-line" x1="176" y1="227" x2="296" y2="167" marker-end="url(#ar)"></line>
+
+          <rect class="n-key" x="300" y="126" width="130" height="70" rx="9"></rect>
+          <text class="n-t" x="365" y="155" text-anchor="middle">Debi</text>
+          <text class="n-s" x="365" y="172" text-anchor="middle">kademe 0–3</text>
+
+          <line class="n-line" x1="430" y1="161" x2="566" y2="161" marker-end="url(#ar)"></line>
+          <text class="n-l" x="498" y="152" text-anchor="middle">sipariş</text>
+
+          <rect class="n-box" x="570" y="126" width="146" height="70" rx="9"></rect>
+          <text class="n-t" x="643" y="155" text-anchor="middle">Mutfak</text>
+          <text class="n-s" x="643" y="172" text-anchor="middle">kapasite sabit</text>
+
+          <path class="n-ctrl" d="M365,124 L365,52 L95,52 L95,74" marker-end="url(#ar-a)"></path>
+          <text class="n-ac" x="230" y="43" text-anchor="middle">hazırlık ve teslimat süresi ↑</text>
+
+          <path class="n-line" d="M643,198 L643,268 L365,268 L365,200" marker-end="url(#ar)"></path>
+          <text class="n-l" x="504" y="284" text-anchor="middle">açık sipariş sayısı</text>
+        </svg></div>
+        <figcaption>
+          Siparişler soldan geliyor, mutfağa giriyor. Debi mutfaktaki açık sipariş sayısını okuyup
+          platformlara daha uzun hazırlık ve teslimat süresi bildiriyor. Gelen sipariş hızı böyle
+          düşüyor.
+        </figcaption>
+      </figure>
+
+      <div class="prose">
+        <h2>Ceza nereden geliyor</h2>
+        <p>
+          Mutfağın saatte çıkarabildiği sipariş sayısı bellidir. Yoğun saatte gelen sipariş bu sayıyı
+          aşınca kuyruk birikmeye başlar.
+        </p>
+        <p>
+          Bundan sonra iki şey olur. Siparişler geç çıkar ve <strong>geç teslimat cezası</strong>
+          yazılır. Ya da yetişemeyeceğini görüp iptal edersin, onun da <strong>ayrı bir cezası</strong>
+          vardır.
+        </p>
+        <p>
+          Çoğu restoran bunu elle yönetiyor: yoğunlukta mağazayı kapatıyor, iş hafifleyince açıyor.
+          İki sorunu var. Kapatma kararı genelde geç veriliyor, ceza çoktan oluşmuş oluyor. Bir de
+          açmayı unutma meselesi var. Akşam kapatılıp gece yarısı hâlâ kapalı duran mağaza az
+          rastlanan bir şey değil.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- nasil calisir -->
+  <section class="page" data-page="/nasil-calisir">
+    <div class="page-head">
+      <h1>Nasıl çalışır</h1>
+      <p>
+        Debi açık sipariş sayısını sürekli izler. Belirlediğin eşiği aşınca bir kademe yukarı çıkar,
+        yük düşünce bir kademe aşağı iner. Kademeler arasında en az bir dakika bekler. Beklemese
+        eşiğin başında sürekli açıp kapatırdı.
+      </p>
+    </div>
+
+    <div class="steps">
+      <div class="step s0"><span class="k">kademe 0</span><span>Normal. Hiçbir şeye dokunulmuyor.</span></div>
+      <div class="step st"><span class="k">kademe 1</span><span>%34 yavaşlatma. Süreler biraz uzuyor, akış hafif kısılıyor.</span></div>
+      <div class="step st"><span class="k">kademe 2</span><span>%67 yavaşlatma. Uzun süre gören müşterilerin bir kısmı vazgeçiyor.</span></div>
+      <div class="step st"><span class="k">kademe 3</span><span>%100 yavaşlatma. En yüksek kademe. Mağaza hâlâ açık, sipariş gelmeye devam ediyor.</span></div>
+      <div class="step sc"><span class="k">kapalı</span><span>Son çare. Bu kademeyi tamamen kapatabilirsin, o zaman mağaza hiç kapanmaz.</span></div>
+    </div>
+
+    <figure class="fig" style="margin-bottom:28px">
+      <div class="fig-scroll"><svg viewBox="0 0 730 300" role="img" aria-label="Akşam yoğunluğunda açık sipariş sayısı: müdahale edilmediğinde eğri mutfağın kapasitesini aşar ve aradaki alan ceza bölgesi olur; Debi devredeyken eğri kapasitenin hemen altında tutulur.">
+        <line class="c-axis" x1="70" y1="240" x2="700" y2="240"></line>
+        <line class="c-axis" x1="70" y1="40" x2="70" y2="240"></line>
+
+        <path class="c-zone" d="M236,152 L256,138 L318,94 L380,65 L442,79 L504,116 L532,152 Z"></path>
+
+        <line class="c-cap" x1="70" y1="152" x2="700" y2="152"></line>
+        <text class="n-l" x="700" y="147" text-anchor="end">mutfağın çıkarabildiği</text>
+
+        <polyline class="c-bad" points="70,225 132,211 194,182 256,138 318,94 380,65 442,79 504,116 566,160 628,196 690,218"></polyline>
+        <polyline class="c-good" points="70,225 132,211 194,182 256,160 318,152 380,152 442,160 504,160 566,174 628,203 690,218"></polyline>
+
+        <text class="c-badt" x="384" y="120" text-anchor="middle">ceza bölgesi</text>
+        <text class="c-badt" x="380" y="55" text-anchor="middle">müdahale yok</text>
+        <text class="n-ac" x="318" y="176" text-anchor="middle">Debi devrede</text>
+
+        <text class="n-l" x="70" y="258" text-anchor="start">18:00</text>
+        <text class="n-l" x="385" y="258" text-anchor="middle">akşam zirvesi</text>
+        <text class="n-l" x="700" y="258" text-anchor="end">23:00</text>
+        <text class="n-l" x="62" y="46" text-anchor="end">açık</text>
+        <text class="n-l" x="62" y="58" text-anchor="end">sipariş</text>
+      </svg></div>
+      <figcaption>
+        Kırmızı çizgi, hiçbir şey yapılmadığında açık sipariş sayısı. Kapasite çizgisinin üstünde
+        kalan taralı alandaki siparişler ya geç çıkıyor ya iptal ediliyor. Yeşil çizgi Debi
+        devredeyken. Zirvede iki çizgi arasındaki fark, kaybettiğin sipariş.
+      </figcaption>
+    </figure>
+
+    <div class="prose">
+      <h2>Yavaşlatma ne demek</h2>
+      <p>
+        Sipariş platformlarında "kapasite" diye ayarlayabileceğin bir alan yok. Elindeki şey süreler.
+        Hazırlık süresini uzattığında müşterinin gördüğü teslimat süresi artıyor, uzun süre gören
+        müşterilerin bir kısmı sipariş vermekten vazgeçiyor. Gelen sipariş sayısı böyle düşüyor.
+        Mağazan açık kaldığı için vazgeçmeyeni kaybetmiyorsun.
+      </p>
+      <p>
+        Dört ayrı kaldıraç var. Hepsi her restoranda çalışmıyor; sistem hangisinin açık olduğunu
+        deneyerek anlıyor ve elinde olmayanı zorlamıyor.
+      </p>
+    </div>
+
+    <div class="table-scroll" style="margin-block:16px 26px">
+      <table>
+        <thead><tr><th>Kaldıraç</th><th>Ne yapıyor</th></tr></thead>
+        <tbody>
+          <tr>
+            <td>Hazırlık süresi</td>
+            <td>Sipariş kabul edilirken mutfağın gerçek durumuna göre süre bildirilir. Kuryenin kapıda boşuna beklemesini önler ve müşterinin gördüğü süreyi uzatarak akışı kısar. Kuryesi kimin olursa olsun çalışır.</td>
+          </tr>
+          <tr>
+            <td>Teslimat süresi</td>
+            <td>Mağazanın ilan ettiği teslimat aralığı yükseltilir. Kendi kuryesiyle çalışan restoranlarda geçerlidir.</td>
+          </tr>
+          <tr>
+            <td>Teslimat bölgesi</td>
+            <td>Yoğunlukta uzak bölgeler geçici olarak daraltılır; gelen sipariş azalır ve kalanlar daha yakın olur. Kendi kuryesiyle çalışan restoranlarda geçerlidir.</td>
+          </tr>
+          <tr>
+            <td>Mağaza durumu</td>
+            <td>Son çare olarak sipariş alımı durdurulur, yük düşünce geri açılır. Her restoranda geçerlidir.</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="prose">
+      <h2>Mağaza açılırken</h2>
+      <p>
+        Mağaza kapalıyken kuyruk erir. Açıldığı anda bütün süreleri normale çekersen kuyruk birkaç
+        dakika içinde tekrar dolar. Debi kapalıdan çıkarken en yüksek yavaşlatma kademesine dönüyor,
+        sonra yük düştükçe gevşetiyor.
+      </p>
+      <h2 style="margin-top:12px">Yük tek yerden sayılır</h2>
+      <p>
+        Trendyol'dan gelen sipariş de kendi sitenden gelen de aynı mutfağa giriyor. Bu yüzden açık
+        sipariş sayısı hepsinden toplanıyor. Müdahale ise her platforma ayrı uygulanıyor.
+      </p>
+    </div>
+  </section>
+
+  <!-- platformlar -->
+  <section class="page" data-page="/platformlar">
+    <div class="page-head">
+      <h1>Platformlar</h1>
+      <p>
+        Hangi platformlardan sipariş alıyorsan hepsi tek panelde toplanıyor. Aşağıdaki tabloda her
+        platformda hangi ayarların değiştirilebildiği yazıyor.
+      </p>
+    </div>
+    <div class="table-scroll">
+      <table>
+        <thead><tr><th>Platform</th><th>Kontrol edilenler</th></tr></thead>
+        <tbody>
+          <tr>
+            <td>Trendyol GO</td>
+            <td>Hazırlık süresi, teslimat süresi, teslimat bölgesi ve mağaza durumu. Getir Yemek siparişleri de bu entegrasyondan geliyor.</td>
+          </tr>
+          <tr>
+            <td>Yemeksepeti</td>
+            <td>Hazırlık süresi ve mağaza durumu. Siparişler anlık olarak sisteme iletiliyor.</td>
+          </tr>
+          <tr>
+            <td>Getir</td>
+            <td>Hazırlık süresi ve mağaza durumu.</td>
+          </tr>
+          <tr>
+            <td>Kendi siten · QR · POS</td>
+            <td>Hepsi. Senin kontrol ettiğin sistem olduğu için kısıt yok.</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <!-- guvenlik -->
+  <section class="page" data-page="/guvenlik">
+    <div class="page-head">
+      <h1>Güvenlik önlemleri</h1>
+      <p>
+        Mağazayı kapatabilen bir yazılımın yapabileceği en kötü hata, onu kapalı unutmak. Aşağıdaki
+        önlemler bunun için var.
+      </p>
+    </div>
+    <div class="safety">
+      <div>
+        <h3>Kapalı unutulmaz</h3>
+        <p>Kapalı kalma süresi için bir üst sınır var. Bu süre dolunca yük hâlâ yüksek olsa bile mağaza açılıyor. Platformlara hiç ulaşılamıyor olsa bile sayaç işlemeye devam ediyor.</p>
+      </div>
+      <div>
+        <h3>Elektrik giderse</h3>
+        <p>Bilgisayar aniden kapanırsa mağaza kapalı kalabilir. Sistem durumu diske yazdığı için yeniden açıldığında bunu görüyor ve mağazayı ilk turda açıyor.</p>
+      </div>
+      <div>
+        <h3>Senin kapattığını açmaz</h3>
+        <p>Mağazayı sen kapattıysan sistem ona karışmıyor. Sadece kendi kapattığı mağazayı açıyor.</p>
+      </div>
+      <div>
+        <h3>Bir platform çökerse</h3>
+        <p>Diğerleri çalışmaya devam ediyor, sipariş sayısı ayakta olanlardan toplanıyor. Bir platformdaki bağlantı hatası bütün sistemi durdurmuyor.</p>
+      </div>
+      <div>
+        <h3>Kontrol sende kalır</h3>
+        <p>Panelden 30 dakikalığına "açık kalsın" veya "kapalı kalsın" diyebilirsin. Süre dolunca otomatiğe kendisi dönüyor, yani yanlışlıkla kalıcı kapalıda unutulmuyor.</p>
+      </div>
+      <div>
+        <h3>Kişisel veri sınırda kalır</h3>
+        <p>Platformdan gelen sipariş bilgisinde müşterinin adı, telefonu ve adresi var. Bunlar sisteme girmeden ayıklanıyor. Kayıtlara sadece sipariş numarası, durumu, saati ve ürün adedi yazılıyor.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- sss -->
+  <section class="page" data-page="/sss">
+    <div class="page-head">
+      <h1>Sık sorulan sorular</h1>
+    </div>
+    <div class="faq">
+      <details>
+        <summary>Yavaşlatınca sipariş kaybetmiyor muyum?</summary>
+        <div class="a">
+          <p>
+            Evet, bir miktar sipariş kaybediyorsun. Ama hangi siparişleri kaybettiğine bakmak gerek.
+          </p>
+          <p>
+            Yavaşlatma sadece mutfak dolduğunda devreye giriyor. O anda gelen siparişi kabul edersen
+            ne oluyor: geç çıkıyor, ceza yazılıyor, müşteri de memnun kalmıyor. Ya da iptal ediyorsun,
+            onun da cezası var. Yani karşılaştırma "sipariş almak" ile "almamak" arasında değil.
+            Cezasını ödeyeceğin bir sipariş ile hiç gelmeyen bir sipariş arasında.
+          </p>
+          <p>
+            Geç çıkan siparişin maliyeti de tek kalem değil. Cezanın üstüne çoğu zaman iade geliyor,
+            puanın düşüyor, o müşteri bir daha sipariş vermiyor.
+          </p>
+          <p>
+            Bir de ertesi güne kalan tarafı var. Platformlar mağazaları teslimat performansına göre
+            sıralıyor. Sürekli geciken restoran listede aşağı düşüyor, bu da sonraki günlerin
+            siparişini etkiliyor. Zirvede kaybettiğin birkaç sipariş, gün boyu kaybedeceğin
+            görünürlüğün yerine geçiyor.
+          </p>
+          <p>
+            Sistemin kademeli olmasının sebebi de bu. Doğrudan kapatmıyor, önce %34 kısıyor. Yetmezse
+            artırıyor. Yük düşer düşmez gevşetiyor. Yani ihtiyacın kadar sipariş kaybediyorsun.
+          </p>
+        </div>
+      </details>
+      <details>
+        <summary>Teslimatı platformun kuryesi yapıyor, yine işe yarar mı?</summary>
+        <div class="a">
+          <p>
+            Evet. Kuryesi platformun olsa da elinde iki şey kalıyor.
+          </p>
+          <p>
+            Birincisi <strong>hazırlık süresi</strong>. Siparişi kabul ederken mutfağın o anki
+            durumuna göre süre bildiriliyor. Bunun iki faydası var. Kurye siparişin hazır olacağı
+            saatte geliyor, kapıda beklemiyor; kurye beklemesi zaten ceza sebeplerinden biri. Bir de
+            müşterinin gördüğü teslimat süresi uzuyor, akış kısılıyor.
+          </p>
+          <p>
+            İkincisi <strong>mağaza durumu</strong>. Yavaşlatma yetmezse sipariş alımı durduruluyor.
+          </p>
+          <p>
+            Kendi kuryenle çalışıyorsan bunlara teslimat süresi ve teslimat bölgesi de ekleniyor.
+            O zaman daha ince ayar yapabiliyorsun.
+          </p>
+        </div>
+      </details>
+      <details>
+        <summary>İlk gün mağazamı kapatmaya başlar mı?</summary>
+        <div class="a">
+          <p>Hayır. İlk hafta gölge modunda çalışıyor. Kararını veriyor ama uygulamıyor, sadece "şu anda şunu yapardım" diye kaydediyor. Hafta sonunda eşiklerin senin restoranına uyup uymadığını, kaç kez müdahale gerekeceğini ve ne kadar cezanın önlenebileceğini kendi verinle görüyorsun.</p>
+        </div>
+      </details>
+      <details>
+        <summary>Mağazam hiç kapanmasın istiyorum, mümkün mü?</summary>
+        <div class="a">
+          <p>Evet. Kapatma kademesini tamamen kapatabilirsin. Sistem o zaman en fazla yavaşlatmaya çıkıyor, mağazayı hiçbir durumda sipariş alımına kapatmıyor.</p>
+        </div>
+      </details>
+      <details>
+        <summary>Kurulum ne gerektiriyor?</summary>
+        <div class="a">
+          <p>İki şey: platformun satıcı panelinden alınan entegrasyon bilgileri ve işletmede sürekli açık kalan bir bilgisayar. Yükü izleyen ve müdahale eden taraf o bilgisayar olduğu için kapalıyken sistem çalışmıyor. Kurulumu uzaktan bağlanarak biz yapıyoruz, senin bir şey yüklemene gerek yok.</p>
+        </div>
+      </details>
+    </div>
+  </section>
+
+  <!-- iletisim -->
+  <section class="page" data-page="/iletisim">
+    <div class="page-head">
+      <h1>İlk ay bizden</h1>
+      <p>
+        Bir ay boyunca ücret almıyoruz. İlk hafta gölge modunda çalışıyor, yani hiçbir şeye
+        dokunmadan sadece ölçüyor. Sonrasında müdahaleyi devreye alıyoruz. Ayın sonunda potansiyel
+        olarak ne kadar cezadan kurtulabileceğini kendin görürsün.
+      </p>
+    </div>
+    <div class="contact">
+      <p>
+        Başlamak için işletme adını, şehrini, hangi platformlardan sipariş aldığını ve günlük
+        ortalama sipariş sayını yazman yeterli.
+      </p>
+      <div class="mailbox">
+        <span class="mailaddr" id="mail">info@getdebi.com</span>
+        <button class="btn btn-ghost" id="copy" type="button">Adresi kopyala</button>
+        <span class="live" id="copied" role="status" aria-live="polite"></span>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer>
+  <div class="wrap foot">
+    <p>Debi · sipariş akışı kontrolü</p>
+    <nav id="foot-nav"></nav>
+  </div>
+</footer>
+
+<script>
+(function(){
+  "use strict";
+
+  var PAGES = [
+    {path:"/",              label:"Ana sayfa",     title:"Debi"},
+    {path:"/nasil-calisir", label:"Nasıl çalışır", title:"Nasıl çalışır"},
+    {path:"/platformlar",   label:"Platformlar",   title:"Platformlar"},
+    {path:"/guvenlik",      label:"Güvenlik",      title:"Güvenlik"},
+    {path:"/sss",           label:"SSS",           title:"Sık sorulan sorular"},
+    {path:"/iletisim",      label:"İletişim",      title:"İletişim"}
+  ];
+  var BRAND = "Debi";
+
+  function buildTabs(host, skipHome){
+    if (!host) { return; }
+    PAGES.forEach(function(p){
+      if (skipHome && p.path === "/") { return; }
+      var a = document.createElement("a");
+      a.className = "tab"; a.href = "#" + p.path; a.textContent = p.label;
+      a.setAttribute("data-path", p.path);
+      host.appendChild(a);
+    });
+  }
+  buildTabs(document.getElementById("tabs-desktop"), true);
+  buildTabs(document.getElementById("tabs-mobile"), false);
+
+  var footNav = document.getElementById("foot-nav");
+  PAGES.forEach(function(p){
+    if (p.path === "/") { return; }
+    var a = document.createElement("a");
+    a.href = "#" + p.path; a.textContent = p.label;
+    footNav.appendChild(a);
+  });
+
+  var sections = Array.prototype.slice.call(document.querySelectorAll(".page"));
+
+  // Sayfa durumunu adres cubugundan OKUMUYORUZ. Sayfa gomulu bir cercevede
+  // calistiginda "#" gezinmesi ana pencereye takilip hicbir sey olmayabiliyor.
+  // Dogru kaynak bu degisken; adres cubugunu sadece guncellemeye calisiyoruz.
+  var activePath = "/";
+
+  function normalize(raw){
+    raw = String(raw || "").replace(/^#/, "");
+    if (!raw || raw === "/") { return "/"; }
+    for (var i = 0; i < PAGES.length; i++) {
+      if (PAGES[i].path === raw) { return raw; }
+    }
+    return "/";
+  }
+
+  function render(scroll){
+    var path = activePath;
+    var meta = PAGES[0];
+    PAGES.forEach(function(p){ if (p.path === path) { meta = p; } });
+
+    sections.forEach(function(s){
+      s.classList.toggle("active", s.getAttribute("data-page") === path);
+    });
+    document.querySelectorAll(".tab").forEach(function(a){
+      if (a.getAttribute("data-path") === path) { a.setAttribute("aria-current", "page"); }
+      else { a.removeAttribute("aria-current"); }
+    });
+
+    document.title = path === "/" ? BRAND : meta.title + " · " + BRAND;
+    if (scroll) { window.scrollTo(0, 0); }
+    gaugeRunner(path === "/");
+  }
+
+  function go(path){
+    activePath = normalize(path);
+    render(true);
+    // Adres cubugu guncellenemezse sayfa yine de degismis olur.
+    try { history.pushState(null, "", "#" + activePath); }
+    catch (e) { try { location.hash = activePath; } catch (e2) {} }
+  }
+
+  // Ic baglantilari tarayiciya birakmiyoruz; tiklamayi kendimiz karsiliyoruz.
+  document.addEventListener("click", function(ev){
+    if (ev.defaultPrevented || ev.button !== 0 || ev.metaKey || ev.ctrlKey ||
+        ev.shiftKey || ev.altKey) { return; }
+    var node = ev.target;
+    while (node && node !== document) {
+      if (node.tagName === "A") { break; }
+      node = node.parentNode;
+    }
+    if (!node || node.tagName !== "A") { return; }
+    var href = node.getAttribute("href") || "";
+    if (href.charAt(0) !== "#") { return; }
+    ev.preventDefault();
+    go(href.slice(1));
+  }, false);
+
+  function fromAddressBar(){
+    var raw = "";
+    try { raw = location.hash; } catch (e) { raw = ""; }
+    activePath = normalize(raw);
+    render(true);
+  }
+  window.addEventListener("hashchange", fromAddressBar);
+  window.addEventListener("popstate", fromAddressBar);
+
+  /* adres kopyalama */
+  var btn = document.getElementById("copy");
+  var mail = document.getElementById("mail");
+  var flag = document.getElementById("copied");
+  var LABEL = btn ? btn.textContent : "";
+  var flashTimer = null;
+
+  function flash(text){
+    btn.textContent = text; btn.classList.add("done"); flag.textContent = text;
+    clearTimeout(flashTimer);
+    flashTimer = setTimeout(function(){
+      btn.textContent = LABEL; btn.classList.remove("done"); flag.textContent = "";
+    }, 2400);
+  }
+  function selectAddress(){
+    try{
+      var range = document.createRange();
+      range.selectNodeContents(mail);
+      var sel = window.getSelection();
+      sel.removeAllRanges(); sel.addRange(range);
+      return true;
+    }catch(e){ return false; }
+  }
+  if (btn && mail) {
+    btn.addEventListener("click", function(){
+      var text = mail.textContent.trim();
+      if (navigator.clipboard && navigator.clipboard.writeText) {
+        navigator.clipboard.writeText(text).then(
+          function(){ flash("Kopyalandı"); },
+          function(){ selectAddress(); flash("Seçildi, Ctrl+C ile kopyala"); }
+        );
+        return;
+      }
+      selectAddress(); flash("Seçildi, Ctrl+C ile kopyala");
+    });
+  }
+
+  /* canli gosterge */
+  var elCount = document.getElementById("g-count");
+  var elVerb  = document.getElementById("g-verb");
+  var elFill  = document.getElementById("g-fill");
+  var elLog   = document.getElementById("g-log");
+  var rungs   = Array.prototype.slice.call(document.querySelectorAll("#g-ladder .rung"));
+
+  var rootStyle = getComputedStyle(document.documentElement);
+  function tone(name, fallback){
+    var v = rootStyle.getPropertyValue(name);
+    return (v && v.trim()) || fallback;
+  }
+
+  var MAX_OPEN = 12, REOPEN = 7, CAPACITY = 2.1, BASE_IN = 3.0, DAMPING = 0.62, MIN_STEP = 2;
+  var open = 3, level = 0, closed = false, hold = 0, timer = null;
+  var reduced = window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+  function throttleOf(l){ return [0, 0.34, 0.67, 1.0][l] || 0; }
+  function log(msg){ if (elLog.textContent !== msg) { elLog.textContent = msg; } }
+
+  function paint(){
+    elCount.textContent = Math.round(open);
+    elFill.style.width = Math.max(0, Math.min(100, (open / MAX_OPEN) * 100)) + "%";
+    var colour = closed ? tone("--stop", "#D6533C")
+               : (level > 0 ? tone("--slow", "#E0A33E") : tone("--go", "#3FA34D"));
+    elFill.style.background = colour;
+    elVerb.style.color = colour;
+    elVerb.textContent = closed ? "KAPALI"
+      : (level === 0 ? "AÇIK" : "YAVAŞLAT %" + Math.round(throttleOf(level) * 100));
+    var active = closed ? 4 : level;
+    rungs.forEach(function(r){
+      r.classList.toggle("on", Number(r.getAttribute("data-rung")) === active);
+    });
+  }
+
+  function step(){
+    if (hold > 0) { hold--; }
+    var incoming = closed ? 0
+      : BASE_IN * (1 - throttleOf(level) * DAMPING) * (0.75 + Math.random() * 0.5);
+    open = Math.max(0, open + incoming - CAPACITY);
+
+    if (closed) {
+      if (open <= REOPEN) {
+        closed = false; level = 3; hold = MIN_STEP;
+        log("Kuyruk eridi. Mağaza açıldı, süreler en yüksek yavaşlatmada tutuluyor.");
+      } else {
+        log("Kapalı. Kuyruk eriyor; " + REOPEN + " siparişe inince açılacak.");
+      }
+    } else if (hold === 0) {
+      if (open >= MAX_OPEN) {
+        if (level < 3) {
+          level++; hold = MIN_STEP;
+          log("Yük yüksek — kademe " + level + " (%" + Math.round(throttleOf(level) * 100) +
+              " yavaşlatma). Süreler uzatıldı.");
+        } else {
+          closed = true; hold = MIN_STEP;
+          log("Azami yavaşlatma yetmedi. Son çare: mağaza sipariş alımına kapatıldı.");
+        }
+      } else if (open <= REOPEN && level > 0) {
+        level--; hold = MIN_STEP;
+        log(level === 0 ? "Yük normale döndü. Yavaşlatma kaldırıldı."
+                        : "Yük düştü — kademe " + level + " (%" + Math.round(throttleOf(level) * 100) + ").");
+      } else if (level === 0) {
+        log("Yük normal. Sipariş akışına dokunulmuyor.");
+      }
+    }
+    paint();
+  }
+
+  function gaugeRunner(shouldRun){
+    if (!shouldRun || reduced) {
+      if (timer) { clearInterval(timer); timer = null; }
+      return;
+    }
+    if (!timer) { timer = setInterval(step, 1100); }
+  }
+
+  if (reduced) {
+    open = 12; level = 2;
+    log("Yük yüksek — kademe 2 (%67 yavaşlatma). Süreler uzatıldı.");
+  }
+  paint();
+
+  document.addEventListener("visibilitychange", function(){
+    if (document.hidden) { gaugeRunner(false); }
+    else { gaugeRunner(activePath === "/"); }
+  });
+
+  try { activePath = normalize(location.hash); } catch (e) { activePath = "/"; }
+  render(false);
+})();
+</script>
+
+</body>
+</html>
