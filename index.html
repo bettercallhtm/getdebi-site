@@ -156,6 +156,14 @@
   th:first-child, td:first-child{width:34%;}
   td:first-child{font-weight:600; color:var(--ink);}
   td:last-child{color:var(--ink-2); line-height:1.55;}
+  .durum{display:inline-block; font-family:var(--mono); font-size:10.5px; font-weight:600;
+    letter-spacing:.06em; text-transform:uppercase; padding:3px 8px; border-radius:999px;
+    white-space:nowrap; border:1px solid currentColor;}
+  .durum.hazir{color:var(--go);}
+  .durum.yolda{color:var(--slow);}
+  .t-platform{min-width:680px;}
+  .t-platform th:first-child, .t-platform td:first-child{width:22%;}
+  .t-platform th:nth-child(2), .t-platform td:nth-child(2){width:13%;}
 
   /* guvenlik */
   .safety{display:grid; gap:0 40px; grid-template-columns:1fr; max-width:80ch;}
@@ -180,6 +188,12 @@
   .mailbox{display:flex; flex-wrap:wrap; align-items:center; gap:10px; margin-top:2px;}
   .mailaddr{font-family:var(--mono); font-size:15px; font-weight:500; color:var(--ink); background:var(--surface-2); border:1px solid var(--line); border-radius:8px; padding:10px 13px; user-select:all; word-break:break-all;}
   .live{font-family:var(--mono); font-size:12px; color:var(--accent);}
+  a.mailaddr{text-decoration:none;}
+  .kanal{display:flex; flex-direction:column; gap:7px;}
+  .kanal + .kanal{padding-top:15px; border-top:1px solid var(--line);}
+  .kanal .etiket{font-family:var(--mono); font-size:10.5px; letter-spacing:.09em;
+    text-transform:uppercase; color:var(--ink-3);}
+  .kanal .aciklama{font-size:13.5px; color:var(--ink-3); line-height:1.5;}
   .form{display:flex; flex-direction:column; gap:13px; margin-top:4px;}
   .row2{display:grid; gap:13px; grid-template-columns:1fr;}
   @media (min-width:560px){ .row2{grid-template-columns:1fr 1fr;} }
@@ -216,7 +230,7 @@
   <div class="wrap nav-in">
     <a class="brand" href="#/"><span class="mark" aria-hidden="true"></span> Debi</a>
     <nav class="tabs" id="tabs-desktop"></nav>
-    <a class="cta" href="#/iletisim">1 ay ücretsiz</a>
+    <a class="cta" href="#/deneme">1 ay ücretsiz</a>
   </div>
   <div class="wrap"><nav class="tabs-mobile" id="tabs-mobile"></nav></div>
 </div>
@@ -241,7 +255,7 @@
           Mağazayı kapatmak en son yaptığı şey. Kapalı mağaza ceza almaz ama sipariş de almaz.
         </p>
         <div class="cta-row">
-          <a class="btn btn-primary" href="#/iletisim">Ücretsiz denemeyi başlat</a>
+          <a class="btn btn-primary" href="#/deneme">Ücretsiz denemeyi başlat</a>
           <a class="btn btn-ghost" href="#/nasil-calisir">Nasıl çalıştığını gör</a>
         </div>
         <p class="fine">İlk ay ücretsiz · kurulum ücreti yok</p>
@@ -452,33 +466,57 @@
     <div class="page-head">
       <h1>Platformlar</h1>
       <p>
-        Hangi platformlardan sipariş alıyorsan hepsi tek panelde toplanıyor. Aşağıdaki tabloda her
-        platformda hangi ayarların değiştirilebildiği yazıyor.
+        Hangi platformlardan sipariş alıyorsan hepsi tek panelde toplanıyor. Aşağıdaki tabloda
+        bugün hangi bağlantının çalıştığı ve her platformda hangi ayarların değiştirilebildiği
+        yazıyor.
       </p>
     </div>
     <div class="table-scroll">
-      <table>
-        <thead><tr><th>Platform</th><th>Kontrol edilenler</th></tr></thead>
+      <table class="t-platform">
+        <thead><tr><th>Platform</th><th>Durum</th><th>Kontrol edilenler</th></tr></thead>
         <tbody>
           <tr>
             <td>Trendyol GO</td>
-            <td>Hazırlık süresi, teslimat süresi, teslimat bölgesi ve mağaza durumu. Getir Yemek siparişleri de bu entegrasyondan geliyor.</td>
-          </tr>
-          <tr>
-            <td>Yemeksepeti</td>
-            <td>Hazırlık süresi ve mağaza durumu. Siparişler anlık olarak sisteme iletiliyor.</td>
-          </tr>
-          <tr>
-            <td>Getir</td>
-            <td>Hazırlık süresi ve mağaza durumu.</td>
+            <td><span class="durum hazir">Hazır</span></td>
+            <td>
+              Hazırlık süresi ve mağaza durumu her restoranda çalışıyor. Teslimat süresi ile
+              teslimat bölgesi ise yalnızca <strong>kendi kuryesiyle</strong> teslimat yapan
+              restoranlarda değiştirilebiliyor; Trendyol kuryesi kullanıyorsan bu ikisi platform
+              tarafında kapalı. Getir Yemek siparişleri de bu entegrasyondan geliyor.
+            </td>
           </tr>
           <tr>
             <td>Kendi siten · QR · POS</td>
-            <td>Hepsi. Senin kontrol ettiğin sistem olduğu için kısıt yok.</td>
+            <td><span class="durum hazir">Hazır</span></td>
+            <td>
+              Hepsi. Senin kontrol ettiğin sistem olduğu için kısıt yok. Kendi market siten de
+              buraya giriyor.
+            </td>
+          </tr>
+          <tr>
+            <td>Yemeksepeti</td>
+            <td><span class="durum yolda">Yolda</span></td>
+            <td>
+              Bağlantı yazıldı ama Yemeksepeti tarafındaki iş ortağı bilgileri gelmeden
+              açılamıyor. Devreye girdiğinde hazırlık süresi ve mağaza durumu kontrol edilecek.
+            </td>
+          </tr>
+          <tr>
+            <td>GetirÇarşı</td>
+            <td><span class="durum yolda">Yolda</span></td>
+            <td>
+              Market siparişi ayrı bir API üzerinden geliyor, henüz yazılmadı. Kendi market siteni
+              bağlıyorsan yukarıdaki satır bugün de çalışıyor.
+            </td>
           </tr>
         </tbody>
       </table>
     </div>
+    <p class="fine" style="margin-top:14px; max-width:70ch">
+      "Yolda" olanlara tarih vermiyoruz, ikisi de bizim elimizde olmayan bir onaya bağlı. Hazır
+      olmayan bir bağlantıyı varmış gibi göstermeyi de doğru bulmuyoruz: sözleşmeyi imzalatır,
+      ilk hafta patlar.
+    </p>
   </section>
 
   <!-- guvenlik -->
@@ -605,9 +643,58 @@
         </div>
       </details>
       <details>
+        <summary>Siparişleri tabletten ben kabul ediyorum, olur mu?</summary>
+        <div class="a">
+          <p>Olur. Ama burada senin vereceğin bir karar var.</p>
+          <p>
+            Hazırlık süresi platforma <strong>siparişi kabul ederken</strong> bildiriliyor. Yani bu
+            kaldıracı kullanabilmek için siparişi Debi'nin kabul etmesi gerekiyor. Tabletten sen
+            kabul ediyorsan araya girecek bir an kalmıyor.
+          </p>
+          <p>İki seçenek de açık, ikisi de çalışıyor:</p>
+          <div class="table-scroll" style="margin:4px 0 4px">
+            <table>
+              <thead><tr><th>Siparişi kim kabul ediyor</th><th>Ne değişiyor</th></tr></thead>
+              <tbody>
+                <tr>
+                  <td>Debi</td>
+                  <td>Hazırlık süresi de devreye giriyor. Kurye siparişin hazır olacağı saatte geliyor, kapıda beklemiyor.</td>
+                </tr>
+                <tr>
+                  <td>Sen, tabletten</td>
+                  <td>Hazırlık süresine dokunulmuyor. Teslimat süresi ve mağaza aç/kapa kademeleri aynen çalışıyor.</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+          <p>
+            Kurulumda bu ayar <strong>kapalı geliyor:</strong> hiç kimse, haberi olmadan
+            siparişlerini bir yazılıma kabul ettirmek istemez. Açmak isteyip istemediğine ücretsiz
+            ayın sonunda karar verirsin; gölge haftasında zaten hiçbir sipariş kabul edilmiyor.
+          </p>
+        </div>
+      </details>
+      <details>
         <summary>İlk gün mağazamı kapatmaya başlar mı?</summary>
         <div class="a">
           <p>Hayır. İlk hafta gölge modunda çalışıyor. Kararını veriyor ama uygulamıyor, sadece "şu anda şunu yapardım" diye kaydediyor. Hafta sonunda eşiklerin senin restoranına uyup uymadığını, kaç kez müdahale gerekeceğini ve ne kadar cezanın önlenebileceğini kendi verinle görüyorsun.</p>
+        </div>
+      </details>
+      <details>
+        <summary>Gölge haftasının sonunda elime ne geçiyor?</summary>
+        <div class="a">
+          <p>
+            Yazdırılabilir tek sayfalık bir rapor. Kaç kez müdahale gerekeceğini, bunun hangi
+            saatlerde toplandığını, mağazanın toplam ne kadar kapalı kalacağını ve o anlarda ne
+            kadar ceza riski biriktiğini <strong>kendi verinle</strong> gösteriyor. Tahmin değil,
+            senin restoranının o haftası.
+          </p>
+          <p>
+            Rapor "şu kadar ceza önlendi" demiyor, <strong>"önlenebilirdi" diyor</strong> — ve
+            gölge modunda üretildiğini kendi üstünde yazıyor. Gölge haftasında hiçbir müdahale
+            uygulanmadığı için gerçekte ne olacağını kimse bilmiyor. Şişirilmiş bir rakam ilk ayda
+            iyi görünür, ikinci ayda geri teper.
+          </p>
         </div>
       </details>
       <details>
@@ -622,11 +709,97 @@
           <p>İki şey: platformun satıcı panelinden alınan entegrasyon bilgileri ve işletmede sürekli açık kalan bir bilgisayar. Yükü izleyen ve müdahale eden taraf o bilgisayar olduğu için kapalıyken sistem çalışmıyor. Kurulumu uzaktan bağlanarak biz yapıyoruz, senin bir şey yüklemene gerek yok.</p>
         </div>
       </details>
+      <details>
+        <summary>Bilgisayar ya da internet giderse mağazam kapalı mı kalır?</summary>
+        <div class="a">
+          <p>Neredeyse her durumda hayır. Tek bir istisnası var, onu da söyleyelim.</p>
+          <p>
+            <strong>İnternet giderse</strong> mağaza kapalı kalmıyor. Debi çalışmaya devam ediyor,
+            kapalı kalma sayacı işliyor ve süre dolunca açmayı deniyor; bağlantı gelir gelmez
+            mağaza açılıyor.
+          </p>
+          <p>
+            <strong>Bilgisayar kapanırsa</strong> mağaza o an açıksa hiçbir şey olmuyor, açık
+            kalır. Riskli tek an, bilgisayarın tam mağaza kapalıyken kapanması: o zaman mağazayı
+            açacak bir şey çalışmıyor demektir.
+          </p>
+          <p>Bunun için üç şey var:</p>
+          <p>
+            Mağazanın kapalı kaldığı süre zaten kısa — dakikalarla ölçülüyor, üst sınırı varsayılan
+            olarak 15 dakika. Bilgisayarın tam o aralıkta kapanması gerekir. Debi bilgisayar açılır
+            açılmaz durumu diskten okuyup mağazayı ilk turda açıyor; kurulumda bilgisayarla birlikte
+            otomatik başlaması ayarlanıyor. Üçüncüsü de en basiti: mağazayı platformun kendi
+            uygulamasından her zaman sen de açabilirsin.
+          </p>
+        </div>
+      </details>
+      <details>
+        <summary>Eşikler benim restoranıma göre mi ayarlanıyor?</summary>
+        <div class="a">
+          <p>
+            Kutudan çıkan eşikler tahmindir; hiçbir restorana tam uymaz. Elinde geçmiş kayıt varsa
+            — saat başına gelen sipariş, o gün çalışan personel, yenen cezalar — bu sayılar senin
+            restoranına göre hesaplanıyor. Excel ya da CSV dosyasını veriyorsun, sütun adlarını
+            kendisi tanıyor.
+          </p>
+          <p>
+            Üç şey çıkıyor: mutfağın saatlik kapasitesi, cezanın hangi yükte başladığı ve buna göre
+            önerilen eşikler. Müdahale eşiği, ceza eşiğinin bir tık altına alınıyor — ceza
+            oluşmadan frene basmak gerekiyor.
+          </p>
+          <p>
+            Bunlar da başlangıç değeri. Geçmiş veri neyin ceza yazdığını gösterir, müdahale
+            edilseydi ne olacağını göstermez; gölge haftası bunun için var.
+          </p>
+        </div>
+      </details>
+      <details>
+        <summary>Sipariş verilerim nereye gidiyor?</summary>
+        <div class="a">
+          <p>
+            Hiçbir yere. Debi işletmendeki bilgisayarda çalışıyor, paneli yalnızca o bilgisayardan
+            açılıyor ve kayıtlar o diskte duruyor. Bizim sunucumuza sipariş verisi gitmiyor.
+          </p>
+          <p>
+            Platformdan gelen sipariş bilgisinde müşterinin adı, telefonu, adresi ve konumu var.
+            Bunlar sisteme girmeden ayıklanıyor: karar veren tarafa, kayıtlara ve diske sadece
+            sipariş numarası, durumu, saati ve ürün adedi düşüyor.
+          </p>
+        </div>
+      </details>
+      <details>
+        <summary>Birden fazla şubem var, hepsi tek yerden yönetilir mi?</summary>
+        <div class="a">
+          <p>
+            Şu an hayır. Debi tek mağaza için çalışıyor, her şube kendi kurulumunu istiyor. Bu
+            aslında doğru davranış: mutfaklar ayrı olduğu için bir şubenin yoğunluğu diğerinin
+            siparişini kısmamalı.
+          </p>
+          <p>
+            Eksik olan, bütün şubeleri tek ekrandan izleyebilmek. Onu henüz yapmadık.
+          </p>
+        </div>
+      </details>
+      <details>
+        <summary>Market işletiyorum, restoran değil. İşe yarar mı?</summary>
+        <div class="a">
+          <p>
+            Kendi siten, QR ya da kasa sisteminden sipariş alıyorsan evet. Debi'nin senin sisteminden
+            okuyacağı üç uç var; bunlar açıldığı anda market siparişi de restoran siparişi gibi
+            sayılıyor ve aynı kademeler işliyor.
+          </p>
+          <p>
+            GetirÇarşı gibi market platformları ayrı bir API kullanıyor ve henüz bağlanmadı. Hangi
+            bağlantının bugün hazır olduğu <a href="#/platformlar">Platformlar</a> sayfasında
+            yazıyor.
+          </p>
+        </div>
+      </details>
     </div>
   </section>
 
-  <!-- iletisim -->
-  <section class="page" data-page="/iletisim">
+  <!-- ucretsiz deneme basvurusu: yesil butonun sayfasi, menude yok -->
+  <section class="page" data-page="/deneme">
     <div class="page-head">
       <h1>İlk ay bizden</h1>
       <p>
@@ -685,9 +858,43 @@
 
       <div class="ayrac">veya doğrudan yaz</div>
       <div class="mailbox">
-        <span class="mailaddr" id="mail">info@getdebi.com</span>
-        <button class="btn btn-ghost" id="copy" type="button">Adresi kopyala</button>
-        <span class="live" id="copied" role="status" aria-live="polite"></span>
+        <a class="mailaddr" id="mail" href="mailto:info@getdebi.com">info@getdebi.com</a>
+        <button class="btn btn-ghost" type="button" data-kopya="mail">Adresi kopyala</button>
+        <span class="live" data-bayrak="mail" role="status" aria-live="polite"></span>
+      </div>
+      <p class="kvkk">
+        Telefon numarası ve diğer bilgiler <a href="#/iletisim">iletişim sayfasında</a>.
+      </p>
+    </div>
+  </section>
+
+  <!-- iletisim -->
+  <section class="page" data-page="/iletisim">
+    <div class="page-head">
+      <h1>İletişim</h1>
+      <p>
+        Sorusu olan, fiyat soran ya da sadece nasıl çalıştığını merak eden herkes ulaşabilir.
+        Ücretsiz denemeye başvuracaksan <a href="#/deneme">formu doldurmak</a> daha hızlı.
+      </p>
+    </div>
+    <div class="contact">
+      <div class="kanal">
+        <span class="etiket">E-posta</span>
+        <div class="mailbox">
+          <a class="mailaddr" id="il-eposta" href="mailto:info@getdebi.com">info@getdebi.com</a>
+          <button class="btn btn-ghost" type="button" data-kopya="il-eposta">Kopyala</button>
+          <span class="live" data-bayrak="il-eposta" role="status" aria-live="polite"></span>
+        </div>
+        <p class="aciklama">Yazılı olsun istersen buradan yaz.</p>
+      </div>
+      <div class="kanal">
+        <span class="etiket">Telefon</span>
+        <div class="mailbox">
+          <a class="mailaddr" id="il-telefon" href="tel:+905367746610">0536 774 66 10</a>
+          <button class="btn btn-ghost" type="button" data-kopya="il-telefon">Kopyala</button>
+          <span class="live" data-bayrak="il-telefon" role="status" aria-live="polite"></span>
+        </div>
+        <p class="aciklama">Arayabilir ya da mesaj atabilirsin.</p>
       </div>
     </div>
   </section>
@@ -710,13 +917,19 @@
     {path:"/platformlar",   label:"Platformlar",   title:"Platformlar"},
     {path:"/guvenlik",      label:"Güvenlik",      title:"Güvenlik"},
     {path:"/sss",           label:"SSS",           title:"Sık sorulan sorular"},
-    {path:"/iletisim",      label:"İletişim",      title:"İletişim"}
+    {path:"/iletisim",      label:"İletişim",      title:"İletişim"},
+
+    // Basvuru formunun sayfasi. Menude YOK: ustteki yesil "1 ay ucretsiz"
+    // butonu zaten hep gorunuyor ve buraya getiriyor. Menude ayrica durursa
+    // ayni yere iki kapi acilmis oluyordu.
+    {path:"/deneme",        label:"Ücretsiz deneme", title:"İlk ay bizden", gizli:true}
   ];
   var BRAND = "Debi";
 
   function buildTabs(host, skipHome){
     if (!host) { return; }
     PAGES.forEach(function(p){
+      if (p.gizli) { return; }
       if (skipHome && p.path === "/") { return; }
       var a = document.createElement("a");
       a.className = "tab"; a.href = "#" + p.path; a.textContent = p.label;
@@ -729,7 +942,7 @@
 
   var footNav = document.getElementById("foot-nav");
   PAGES.forEach(function(p){
-    if (p.path === "/") { return; }
+    if (p.path === "/" || p.gizli) { return; }
     var a = document.createElement("a");
     a.href = "#" + p.path; a.textContent = p.label;
     footNav.appendChild(a);
@@ -865,42 +1078,47 @@
     });
   }
 
-  /* adres kopyalama */
-  var btn = document.getElementById("copy");
-  var mail = document.getElementById("mail");
-  var flag = document.getElementById("copied");
-  var LABEL = btn ? btn.textContent : "";
-  var flashTimer = null;
+  /* kopyalama: data-kopya="<id>" butonu, o id'li ogenin metnini panoya alir.
+     Birden fazla adres/numara oldugu icin tek buton yerine hepsini geziyoruz. */
+  Array.prototype.forEach.call(document.querySelectorAll("[data-kopya]"), function(btn){
+    var ad = btn.getAttribute("data-kopya");
+    var hedef = document.getElementById(ad);
+    if (!hedef) { return; }
+    var flag = document.querySelector('[data-bayrak="' + ad + '"]');
+    var LABEL = btn.textContent;
+    var timer = null;
 
-  function flash(text){
-    btn.textContent = text; btn.classList.add("done"); flag.textContent = text;
-    clearTimeout(flashTimer);
-    flashTimer = setTimeout(function(){
-      btn.textContent = LABEL; btn.classList.remove("done"); flag.textContent = "";
-    }, 2400);
-  }
-  function selectAddress(){
-    try{
-      var range = document.createRange();
-      range.selectNodeContents(mail);
-      var sel = window.getSelection();
-      sel.removeAllRanges(); sel.addRange(range);
-      return true;
-    }catch(e){ return false; }
-  }
-  if (btn && mail) {
+    function flash(text){
+      btn.textContent = text; btn.classList.add("done");
+      if (flag) { flag.textContent = text; }
+      clearTimeout(timer);
+      timer = setTimeout(function(){
+        btn.textContent = LABEL; btn.classList.remove("done");
+        if (flag) { flag.textContent = ""; }
+      }, 2400);
+    }
+    function isaretle(){
+      try{
+        var range = document.createRange();
+        range.selectNodeContents(hedef);
+        var sel = window.getSelection();
+        sel.removeAllRanges(); sel.addRange(range);
+        return true;
+      }catch(e){ return false; }
+    }
+
     btn.addEventListener("click", function(){
-      var text = mail.textContent.trim();
+      var text = hedef.textContent.trim();
       if (navigator.clipboard && navigator.clipboard.writeText) {
         navigator.clipboard.writeText(text).then(
           function(){ flash("Kopyalandı"); },
-          function(){ selectAddress(); flash("Seçildi, Ctrl+C ile kopyala"); }
+          function(){ isaretle(); flash("Seçildi, Ctrl+C ile kopyala"); }
         );
         return;
       }
-      selectAddress(); flash("Seçildi, Ctrl+C ile kopyala");
+      isaretle(); flash("Seçildi, Ctrl+C ile kopyala");
     });
-  }
+  });
 
   /* canli gosterge */
   var elCount = document.getElementById("g-count");
