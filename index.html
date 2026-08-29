@@ -107,8 +107,9 @@
   .gauge-body{display:grid; grid-template-columns:auto 1fr; gap:16px; align-items:center;}
   .count{font-family:var(--mono); font-weight:600; font-size:clamp(36px,5.6vw,48px); line-height:1; font-variant-numeric:tabular-nums;}
   .count-lbl{font-family:var(--mono); font-size:10px; letter-spacing:.08em; text-transform:uppercase; color:var(--ink-3); margin-top:5px;}
-  .track{height:8px; border-radius:4px; background:var(--surface-2); border:1px solid var(--line); overflow:hidden;}
+  .track{height:8px; border-radius:4px; background:var(--surface-2); border:1px solid var(--line); overflow:hidden; position:relative;}
   .fill{height:100%; width:0%; background:var(--go); transition:width .5s ease, background .4s ease;}
+  .track-mark{position:absolute; top:0; bottom:0; width:2px; background:var(--ink-3); opacity:.5;}
   .track-cap{display:flex; justify-content:space-between; font-family:var(--mono); font-size:10px; color:var(--ink-3); margin-top:6px;}
   .ladder{display:flex; gap:5px;}
   .rung{flex:1; border:1px solid var(--line); border-radius:6px; background:var(--surface-2); padding:7px 3px; text-align:center; font-family:var(--mono); font-size:10px; color:var(--ink-3); transition:background .3s ease, color .3s ease, border-color .3s ease;}
@@ -272,8 +273,8 @@
             <div class="count-lbl">açık sipariş</div>
           </div>
           <div>
-            <div class="track"><div class="fill" id="g-fill"></div></div>
-            <div class="track-cap"><span>0</span><span>kapatma eşiği 12</span></div>
+            <div class="track"><div class="fill" id="g-fill"></div><i class="track-mark" id="g-mark"></i></div>
+            <div class="track-cap"><span>0</span><span>müdahale eşiği 12</span><span>24</span></div>
           </div>
         </div>
         <div class="ladder" id="g-ladder">
@@ -1147,6 +1148,7 @@
   var elCount = document.getElementById("g-count");
   var elVerb  = document.getElementById("g-verb");
   var elFill  = document.getElementById("g-fill");
+  var elMark  = document.getElementById("g-mark");
   var elLog   = document.getElementById("g-log");
   var rungs   = Array.prototype.slice.call(document.querySelectorAll("#g-ladder .rung"));
 
@@ -1157,15 +1159,26 @@
   }
 
   var MAX_OPEN = 12, REOPEN = 7, CAPACITY = 2.1, BASE_IN = 3.0, DAMPING = 0.62, MIN_STEP = 2;
-  var open = 3, level = 0, closed = false, hold = 0, timer = null;
+  // Barın tavanı eşiğin iki katı: eşik tam ortada işaretli duruyor ve sayaç
+  // eşiği aştığında bar tıkanmak yerine ilerlemeye devam ediyor.
+  var GAUGE_MAX = MAX_OPEN * 2;
+  // Talep sabit değil, akşam servisi gibi dalgalanıyor. Sabit talepte kademe 2
+  // kuyruğu eritmeye yetiyordu, iş kademe 3'e ve kapatmaya hiç kalmıyordu;
+  // merdivenin son iki basamağı pratikte hiç yanmıyordu.
+  var CYCLE = 54, DEMAND_LO = 0.55, DEMAND_HI = 2.0;
+  var open = 3, level = 0, closed = false, hold = 0, timer = null, tick = 0;
   var reduced = window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 
   function throttleOf(l){ return [0, 0.34, 0.67, 1.0][l] || 0; }
+  function demandAt(t){
+    var wave = 0.5 - 0.5 * Math.cos((t % CYCLE) / CYCLE * 2 * Math.PI);
+    return BASE_IN * (DEMAND_LO + (DEMAND_HI - DEMAND_LO) * wave);
+  }
   function log(msg){ if (elLog.textContent !== msg) { elLog.textContent = msg; } }
 
   function paint(){
     elCount.textContent = Math.round(open);
-    elFill.style.width = Math.max(0, Math.min(100, (open / MAX_OPEN) * 100)) + "%";
+    elFill.style.width = Math.max(0, Math.min(100, (open / GAUGE_MAX) * 100)) + "%";
     var colour = closed ? tone("--stop", "#D6533C")
                : (level > 0 ? tone("--slow", "#E0A33E") : tone("--go", "#3FA34D"));
     elFill.style.background = colour;
@@ -1179,9 +1192,10 @@
   }
 
   function step(){
+    tick++;
     if (hold > 0) { hold--; }
     var incoming = closed ? 0
-      : BASE_IN * (1 - throttleOf(level) * DAMPING) * (0.75 + Math.random() * 0.5);
+      : demandAt(tick) * (1 - throttleOf(level) * DAMPING) * (0.75 + Math.random() * 0.5);
     open = Math.max(0, open + incoming - CAPACITY);
 
     if (closed) {
@@ -1219,6 +1233,8 @@
     }
     if (!timer) { timer = setInterval(step, 1100); }
   }
+
+  elMark.style.left = (MAX_OPEN / GAUGE_MAX) * 100 + "%";
 
   if (reduced) {
     open = 12; level = 2;
