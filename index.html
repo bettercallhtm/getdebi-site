@@ -497,11 +497,12 @@
           </tr>
           <tr>
             <td>GetirYemek</td>
-            <td><span class="durum hazir">Uber Eats'te</span></td>
+            <td><span class="durum yolda">Anahtar bekliyor</span></td>
             <td>
-              GetirYemek'i Uber aldı ve kendi API başvurularını kapattı. Siparişler artık
-              Uber Eats Trendyol Go üzerinden geliyor, yani üstteki satır bunu da kapsıyor.
-              GetirYemek'ten sipariş alıyorsan ayrıca bir şey yapman gerekmiyor.
+              Bağlantı yazıldı ve test edildi; Getir'in vereceği erişim anahtarları girilince
+              çalışıyor. Yavaşlatma burada daha basit: teslimat süresine 15, 30 veya 45 dakika
+              ekletiyoruz. Mağaza aç/kapa da var. Getir'de siparişlerine hiç dokunmuyoruz,
+              kabul eden yine sensin.
             </td>
           </tr>
           <tr>
@@ -534,10 +535,11 @@
       </table>
     </div>
     <p class="fine" style="margin-top:14px; max-width:70ch">
-      "Yolda" olanlara tarih vermiyoruz: GetirÇarşı Getir'in vereceği geliştirici hesabına,
-      Yemeksepeti ise restoranın kendi Partner Portal erişimine bağlı. Hazır olmayan bir
-      bağlantıyı varmış gibi göstermeyi de doğru bulmuyoruz: sözleşmeyi imzalatır, ilk hafta
-      patlar. Bir platformda hangi kaldıracın olmadığını da aynı sebeple yazıyoruz.
+      Hazır olmayanlara tarih vermiyoruz. GetirYemek onboarding'de verilecek erişim
+      anahtarlarını, GetirÇarşı Getir'in vereceği geliştirici hesabını, Yemeksepeti ise
+      restoranın kendi Partner Portal erişimini bekliyor. Hazır olmayan bir bağlantıyı
+      varmış gibi göstermeyi doğru bulmuyoruz: sözleşmeyi imzalatır, ilk hafta patlar.
+      Bir platformda hangi kaldıracın olmadığını da aynı sebeple yazıyoruz.
     </p>
   </section>
 
