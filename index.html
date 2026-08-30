@@ -123,7 +123,6 @@
   /* Dar ekranda kucultup okunmaz hale getirmek yerine kendi kabinda kaydir. */
   .fig-scroll{overflow-x:auto; border:1px solid var(--line); border-radius:12px; background:var(--surface);}
   .fig svg{display:block; width:100%; min-width:600px; height:auto; color:var(--ink-2);}
-  figcaption{font-size:13.5px; color:var(--ink-3); max-width:64ch; line-height:1.55;}
   .n-box{fill:var(--surface-2); stroke:currentColor; stroke-width:1;}
   .n-key{fill:var(--accent-soft); stroke:var(--accent); stroke-width:1.4;}
   .n-frame{fill:none; stroke:currentColor; stroke-width:1; stroke-dasharray:3 4; opacity:.5;}
@@ -194,7 +193,6 @@
   .kanal + .kanal{padding-top:15px; border-top:1px solid var(--line);}
   .kanal .etiket{font-family:var(--mono); font-size:10.5px; letter-spacing:.09em;
     text-transform:uppercase; color:var(--ink-3);}
-  .kanal .aciklama{font-size:13.5px; color:var(--ink-3); line-height:1.5;}
   .form{display:flex; flex-direction:column; gap:13px; margin-top:4px;}
   .row2{display:grid; gap:13px; grid-template-columns:1fr;}
   @media (min-width:560px){ .row2{grid-template-columns:1fr 1fr;} }
@@ -259,7 +257,6 @@
           <a class="btn btn-primary" href="#/deneme">Ücretsiz denemeyi başlat</a>
           <a class="btn btn-ghost" href="#/nasil-calisir">Nasıl çalıştığını gör</a>
         </div>
-        <p class="fine">İlk ay ücretsiz · kurulum ücreti yok</p>
       </div>
 
       <div class="gauge" id="gauge" aria-label="Canlı yoğunluk göstergesi">
@@ -332,11 +329,6 @@
           <path class="n-line" d="M643,198 L643,268 L365,268 L365,200" marker-end="url(#ar)"></path>
           <text class="n-l" x="504" y="284" text-anchor="middle">açık sipariş sayısı</text>
         </svg></div>
-        <figcaption>
-          Siparişler soldan geliyor, mutfağa giriyor. Debi mutfaktaki açık sipariş sayısını okuyup
-          platformlara daha uzun hazırlık ve teslimat süresi bildiriyor. Gelen sipariş hızı böyle
-          düşüyor.
-        </figcaption>
       </figure>
 
       <div class="prose">
@@ -402,11 +394,6 @@
         <text class="n-l" x="62" y="46" text-anchor="end">açık</text>
         <text class="n-l" x="62" y="58" text-anchor="end">sipariş</text>
       </svg></div>
-      <figcaption>
-        Kırmızı çizgi, hiçbir şey yapılmadığında açık sipariş sayısı. Kapasite çizgisinin üstünde
-        kalan taralı alandaki siparişler ya geç çıkıyor ya iptal ediliyor. Yeşil çizgi Debi
-        devredeyken. Zirvede iki çizgi arasındaki fark, kaybettiğin sipariş.
-      </figcaption>
     </figure>
 
     <div class="prose">
@@ -480,11 +467,10 @@
             <td>Uber Eats Trendyol Go</td>
             <td><span class="durum hazir">Hazır</span></td>
             <td>
-              Her restoranda <strong>hazırlık süresi</strong> ve <strong>mağaza durumu.</strong>
-              Asıl fren hazırlık süresi: sipariş kabul edilirken bildiriliyor, hem kuryeyi kapıda
-              bekletmiyor hem müşterinin gördüğü teslimat süresini uzatıyor. Kendi kuryenle
-              çalışıyorsan teslimat süresi ve teslimat bölgesi de ekleniyor, ayar daha ince oluyor.
-              Eskiden Trendyol GO'ydu; Uber satın aldıktan sonra adı değişti, bağlantı aynı kaldı.
+              <strong>Hazırlık süresi</strong> ve <strong>mağaza aç/kapa.</strong>
+              Asıl fren hazırlık süresi: siparişi kabul ederken bildiriliyor, böylece kurye
+              kapıda beklemiyor ve müşterinin gördüğü teslimat süresi uzuyor. Kendi kuryenle
+              çalışıyorsan teslimat süresi ve bölgesi de ekleniyor.
             </td>
           </tr>
           <tr>
@@ -497,49 +483,38 @@
           </tr>
           <tr>
             <td>GetirYemek</td>
-            <td><span class="durum yolda">Anahtar bekliyor</span></td>
+            <td><span class="durum hazir">Uber Eats'te</span></td>
             <td>
-              Bağlantı yazıldı ve test edildi; Getir'in vereceği erişim anahtarları girilince
-              çalışıyor. Yavaşlatma burada daha basit: teslimat süresine 15, 30 veya 45 dakika
-              ekletiyoruz. Mağaza aç/kapa da var. Getir'de siparişlerine hiç dokunmuyoruz,
-              kabul eden yine sensin.
+              Getir, GetirYemek'i Uber Eats'e taşıdı ve kendi bağlantısını kapattı.
+              Siparişlerin artık üstteki <strong>Uber Eats Trendyol Go</strong> satırından
+              geliyor — ayrıca bir şey yapman gerekmiyor.
             </td>
           </tr>
           <tr>
             <td>Yemeksepeti</td>
             <td><span class="durum yolda">Yolda</span></td>
             <td>
-              Bağlantı yazıldı ve uçlar Yemeksepeti'nin açık dokümanından doğrulandı. Eksik
-              olan tek şey erişim bilgileri: restoranın kendi Partner Portal hesabındaki
-              entegrasyon eklentisinden çıkıyor. Şunu baştan söyleyelim —
-              <strong>burada yavaşlatma yok, yalnızca mağaza aç/kapa var.</strong>
-              Platformun modelinde "meşgulüm" demek teslimat süresini uzatmak değil,
-              mağazayı geçici kapatmak anlamına geliyor. Yani merdiven diğer platformlardaki
-              gibi üç basamak değil, tek basamak.
+              Bağlantı hazır, Yemeksepeti hesabından alınacak erişim bilgilerini bekliyor.
+              Buradaki tek fark: <strong>Yemeksepeti'nde yavaşlatma yok, sadece aç/kapa var.</strong>
+              Yoğunlukta süreyi uzatmak yerine mağaza kısa süreliğine kapanıp açılıyor.
             </td>
           </tr>
           <tr>
             <td>GetirÇarşı</td>
             <td><span class="durum yolda">Yolda</span></td>
             <td>
-              Market siparişi ayrı bir API üzerinden geliyor. Bağlantı yazıldı ama doğrulanmadı:
-              Getir'in market dokümanı iş ortağı erişimi olmadan açılmıyor, biz de uçları
-              doğrulanmış GetirYemek API'sinden modelledik. Yani şu an tahmine dayanıyor. Bu
-              yüzden mağaza kapatma ve yavaşlatma, doküman elimize geçip kontrol edilene kadar
-              kilitli duruyor. Getir'in geliştirici hesabı başvurusu açık; hesap çıktığında
-              tahminlerin yerini doküman alacak. Getir'in market tarafı Uber'e geçmedi, burası
-              hâlâ Getir. Kendi market siteni bağlıyorsan yukarıdaki satır bugün de çalışıyor.
+              Market siparişleri için ayrı bir bağlantı. Yazıldı, ama Getir'in onayı gelip
+              doğrulayana kadar açmıyoruz. Kendi market siten varsa üstteki satır bugün de
+              çalışıyor.
             </td>
           </tr>
         </tbody>
       </table>
     </div>
     <p class="fine" style="margin-top:14px; max-width:70ch">
-      Hazır olmayanlara tarih vermiyoruz. GetirYemek onboarding'de verilecek erişim
-      anahtarlarını, GetirÇarşı Getir'in vereceği geliştirici hesabını, Yemeksepeti ise
-      restoranın kendi Partner Portal erişimini bekliyor. Hazır olmayan bir bağlantıyı
-      varmış gibi göstermeyi doğru bulmuyoruz: sözleşmeyi imzalatır, ilk hafta patlar.
-      Bir platformda hangi kaldıracın olmadığını da aynı sebeple yazıyoruz.
+      "Yolda" olanlara tarih vermiyoruz, ikisi de bizim elimizde olmayan onaylara bağlı.
+      Hazır olmayan bir bağlantıyı varmış gibi göstermeyi doğru bulmuyoruz: sözleşmeyi
+      imzalatır, ilk hafta patlar.
     </p>
   </section>
 
@@ -816,14 +791,13 @@
         <summary>Market işletiyorum, restoran değil. İşe yarar mı?</summary>
         <div class="a">
           <p>
-            Kendi siten, QR ya da kasa sisteminden sipariş alıyorsan evet. Debi'nin senin sisteminden
-            okuyacağı üç uç var; bunlar açıldığı anda market siparişi de restoran siparişi gibi
-            sayılıyor ve aynı kademeler işliyor.
+            Kendi siten, QR ya da kasa sisteminden sipariş alıyorsan evet. Sisteminin Debi'ye
+            açması gereken birkaç bağlantı var; yazılımcına verdiğimiz tarifi uyguladığında
+            market siparişi de restoran siparişi gibi sayılıyor ve aynı kademeler işliyor.
           </p>
           <p>
-            GetirÇarşı gibi market platformları ayrı bir API kullanıyor ve henüz bağlanmadı. Hangi
-            bağlantının bugün hazır olduğu <a href="#/platformlar">Platformlar</a> sayfasında
-            yazıyor.
+            GetirÇarşı henüz bağlanmadı. Hangi bağlantının bugün hazır olduğu
+            <a href="#/platformlar">Platformlar</a> sayfasında yazıyor.
           </p>
         </div>
       </details>
@@ -917,7 +891,6 @@
           <button class="btn btn-ghost" type="button" data-kopya="il-eposta">Kopyala</button>
           <span class="live" data-bayrak="il-eposta" role="status" aria-live="polite"></span>
         </div>
-        <p class="aciklama">Yazılı olsun istersen buradan yaz.</p>
       </div>
       <div class="kanal">
         <span class="etiket">Telefon</span>
@@ -926,7 +899,6 @@
           <button class="btn btn-ghost" type="button" data-kopya="il-telefon">Kopyala</button>
           <span class="live" data-bayrak="il-telefon" role="status" aria-live="polite"></span>
         </div>
-        <p class="aciklama">Arayabilir ya da mesaj atabilirsin.</p>
       </div>
     </div>
   </section>
