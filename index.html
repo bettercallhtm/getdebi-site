@@ -75,6 +75,14 @@
   .tab:hover{background:var(--surface-2); color:var(--ink);}
   .tab[aria-current="page"]{background:var(--surface-2); color:var(--ink); font-weight:600;}
   .nav .cta{font-size:13.5px; font-weight:600; background:var(--accent); color:var(--accent-ink); padding:8px 13px; border-radius:7px; text-decoration:none; white-space:nowrap; margin-inline-start:10px;}
+  .tema{appearance:none; -webkit-appearance:none; flex:none; width:46px; height:26px; padding:0; border:1px solid var(--line-2); border-radius:99px; background:var(--surface-2); position:relative; cursor:pointer; margin-inline-start:10px; transition:background .2s ease, border-color .2s ease;}
+  .tema:hover{border-color:var(--ink-3);}
+  .tema:focus-visible{outline:2px solid var(--accent); outline-offset:2px;}
+  .tema-top{position:absolute; top:2px; inset-inline-start:2px; width:20px; height:20px; border-radius:50%; background:var(--surface); border:1px solid var(--line); display:grid; place-items:center; font-size:11px; line-height:1; transition:transform .2s ease;}
+  .tema[aria-checked="true"] .tema-top{transform:translateX(20px);}
+  .tema .ay{display:none;}
+  .tema[aria-checked="true"] .gunes{display:none;}
+  .tema[aria-checked="true"] .ay{display:block;}
   .tabs-mobile{display:flex; gap:2px; overflow-x:auto; padding-block:8px; border-bottom:1px solid var(--line); scrollbar-width:none;}
   .tabs-mobile::-webkit-scrollbar{display:none;}
   @media (min-width:820px){ .tabs-mobile{display:none;} }
@@ -220,6 +228,16 @@
 
   @media (prefers-reduced-motion: reduce){ *{animation:none !important; transition:none !important;} }
 </style>
+<script>
+/* Temayi boyamadan ONCE uygula: yoksa acik tema bir kare gorunup koyuya
+   atliyor. Bu yuzden head'de ve satir ici. */
+(function(){
+  try{
+    var t = localStorage.getItem("debi-tema");
+    if (t === "dark" || t === "light") document.documentElement.setAttribute("data-theme", t);
+  }catch(e){}
+})();
+</script>
 </head>
 <body>
 
@@ -228,6 +246,10 @@
   <div class="wrap nav-in">
     <a class="brand" href="#/"><span class="mark" aria-hidden="true"></span> Debi</a>
     <nav class="tabs" id="tabs-desktop"></nav>
+    <button class="tema" id="tema" type="button" role="switch" aria-checked="false"
+            aria-label="Koyu temaya geç" title="Tema">
+      <span class="tema-top" aria-hidden="true"><span class="gunes">☀</span><span class="ay">☾</span></span>
+    </button>
     <a class="cta" href="#/deneme">1 ay ücretsiz</a>
   </div>
   <div class="wrap"><nav class="tabs-mobile" id="tabs-mobile"></nav></div>
@@ -1223,6 +1245,51 @@
 
   try { activePath = normalize(location.hash); } catch (e) { activePath = "/"; }
   render(false);
+})();
+</script>
+
+<script>
+/* ---- tema anahtari ----
+   CSS uc durumlu: acik (:root), sistem koyu (@media), acik secim
+   ([data-theme]). Dugme ucuncuyu yaziyor ve secimi hatirliyor. */
+(function(){
+  var kok = document.documentElement;
+  var dugme = document.getElementById("tema");
+  if (!dugme) return;
+
+  var koyuSorgu = window.matchMedia ? matchMedia("(prefers-color-scheme: dark)") : null;
+
+  function etkinTema(){
+    var secili = kok.getAttribute("data-theme");
+    if (secili === "dark" || secili === "light") return secili;
+    return koyuSorgu && koyuSorgu.matches ? "dark" : "light";
+  }
+
+  function uygula(tema){
+    kok.setAttribute("data-theme", tema);
+    var koyu = tema === "dark";
+    dugme.setAttribute("aria-checked", koyu ? "true" : "false");
+    dugme.setAttribute("aria-label", koyu ? "Açık temaya geç" : "Koyu temaya geç");
+    var meta = document.querySelector('meta[name="theme-color"]');
+    if (meta) meta.setAttribute("content", koyu ? "#0C1413" : "#0B6E63");
+  }
+
+  uygula(etkinTema());
+
+  dugme.addEventListener("click", function(){
+    var yeni = etkinTema() === "dark" ? "light" : "dark";
+    uygula(yeni);
+    try{ localStorage.setItem("debi-tema", yeni); }catch(e){}
+  });
+
+  /* Kullanici secim yapmadiysa sistem temasini izlemeye devam et. */
+  if (koyuSorgu && koyuSorgu.addEventListener){
+    koyuSorgu.addEventListener("change", function(e){
+      var secim = null;
+      try{ secim = localStorage.getItem("debi-tema"); }catch(err){}
+      if (!secim) uygula(e.matches ? "dark" : "light");
+    });
+  }
 })();
 </script>
 
