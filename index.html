@@ -188,6 +188,9 @@
   details[open] summary::after{content:"–";}
   details .a{padding-bottom:16px; display:flex; flex-direction:column; gap:11px;}
   details .a p{font-size:15px; color:var(--ink-2); max-width:62ch;}
+  details .a p.formul{font-family:var(--mono); font-size:15px; color:var(--ink);
+    background:var(--surface-2); border:1px solid var(--line); border-radius:9px;
+    padding:13px 15px; align-self:flex-start;}
 
   /* iletisim */
   .contact{background:var(--surface); border:1px solid var(--line); border-radius:12px; padding:clamp(20px,3vw,28px); box-shadow:var(--shadow); display:flex; flex-direction:column; gap:13px; max-width:64ch;}
@@ -602,6 +605,44 @@
           <p>
             Sistemin kademeli olmasının sebebi de bu. Doğrudan kapatmıyor, önce %34 kısıyor. Yetmezse
             artırıyor. Yük düşer düşmez gevşetiyor. Yani ihtiyacın kadar sipariş kaybediyorsun.
+          </p>
+        </div>
+      </details>
+      <details>
+        <summary>Hesap gerçekten tutuyor mu? Kaybettiğim kâr mı büyük, önlediğim ceza mı?</summary>
+        <div class="a">
+          <p>
+            Bunu senin rakamlarını görmeden söyleyemeyiz, uyduracak da değiliz. Ama hesabın nasıl
+            kurulduğunu gösterebiliriz; sayıları sen koyarsın.
+          </p>
+          <p>
+            İki taraf var. <strong>Kazanç:</strong> zamanında çıkan sipariş başına ödemediğin ceza.
+            <strong>Maliyet:</strong> uzun süre görüp vazgeçen müşterinin sana bırakacağı kâr.
+          </p>
+          <p>
+            Buradaki asıl soru "ne kadar kazanırım" değil. Onu ancak ölçtükten sonra
+            söyleyebiliriz. Cevaplanabilir soru şu: <strong>bir siparişi cezadan kurtarmak için
+            kaç sipariş kaybetmeyi göze alabilirim?</strong> Onun cevabı basit bir bölme:
+          </p>
+          <p class="formul">
+            ceza tutarı ÷ sipariş başına kâr
+          </p>
+          <p>
+            Cezan 50 ₺, sipariş başına kârın 40 ₺ ise sonuç 1,25. Yani cezadan kurtardığın her
+            sipariş için bir buçuğa yakın sipariş kaybetsen bile başa baştasın. Cezan yüksek ya da
+            kârın düşükse bu pay genişliyor, tersi durumda daralıyor.
+          </p>
+          <p>
+            Şunu da açıkça söyleyelim: bu hesap yalnızca <em>cezayı</em> sayıyor. Geç çıkan
+            siparişin faturası gerçekte daha kabarık — iade, düşen puan, sıralamada geriye düşmek.
+            Bunları ölçemediğimiz için hesaba hiç katmıyoruz. Yani gerçek eşik bu bölmenin
+            verdiğinden yüksek, düşük değil.
+          </p>
+          <p>
+            Gölge haftası tam olarak bunun için var. Bir hafta hiçbir şeye dokunmadan, kaç siparişin
+            cezaya gireceğini kendi verinle sayıyoruz — yani bölmenin sol tarafı ölçülmüş oluyor.
+            Sağ tarafı, yani kaç müşterinin vazgeçtiğini, ancak canlıya geçince görebiliyoruz.
+            İlk ayın ücretsiz olmasının sebebi de bu: ölçmeden söylenen rakamın kıymeti yok.
           </p>
         </div>
       </details>
