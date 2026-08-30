@@ -67,6 +67,7 @@
   h1{font-size:clamp(27px,3.6vw,38px);}
   h2{font-size:clamp(19px,2.1vw,23px); letter-spacing:-.015em;}
   h3{font-size:15.5px; font-weight:600;}
+  .neden-b{margin-top:26px;}
   p{margin:0;} strong{font-weight:600;}
 
   /* gezinme */
@@ -477,6 +478,81 @@
         sipariş sayısı hepsinden toplanıyor. Müdahale ise her platforma ayrı uygulanıyor.
       </p>
     </div>
+  </section>
+
+  <!-- neden -->
+  <section class="page" data-page="/neden">
+    <div class="page-head">
+      <h1>Neden bu işi yapıyoruz</h1>
+      <p>
+        Debi bir yazılım fikri olarak başlamadı. Tek bir soruyu çözmek için yazıldı:
+        yoğun saatte mutfak dolduğunda ne oluyor, kim ödüyor?
+      </p>
+    </div>
+
+    <h2 class="neden-b">Çözmek istediğimiz problem</h2>
+    <p>
+      Akşam saatinde gelen sipariş, mutfağın çıkarabileceğinden fazla oluyor. Bu bir yönetim
+      hatası değil; iyi çalışan restoranda da oluyor. Kapasite sabit, talep değil.
+    </p>
+    <p>
+      Platformlar aslında kaldıraç veriyor: hazırlık süresi, teslimat süresi, mağaza aç/kapa.
+      Ama bu kaldıraçların kullanılması gereken an, mutfağın en yoğun olduğu an. O dakikada
+      kimsenin eli boşta değil — zaten boşta olsa mutfak dolmamış olurdu.
+    </p>
+    <p>
+      Sonrası zincirleme: sipariş geç çıkıyor, ceza yazılıyor. Müşteri iptal ediyor, iade
+      geliyor. Puan düşüyor, ertesi gün daha az görünüyorsun. Bir akşamın yoğunluğu ertesi
+      günün siparişini de götürüyor.
+    </p>
+
+    <h2 class="neden-b">Kimsenin saymadığı kalem</h2>
+    <p>
+      Bu zincirde genelde atlanan bir şey var: <strong>yemek zaten yapılmış oluyor.</strong>
+    </p>
+    <p>
+      Geç çıkan ya da iptal edilen siparişin yemeği geri dönmüyor. Stoğa yazılamıyor, tekrar
+      satılamıyor, kuryenin elinden geri de gelmiyor. İmhaya gidiyor.
+    </p>
+    <p>
+      Restoran o siparişi iki kez ödüyor: bir kez malzemeye, bir kez cezaya. Ortada duran şeyse
+      pişmiş ama yenmemiş bir yemek. Cezanın rakamı faturada görünüyor; çöpe giden tabağın
+      karşılığını kimse tutmuyor bile.
+    </p>
+
+    <h2 class="neden-b">Nereye gidiyor</h2>
+    <p>
+      Türkiye'de yemek siparişi büyüyor. Daha çok restoran, daha çok zincir, daha çok platform.
+      Uber'in önce Trendyol GO'yu sonra GetirYemek'i alması bu büyümenin işareti — bu pazar
+      küçülen bir pazar olsa kimse satın almazdı.
+    </p>
+    <p>
+      Hacim büyüdükçe zirve saatinde kaybedilen de büyüyor. Aynı oran, çok daha büyük bir taban
+      üzerinde. Bir restoranda bu birkaç siparişlik fark; yüzlerce restoranda, her akşam, başka
+      bir şey.
+    </p>
+    <p>
+      İstediğimiz şey aslında mütevazı: <strong>zirve saatinin yönetilmesi, ona
+      katlanılması değil.</strong> Mutfak dolduğunda akışın o an kısılması — dolduktan sonra
+      cezayla, iadeyle, çöpe giden yemekle telafi edilmesi değil.
+    </p>
+
+    <h2 class="neden-b">Ne yapmıyoruz</h2>
+    <p>
+      Sipariş sayını artırmıyoruz. Debi'nin işi gaz değil, fren. Bunu baştan söylüyoruz çünkü
+      beklentiyi yanlış kuran bir araç, ilk ay iyi görünüp ikinci ay geri teper.
+    </p>
+    <p>
+      "Şu kadar tasarruf ettin" da demiyoruz. Ölçebildiğimiz şeyi ölçüyoruz, ölçemediğimizi
+      rakam diye satmıyoruz.
+    </p>
+    <p>
+      Eşikleri de sana bırakmıyoruz. Geçmiş satış kaydını veriyorsun, mutfağının saatlik
+      kapasitesini ve cezanın hangi yükte başladığını <strong>senin kendi verinden</strong>
+      çıkarıyoruz; gölge haftası da üstüne ölçüyor. Kutudan çıkan rakamla çalışmıyorsun.
+      Ama son söz sende: her eşik panelden değiştirilebiliyor, istediğin an elle
+      devralabiliyorsun.
+    </p>
   </section>
 
   <!-- platformlar -->
@@ -1069,7 +1145,7 @@
         </div>
       </div>
       <div class="kanal">
-        <span class="etiket">Telefon</span>
+        <span class="etiket">Telefon · Hasan Tahsin Meriç</span>
         <div class="mailbox">
           <a class="mailaddr" id="il-telefon" href="tel:+905367746610">0536 774 66 10</a>
           <button class="btn btn-ghost" type="button" data-kopya="il-telefon">Kopyala</button>
@@ -1094,6 +1170,7 @@
   var PAGES = [
     {path:"/",              label:"Ana sayfa",     title:"Debi"},
     {path:"/nasil-calisir", label:"Nasıl çalışır", title:"Nasıl çalışır"},
+    {path:"/neden",         label:"Neden",         title:"Neden bu işi yapıyoruz"},
     {path:"/platformlar",   label:"Platformlar",   title:"Platformlar"},
     {path:"/guvenlik",      label:"Güvenlik",      title:"Güvenlik"},
     {path:"/sss",           label:"SSS",           title:"Sık sorulan sorular"},
