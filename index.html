@@ -537,8 +537,8 @@
       küçülen bir pazar olsa kimse satın almazdı.
     </p>
     <p>
-      Hacim büyüdükçe zirve saatinde kaybedilen de büyüyor. Aynı oran, çok daha büyük bir taban
-      üzerinde. Bir restoranda bu birkaç siparişlik fark; yüzlerce restoranda, her akşam, başka
+      Sipariş sayısı büyüdükçe zirve saatinde kaybedilen de büyüyor. Aynı oran, çok daha büyük
+      bir toplamın üzerinde. Bir restoranda bu birkaç siparişlik fark; yüzlerce restoranda, her akşam, başka
       bir şey.
     </p>
     <p>
@@ -549,7 +549,7 @@
 
     <h2 class="neden-b">Ne yapmıyoruz</h2>
     <p>
-      Sipariş sayını artırmıyoruz. Debi'nin işi gaz değil, fren. Bunu baştan söylüyoruz çünkü
+      Sipariş sayını artırmıyoruz. Debi'nin işi yeni sipariş getirmek değil, gelen siparişi mutfağın hızına göre ayarlamak. Bunu baştan söylüyoruz çünkü
       beklentiyi yanlış kuran bir araç, ilk ay iyi görünüp ikinci ay geri teper.
     </p>
     <p>
@@ -559,7 +559,7 @@
     <p>
       Eşikleri de sana bırakmıyoruz. Geçmiş satış kaydını veriyorsun, mutfağının saatlik
       kapasitesini ve cezanın hangi yükte başladığını <strong>senin kendi verinden</strong>
-      çıkarıyoruz; gölge haftası da üstüne ölçüyor. Kutudan çıkan rakamla çalışmıyorsun.
+      çıkarıyoruz; izleme haftası da üstüne ölçüyor. Kutudan çıkan rakamla çalışmıyorsun.
       Ama son söz sende: her eşik panelden değiştirilebiliyor, istediğin an elle
       devralabiliyorsun.
     </p>
@@ -584,7 +584,7 @@
             <td><span class="durum hazir">Hazır</span></td>
             <td>
               <strong>Hazırlık süresi</strong> ve <strong>mağaza aç/kapa.</strong>
-              Asıl fren hazırlık süresi: siparişi kabul ederken bildiriliyor, böylece kurye
+              En etkilisi hazırlık süresi: siparişi kabul ederken bildiriliyor, böylece kurye
               kapıda beklemiyor ve müşterinin gördüğü teslimat süresi uzuyor. Kendi kuryenle
               çalışıyorsan teslimat süresi ve bölgesi de ekleniyor.
             </td>
@@ -642,11 +642,11 @@
     <div class="safety">
       <div>
         <h3>Kapalı unutulmaz</h3>
-        <p>Kapalı kalma süresi için bir üst sınır var. Bu süre dolunca yük hâlâ yüksek olsa bile mağaza açılıyor. Platformlara hiç ulaşılamıyor olsa bile sayaç işlemeye devam ediyor.</p>
+        <p>Mağazanın kapalı kalabileceği en uzun süre baştan belli. Bu süre dolunca yoğunluk hâlâ yüksek olsa bile mağaza açılıyor. İnternet gitmiş, platformlara ulaşılamıyor olsa bile süre işlemeye devam ediyor.</p>
       </div>
       <div>
         <h3>Elektrik giderse</h3>
-        <p>Bilgisayar aniden kapanırsa mağaza kapalı kalabilir. Sistem durumu diske yazdığı için yeniden açıldığında bunu görüyor ve mağazayı ilk turda açıyor.</p>
+        <p>Bilgisayar aniden kapanırsa mağaza kapalı kalabilir. Debi mağazayı kendisinin kapattığını not ediyor; bilgisayar açılır açılmaz bunu görüp mağazayı hemen açıyor.</p>
       </div>
       <div>
         <h3>Senin kapattığını açmaz</h3>
@@ -654,7 +654,7 @@
       </div>
       <div>
         <h3>Bir platform çökerse</h3>
-        <p>Diğerleri çalışmaya devam ediyor, sipariş sayısı ayakta olanlardan toplanıyor. Bir platformdaki bağlantı hatası bütün sistemi durdurmuyor.</p>
+        <p>Diğerleri çalışmaya devam ediyor, sipariş sayısı ayakta olanlardan toplanıyor. Bir platformdaki arıza bütün sistemi durdurmuyor.</p>
       </div>
       <div>
         <h3>Kontrol sende kalır</h3>
@@ -722,25 +722,25 @@
           </p>
           <p>
             Cezan 50 ₺, sipariş başına kârın 40 ₺ ise sonuç 1,25. Yani cezadan kurtardığın her
-            sipariş için bir buçuğa yakın sipariş kaybetsen bile başa baştasın. Cezan yüksek ya da
-            kârın düşükse bu pay genişliyor, tersi durumda daralıyor.
+            sipariş için bir buçuğa yakın sipariş kaybetsen bile başa baştasın. Cezan yüksekse ya da
+            sipariş başına kârın düşükse bu sayı büyüyor; tersi olursa küçülüyor.
           </p>
           <p>
             Şunu da açıkça söyleyelim: bu hesap yalnızca <em>cezayı</em> sayıyor. Geç çıkan
             siparişin faturası gerçekte daha kabarık — iade, düşen puan, sıralamada geriye düşmek.
-            Bunları ölçemediğimiz için hesaba hiç katmıyoruz. Yani gerçek eşik bu bölmenin
-            verdiğinden yüksek, düşük değil.
+            Bunları ölçemediğimiz için hesaba hiç katmıyoruz. Yani gerçek sınır bu hesabın
+            verdiğinden daha yüksek, daha düşük değil.
           </p>
           <p>
-            Gölge haftası tam olarak bunun için var. Bir hafta hiçbir şeye dokunmadan, kaç siparişin
-            cezaya gireceğini kendi verinle sayıyoruz — yani bölmenin sol tarafı ölçülmüş oluyor.
-            Sağ tarafı, yani kaç müşterinin vazgeçtiğini, ancak canlıya geçince görebiliyoruz.
+            İzleme haftası tam olarak bunun için var. Bir hafta hiçbir şeye dokunmadan, kaç siparişin
+            cezaya gireceğini kendi verinle sayıyoruz — yani hesabın ceza tarafı ölçülmüş oluyor.
+            Öbür tarafı, yani kaç müşterinin vazgeçtiğini, ancak canlıya geçince görebiliyoruz.
             İlk ayın ücretsiz olmasının sebebi de bu: ölçmeden söylenen rakamın kıymeti yok.
           </p>
         </div>
       </details>
       <details>
-        <summary>Platform algoritması açısından gerçekten faydalı mı?</summary>
+        <summary>Platformdaki sıralamama etkisi olur mu?</summary>
         <div class="a">
           <p>
             Yukarıdaki hesapta bilerek yalnızca cezayı saydık. Geç çıkan siparişin faturası
@@ -767,9 +767,9 @@
             bir şeyi sana rakam olarak satmam doğru olmaz.
           </p>
           <p>
-            Söyleyebileceğimiz şu: bu üç mekanizmanın da girdisi aynı — <strong>zamanında
-            teslimat.</strong> Debi'nin koruduğu şey de tam olarak o. Yani ceza hesabı işin
-            görünen ve ölçülebilen kısmı; algoritma tarafı onun üstüne ekleniyor, ondan
+            Söyleyebileceğimiz şu: üçünü de belirleyen tek şey var — <strong>siparişin zamanında
+            çıkması.</strong> Debi'nin koruduğu şey de tam olarak o. Yani ceza hesabı işin
+            görünen ve ölçülebilen kısmı; sıralama tarafı onun üstüne ekleniyor, ondan
             düşmüyor.
           </p>
         </div>
@@ -813,7 +813,7 @@
             otomatiğe dönüyor.
           </p>
           <p>
-            Yani ikisi arasında seçim yapmıyorsun. Mekanik ve tekrar eden kısmı Debi üstleniyor;
+            Yani ikisi arasında seçim yapmıyorsun. Tekrar eden, hep aynı olan kısmı Debi üstleniyor;
             senin bildiğin, onun bilemeyeceği şeyler için kontrol sende kalıyor.
           </p>
         </div>
@@ -843,8 +843,8 @@
         <summary>Kademelerdeki "%34" tam olarak ne demek?</summary>
         <div class="a">
           <p>
-            Buradaki yüzde, <strong>siparişin ne kadar azalacağı değil.</strong> Frenin ne kadar
-            basıldığını gösteriyor: normal ile azami arasındaki yolun ne kadarını kat ettiğini.
+            Buradaki yüzde, <strong>siparişin ne kadar azalacağı değil.</strong> Sürelerin ne kadar
+            uzatıldığını gösteriyor: normal ile en yüksek kademe arasındaki yolun ne kadarını kat ettiğini.
           </p>
           <p>Somut karşılığı sürelerdir:</p>
           <div class="table-scroll" style="margin:4px 0 4px">
@@ -897,7 +897,7 @@
           <p>Olur. Ama burada senin vereceğin bir karar var.</p>
           <p>
             Hazırlık süresi platforma <strong>siparişi kabul ederken</strong> bildiriliyor. Yani bu
-            kaldıracı kullanabilmek için siparişi Debi'nin kabul etmesi gerekiyor. Tabletten sen
+            ayarı kullanabilmek için siparişi Debi'nin kabul etmesi gerekiyor. Tabletten sen
             kabul ediyorsan araya girecek bir an kalmıyor.
           </p>
           <p>İki seçenek de açık, ikisi de çalışıyor:</p>
@@ -919,18 +919,18 @@
           <p>
             Kurulumda bu ayar <strong>kapalı geliyor:</strong> hiç kimse, haberi olmadan
             siparişlerini bir yazılıma kabul ettirmek istemez. Açmak isteyip istemediğine ücretsiz
-            ayın sonunda karar verirsin; gölge haftasında zaten hiçbir sipariş kabul edilmiyor.
+            ayın sonunda karar verirsin; izleme haftasında zaten hiçbir sipariş kabul edilmiyor.
           </p>
         </div>
       </details>
       <details>
         <summary>İlk gün mağazamı kapatmaya başlar mı?</summary>
         <div class="a">
-          <p>Hayır. İlk hafta gölge modunda çalışıyor. Kararını veriyor ama uygulamıyor, sadece "şu anda şunu yapardım" diye kaydediyor. Hafta sonunda eşiklerin senin restoranına uyup uymadığını, kaç kez müdahale gerekeceğini ve ne kadar cezanın önlenebileceğini kendi verinle görüyorsun.</p>
+          <p>Hayır. İlk hafta yalnızca izliyor. Kararını veriyor ama uygulamıyor, sadece "şu anda şunu yapardım" diye kaydediyor. Hafta sonunda eşiklerin senin restoranına uyup uymadığını, kaç kez müdahale gerekeceğini ve ne kadar cezanın önlenebileceğini kendi verinle görüyorsun.</p>
         </div>
       </details>
       <details>
-        <summary>Gölge haftasının sonunda elime ne geçiyor?</summary>
+        <summary>İzleme haftasının sonunda elime ne geçiyor?</summary>
         <div class="a">
           <p>
             Yazdırılabilir tek sayfalık bir rapor. Kaç ayrı yoğunlukta müdahale gerekeceğini,
@@ -940,14 +940,14 @@
           </p>
           <p>
             Rapor "şu kadar ceza önlendi" demiyor, <strong>"önlenebilirdi" diyor</strong> — ve
-            gölge modunda üretildiğini kendi üstünde yazıyor. Gölge haftasında hiçbir müdahale
+            izleme haftasında üretildiğini kendi üstünde yazıyor. O hafta hiçbir müdahale
             uygulanmadığı için gerçekte ne olacağını kimse bilmiyor. Şişirilmiş bir rakam ilk ayda
             iyi görünür, ikinci ayda geri teper.
           </p>
           <p>
-            Mağazanın ne kadar kapalı kalacağını gölge raporu <em>söylemiyor</em>, çünkü
+            Mağazanın ne kadar kapalı kalacağını bu rapor <em>söylemiyor</em>, çünkü
             söyleyemez: Debi gerçekten kapatsaydı sipariş akışı durur ve kuyruk çok daha hızlı
-            erirdi. Gölgede akış devam ettiği için ölçülen süre gerçeği kat kat aşardı.
+            erirdi. İzleme haftasında akış devam ettiği için ölçülen süre gerçeği kat kat aşardı.
           </p>
           <p>
             <a href="ornek-rapor.html" target="_blank" rel="noopener">Örnek bir raporu buradan
@@ -964,8 +964,8 @@
       <details>
         <summary>Kurulum ne gerektiriyor?</summary>
         <div class="a">
-          <p>İki şey: platformun satıcı panelinden alınan entegrasyon bilgileri ve işletmede sürekli açık kalan bir bilgisayar. Yükü izleyen ve müdahale eden taraf o bilgisayar olduğu için kapalıyken sistem çalışmıyor. Kurulumu uzaktan bağlanarak biz yapıyoruz, senin bir şey yüklemene gerek yok.</p>
-          <p>Bilgiler dosyaya değil, Debi'nin kendi kurulum ekranına giriliyor: her platform bir kart, kartın içinde hangi bilgi nereden alınır yazıyor, "bağlantıyı sına" düğmesi doğru girilip girilmediğini yerinde söylüyor. Bilgiler o bilgisayarda kalıyor; bize gönderilmiyor.</p>
+          <p>İki şey: platformun satıcı panelinden alınan bağlantı bilgileri ve işletmede sürekli açık kalan bir bilgisayar. Mutfağı izleyen ve süreleri ayarlayan taraf o bilgisayar; kapalıyken sistem çalışmıyor. Kurulumu uzaktan bağlanıp biz yapıyoruz, senin bir şey yüklemen gerekmiyor.</p>
+          <p>Bilgiler Debi'nin kendi kurulum ekranına giriliyor: her platform için ayrı bir bölüm, her kutunun altında o bilginin platformda nerede yazdığı ve doğru girilip girilmediğini yerinde söyleyen bir deneme düğmesi var. Bilgiler o bilgisayarda kalıyor, bize gönderilmiyor.</p>
         </div>
       </details>
       <details>
@@ -1004,19 +1004,19 @@
         <summary>Eşikler benim restoranıma göre mi ayarlanıyor?</summary>
         <div class="a">
           <p>
-            Kutudan çıkan eşikler tahmindir; hiçbir restorana tam uymaz. Elinde geçmiş kayıt varsa
-            — saat başına gelen sipariş, o gün çalışan personel, yenen cezalar — bu sayılar senin
-            restoranına göre hesaplanıyor. Excel ya da CSV dosyasını veriyorsun, sütun adlarını
-            kendisi tanıyor.
+            Hazır gelen eşikler tahmindir; hiçbir restorana tam uymaz. Elinde geçmiş kayıt varsa
+            — saat başına gelen sipariş, o gün çalışan personel, yenen cezalar — eşikler senin
+            restoranına göre hesaplanıyor. Excel dosyanı verip bir düğmeye basıyorsun; başlıkları
+            program kendisi tanıyor.
           </p>
           <p>
-            Üç şey çıkıyor: mutfağın saatlik kapasitesi, cezanın hangi yükte başladığı ve buna göre
-            önerilen eşikler. Müdahale eşiği, ceza eşiğinin bir tık altına alınıyor — ceza
-            oluşmadan frene basmak gerekiyor.
+            Üç şey çıkıyor: mutfağın saatte kaç sipariş çıkarabildiği, cezaların hangi yoğunlukta
+            başladığı ve buna göre önerilen eşikler. Debi'nin devreye girdiği nokta, cezaların
+            başladığı noktanın biraz altına alınıyor — ceza oluşmadan girmek gerekiyor.
           </p>
           <p>
-            Bunlar da başlangıç değeri. Geçmiş veri neyin ceza yazdığını gösterir, müdahale
-            edilseydi ne olacağını göstermez; gölge haftası bunun için var.
+            Bunlar da başlangıç değeri. Geçmiş kayıt neyin ceza yazdığını gösteriyor, o an
+            devreye girilseydi ne olacağını göstermiyor; izleme haftası bunun için var.
           </p>
         </div>
       </details>
@@ -1070,7 +1070,7 @@
     <div class="page-head">
       <h1>İlk ay bizden</h1>
       <p>
-        Bir ay boyunca ücret almıyoruz. İlk hafta gölge modunda çalışıyor, yani hiçbir şeye
+        Bir ay boyunca ücret almıyoruz. İlk hafta yalnızca izliyor, yani hiçbir şeye
         dokunmadan sadece ölçüyor. Sonrasında Debi gerçekten devreye giriyor. Ayın sonunda potansiyel
         olarak ne kadar cezadan kurtulabileceğini kendin görürsün.
       </p>
