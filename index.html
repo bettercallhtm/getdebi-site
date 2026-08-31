@@ -81,9 +81,25 @@
   .nav{position:sticky; top:0; z-index:30; background:var(--paper); border-bottom:1px solid var(--line);}
   .nav-in{display:flex; align-items:center; gap:6px; padding-block:11px;}
   .brand{display:flex; align-items:center; gap:9px; font-weight:700; font-size:16px; letter-spacing:-.03em; text-decoration:none; color:var(--ink); margin-inline-end:auto;}
-  .mark{width:21px; height:21px; border-radius:5px; flex:none; background:var(--accent);
-    background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Cg fill='none' stroke='%23fff' stroke-width='3' stroke-linecap='round'%3E%3Cpath d='M6 10.5q5-4.2 10 0t10 0'/%3E%3Cpath d='M6 16q5-4.2 10 0t10 0'/%3E%3Cpath d='M6 21.5q5-4.2 10 0t10 0'/%3E%3C/g%3E%3C/svg%3E");
-    background-size:100% 100%;}
+  /* İşaret canlı: dalgalar alttan üste sırayla doluyor, sonra hepsi sönüp
+     baştan başlıyor — Debi'nin kademeleri de böyle tırmanıp iniyor.
+     Dolum rengi tek yerden: --mark-dolu. */
+  .mark{width:21px; height:21px; flex:none; display:block;}
+  .mark rect{fill:var(--accent);}
+  .mark .dalgalar{stroke:var(--mark-dolu, #fff);}
+  .mark path{opacity:.3; animation:markDol 4.2s ease-in-out infinite;}
+  .mark .d1{animation-delay:0s;}
+  .mark .d2{animation-delay:.45s;}
+  .mark .d3{animation-delay:.9s;}
+  @keyframes markDol{
+    0%   {opacity:.3;}
+    12%  {opacity:1;}
+    62%  {opacity:1;}
+    74%  {opacity:.3;}
+    100% {opacity:.3;}
+  }
+  /* Hareket istemeyen kullanıcıda üç dalga da düz duruyor. */
+  @media (prefers-reduced-motion: reduce){ .mark path{opacity:1;} }
   .tabs{display:none; gap:2px;}
   @media (min-width:820px){ .tabs{display:flex;} }
   .tab{font-size:14px; font-weight:500; color:var(--ink-2); text-decoration:none; padding:7px 11px; border-radius:7px; white-space:nowrap;}
@@ -262,7 +278,14 @@
 
 <div class="nav">
   <div class="wrap nav-in">
-    <a class="brand" href="#/"><span class="mark" aria-hidden="true"></span> Debi</a>
+    <a class="brand" href="#/"><svg class="mark" viewBox="0 0 32 32" aria-hidden="true">
+      <rect width="32" height="32" rx="7"/>
+      <g class="dalgalar" fill="none" stroke-width="3" stroke-linecap="round">
+        <path class="d1" d="M6 21.5q5-4.2 10 0t10 0"/>
+        <path class="d2" d="M6 16q5-4.2 10 0t10 0"/>
+        <path class="d3" d="M6 10.5q5-4.2 10 0t10 0"/>
+      </g>
+    </svg> Debi</a>
     <nav class="tabs" id="tabs-desktop"></nav>
     <button class="tema" id="tema" type="button" role="switch" aria-checked="false"
             aria-label="Koyu temaya geç" title="Tema">
@@ -1431,7 +1454,7 @@
     elFill.style.background = colour;
     elVerb.style.color = colour;
     elVerb.textContent = closed ? "KAPALI"
-      : (level === 0 ? "AÇIK" : "OPTİMİZE %" + Math.round(throttleOf(level) * 100));
+      : (level === 0 ? "AÇIK" : "OPTİMİZASYON %" + Math.round(throttleOf(level) * 100));
     var active = closed ? 4 : level;
     rungs.forEach(function(r){
       r.classList.toggle("on", Number(r.getAttribute("data-rung")) === active);
