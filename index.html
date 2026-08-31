@@ -6,11 +6,18 @@
 <meta name="description" content="Debi, restoran ve marketlerde yogun saatte siparis akisini kademe kademe kisarak gec teslimat ve iptal cezalarini olusmadan onler.">
 <meta name="theme-color" content="#0B6E63">
 <link rel="canonical" href="https://getdebi.com/">
-<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='7' fill='%230B6E63'/%3E%3Crect x='7' y='21' width='18' height='4' rx='2' fill='white'/%3E%3Crect x='7' y='14' width='18' height='4' rx='2' fill='white'/%3E%3Crect x='7' y='7' width='18' height='4' rx='2' fill='white' opacity='.45'/%3E%3C/svg%3E">
+<!-- Simge dosya olarak duruyor, yalnızca data URI olarak değil: mobil
+     tarayıcıların çoğu SVG data URI'yi sekmede göstermiyor ve adres çubuğunda
+     boş bir kutu kalıyordu. Sıra önemli — .ico her yerde, SVG desteği olan
+     masaüstü tarayıcıları ise keskin olanı seçiyor. -->
+<link rel="icon" href="/favicon.ico" sizes="16x16 32x32 48x48">
+<link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='7' fill='%230B6E63'/%3E%3Crect x='7' y='21' width='18' height='4' rx='2' fill='white'/%3E%3Crect x='7' y='14' width='18' height='4' rx='2' fill='white'/%3E%3Crect x='7' y='7' width='18' height='4' rx='2' fill='white' opacity='.45'/%3E%3C/svg%3E">
+<link rel="apple-touch-icon" href="/apple-touch-icon.png">
+<link rel="manifest" href="/site.webmanifest">
 
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="Debi">
-<meta property="og:title" content="Debi — siparis akisi kontrolu">
+<meta property="og:title" content="Debi — Sipariş Akışı Kontrolü">
 <meta property="og:description" content="Debi, restoran ve marketlerde yogun saatte siparis akisini kademe kademe kisarak gec teslimat ve iptal cezalarini olusmadan onler.">
 <meta property="og:url" content="https://getdebi.com/">
 <meta property="og:locale" content="tr_TR">
@@ -302,7 +309,7 @@
           </div>
           <div>
             <div class="track"><div class="fill" id="g-fill"></div><i class="track-mark" id="g-mark"></i></div>
-            <div class="track-cap"><span>0</span><span>müdahale eşiği 12</span><span>24</span></div>
+            <div class="track-cap"><span>0</span><span>devreye girme eşiği 12</span><span>24</span></div>
           </div>
         </div>
         <div class="ladder" id="g-ladder">
@@ -330,11 +337,12 @@
 
           <rect class="n-frame" x="14" y="76" width="162" height="168" rx="10"></rect>
           <rect class="n-box" x="24" y="84" width="142" height="34" rx="7"></rect>
-          <text class="n-t" x="95" y="105" text-anchor="middle">Uber Eats</text>
+          <text class="n-t" x="95" y="99" text-anchor="middle">Uber Eats</text>
+          <text class="n-s" x="95" y="111" text-anchor="middle">Trendyol Go</text>
           <rect class="n-box" x="24" y="126" width="142" height="34" rx="7"></rect>
           <text class="n-t" x="95" y="147" text-anchor="middle">Yemeksepeti</text>
           <rect class="n-box" x="24" y="168" width="142" height="34" rx="7"></rect>
-          <text class="n-t" x="95" y="189" text-anchor="middle">Getir</text>
+          <text class="n-t" x="95" y="189" text-anchor="middle">GetirÇarşı</text>
           <rect class="n-box" x="24" y="210" width="142" height="34" rx="7"></rect>
           <text class="n-t" x="95" y="231" text-anchor="middle">Kendi siten · QR</text>
 
@@ -416,7 +424,7 @@
         <polyline class="c-good" points="70,225 132,211 194,182 256,160 318,152 380,152 442,160 504,160 566,174 628,203 690,218"></polyline>
 
         <text class="c-badt" x="384" y="120" text-anchor="middle">ceza bölgesi</text>
-        <text class="c-badt" x="380" y="55" text-anchor="middle">müdahale yok</text>
+        <text class="c-badt" x="380" y="55" text-anchor="middle">Debi yokken</text>
         <text class="n-ac" x="318" y="176" text-anchor="middle">Debi devrede</text>
 
         <text class="n-l" x="70" y="258" text-anchor="start">18:00</text>
@@ -436,14 +444,14 @@
         Mağazan açık kaldığı için vazgeçmeyeni kaybetmiyorsun.
       </p>
       <p>
-        Dört ayrı kaldıraç var. Hepsi her restoranda çalışmıyor; sistem hangisinin açık olduğunu
+        Debi'nin değiştirebildiği dört ayar var. Hepsi her restoranda açık değil; sistem hangisinin açık olduğunu
         deneyerek anlıyor ve elinde olmayanı zorlamıyor.
       </p>
     </div>
 
     <div class="table-scroll" style="margin-block:16px 26px">
       <table>
-        <thead><tr><th>Kaldıraç</th><th>Ne yapıyor</th></tr></thead>
+        <thead><tr><th>Ayar</th><th>Ne yapıyor</th></tr></thead>
         <tbody>
           <tr>
             <td>Hazırlık süresi</td>
@@ -474,7 +482,7 @@
       </p>
       <h2 style="margin-top:12px">Yük tek yerden sayılır</h2>
       <p>
-        Trendyol'dan gelen sipariş de kendi sitenden gelen de aynı mutfağa giriyor. Bu yüzden açık
+        Uber Eats Trendyol Go'dan gelen sipariş de kendi sitenden gelen de aynı mutfağa giriyor. Bu yüzden açık
         sipariş sayısı hepsinden toplanıyor. Müdahale ise her platforma ayrı uygulanıyor.
       </p>
     </div>
@@ -496,8 +504,9 @@
       hatası değil; iyi çalışan restoranda da oluyor. Kapasite sabit, talep değil.
     </p>
     <p>
-      Platformlar aslında kaldıraç veriyor: hazırlık süresi, teslimat süresi, mağaza aç/kapa.
-      Ama bu kaldıraçların kullanılması gereken an, mutfağın en yoğun olduğu an. O dakikada
+      Platformlar bunun için gereken ayarları zaten veriyor: hazırlık süresi, teslimat süresi,
+      mağaza aç/kapa.
+      Ama bu ayarların değiştirilmesi gereken an, mutfağın en yoğun olduğu an. O dakikada
       kimsenin eli boşta değil — zaten boşta olsa mutfak dolmamış olurdu.
     </p>
     <p>
@@ -523,7 +532,8 @@
     <h2 class="neden-b">Nereye gidiyor</h2>
     <p>
       Türkiye'de yemek siparişi büyüyor. Daha çok restoran, daha çok zincir, daha çok platform.
-      Uber'in önce Trendyol GO'yu sonra GetirYemek'i alması bu büyümenin işareti — bu pazar
+      Uber'in önce Trendyol GO'nun çoğunluğunu alması, sonra Getir'in teslimat işi için
+      anlaşması bu büyümenin işareti — bu pazar
       küçülen bir pazar olsa kimse satın almazdı.
     </p>
     <p>
@@ -610,8 +620,9 @@
             <td><span class="durum yolda">Yolda</span></td>
             <td>
               Market siparişleri için ayrı bir bağlantı. Yazıldı, ama Getir'in onayı gelip
-              doğrulayana kadar açmıyoruz. Kendi market siten varsa üstteki satır bugün de
-              çalışıyor.
+              doğrulayana kadar açmıyoruz. Uber, Getir'in market dahil teslimat işi için de
+              anlaşmaya vardı; bu tarafın nereye bağlanacağı netleşince buraya yazacağız.
+              Kendi market siten varsa üstteki satır bugün de çalışıyor.
             </td>
           </tr>
         </tbody>
@@ -954,6 +965,7 @@
         <summary>Kurulum ne gerektiriyor?</summary>
         <div class="a">
           <p>İki şey: platformun satıcı panelinden alınan entegrasyon bilgileri ve işletmede sürekli açık kalan bir bilgisayar. Yükü izleyen ve müdahale eden taraf o bilgisayar olduğu için kapalıyken sistem çalışmıyor. Kurulumu uzaktan bağlanarak biz yapıyoruz, senin bir şey yüklemene gerek yok.</p>
+          <p>Bilgiler dosyaya değil, Debi'nin kendi kurulum ekranına giriliyor: her platform bir kart, kartın içinde hangi bilgi nereden alınır yazıyor, "bağlantıyı sına" düğmesi doğru girilip girilmediğini yerinde söylüyor. Bilgiler o bilgisayarda kalıyor; bize gönderilmiyor.</p>
         </div>
       </details>
       <details>
@@ -1044,7 +1056,8 @@
             market siparişi de restoran siparişi gibi sayılıyor ve aynı kademeler işliyor.
           </p>
           <p>
-            GetirÇarşı henüz bağlanmadı. Hangi bağlantının bugün hazır olduğu
+            GetirÇarşı henüz bağlanmadı; Getir'in market tarafı da Uber'e geçiş sürecinde.
+            Hangi bağlantının bugün hazır olduğu
             <a href="#/platformlar">Platformlar</a> sayfasında yazıyor.
           </p>
         </div>
@@ -1058,7 +1071,7 @@
       <h1>İlk ay bizden</h1>
       <p>
         Bir ay boyunca ücret almıyoruz. İlk hafta gölge modunda çalışıyor, yani hiçbir şeye
-        dokunmadan sadece ölçüyor. Sonrasında müdahaleyi devreye alıyoruz. Ayın sonunda potansiyel
+        dokunmadan sadece ölçüyor. Sonrasında Debi gerçekten devreye giriyor. Ayın sonunda potansiyel
         olarak ne kadar cezadan kurtulabileceğini kendin görürsün.
       </p>
       <p>
@@ -1096,7 +1109,7 @@
         <div class="field">
           <label for="f-platform">Hangi platformlardan sipariş alıyorsun?</label>
           <input id="f-platform" name="platformlar" type="text"
-                 placeholder="Trendyol, Yemeksepeti, kendi sitem…">
+                 placeholder="Uber Eats Trendyol Go, Yemeksepeti, kendi sitem…">
         </div>
         <div class="field">
           <label for="f-not">Eklemek istediğin bir şey <span style="font-weight:400">(isteğe bağlı)</span></label>
@@ -1159,7 +1172,7 @@
 
 <footer>
   <div class="wrap foot">
-    <p>Debi · sipariş akışı kontrolü</p>
+    <p>Debi · Sipariş Akışı Kontrolü</p>
     <nav id="foot-nav"></nav>
   </div>
 </footer>
