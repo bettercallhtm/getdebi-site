@@ -219,6 +219,30 @@
   details[open] summary::after{content:"–";}
   details .a{padding-bottom:16px; display:flex; flex-direction:column; gap:11px;}
   details .a p{font-size:15px; color:var(--ink-2); max-width:62ch;}
+  /* ---- dönüşüm yüzeyi: deneme adımları, örnek rapor kartı, ek alanlar ---- */
+  .adimlar{counter-reset:adim; list-style:none; padding:0; margin:22px 0 0;
+    display:grid; gap:10px;}
+  .adimlar li{position:relative; padding:14px 16px 14px 52px; background:var(--surface);
+    border:1px solid var(--line); border-radius:12px; font-size:15px; line-height:1.55;}
+  .adimlar li::before{counter-increment:adim; content:counter(adim);
+    position:absolute; left:14px; top:13px; width:24px; height:24px; border-radius:50%;
+    background:var(--accent); color:var(--accent-ink); font-size:13px; font-weight:700;
+    display:flex; align-items:center; justify-content:center;}
+  .rapor-kart{display:flex; gap:18px; align-items:center; flex-wrap:wrap;
+    background:var(--surface); border:1px solid var(--line); border-radius:14px;
+    padding:20px; box-shadow:var(--shadow); margin-top:26px;}
+  .rapor-kart .metin{flex:1; min-width:220px;}
+  .rapor-kart h3{margin:0 0 6px; font-size:17px;}
+  .rapor-kart p{margin:0; color:var(--ink-2); font-size:14px; line-height:1.6;}
+  .rapor-kart .kucuk{margin-top:8px; font-size:12px; color:var(--ink-3);}
+  /* Zorunlu olmayan alanlar katlanıyor: form yedi alanlık görünmesin. */
+  .ek-alanlar{border:1px solid var(--line); border-radius:12px; background:var(--surface-2);}
+  .ek-alanlar summary{position:relative; cursor:pointer; padding:13px 34px 13px 16px;
+    font-size:14px; font-weight:600; color:var(--ink-2); list-style:none;}
+  .ek-alanlar summary::-webkit-details-marker{display:none;}
+  .ek-alanlar[open] summary{border-bottom:1px solid var(--line);}
+  .ek-alanlar > .field, .ek-alanlar > .row2{margin:14px 16px;}
+
   details .a p.formul{font-family:var(--mono); font-size:15px; color:var(--ink);
     background:var(--surface-2); border:1px solid var(--line); border-radius:9px;
     padding:13px 15px; align-self:flex-start;}
@@ -412,6 +436,25 @@
           açmayı unutma meselesi var. Akşam kapatılıp gece yarısı hâlâ kapalı duran mağaza az
           rastlanan bir şey değil.
         </p>
+      </div>
+
+      <!-- Örnek rapor ürünün en somut kanıtı ama yalnızca SSS'de gömülüydü.
+           Ana sayfada, problemin hemen ardında duruyor: "peki bunun bende ne
+           kadar olduğunu nereden bileceğim" sorusunun cevabı. -->
+      <div class="rapor-kart">
+        <div class="metin">
+          <h3>İlk hafta ne göreceksin</h3>
+          <p>
+            Debi ilk hafta hiçbir şeye dokunmadan yalnızca ölçüyor. Sonunda tek
+            sayfalık bir rapor çıkıyor: kaç ayrı yoğunlukta devreye girmek
+            gerekirdi, bu hangi saatlerde toplandı, o anlarda ne kadar ceza
+            riski birikti — hepsi kendi verinden.
+          </p>
+          <p class="kucuk">Sayıları temsilî, biçimi gerçek.</p>
+        </div>
+        <a class="btn btn-ghost" href="ornek-rapor.html" target="_blank" rel="noopener">
+          Örnek raporu aç
+        </a>
       </div>
     </div>
   </section>
@@ -1103,6 +1146,21 @@
         Sayıları temsilî, biçimi gerçek.
       </p>
     </div>
+
+    <!-- "Denemeyi başlat" düğmesine basınca ne olacağı belirsizdi: düğme
+         anında bir şey olacağını ima ediyor, gerçekte form bırakılıyor ve
+         kurulumu biz yapıyoruz. Adımları yazmak vaadi büyütmüyor, sadece
+         belirsizliği kaldırıyor. -->
+    <ol class="adimlar">
+      <li><b>Formu bırak.</b> İşletme adı ve e-posta yeterli.</li>
+      <li><b>Biz dönüyoruz.</b> Hangi platformlarda olduğunu ve mutfağın nasıl
+        çalıştığını konuşuyoruz.</li>
+      <li><b>Kurulumu uzaktan biz yapıyoruz.</b> Senin bir şey yüklemen
+        gerekmiyor; işletmede sürekli açık kalan bir bilgisayar yeterli.</li>
+      <li><b>İlk hafta sadece izliyor.</b> Debi hiçbir şeye dokunmadan ölçüyor;
+        haftanın sonunda raporu görüyorsun ve devam edip etmeyeceğine
+        karar veriyorsun.</li>
+    </ol>
     <div class="contact">
       <form class="form" id="basvuru" method="POST" novalidate>
         <div class="field">
@@ -1119,25 +1177,31 @@
             <input id="f-telefon" name="telefon" type="tel" autocomplete="tel">
           </div>
         </div>
-        <div class="row2">
-          <div class="field">
-            <label for="f-sehir">Şehir / ilçe</label>
-            <input id="f-sehir" name="sehir" type="text">
+        <!-- Zorunlu olan yalnızca ilk iki alan. Geri kalanı da eşit ağırlıkta
+             durunca form yedi alanlık görünüyordu. Alan silmiyoruz,
+             sıralıyoruz: veren veriyor, vermeyen formu terk etmiyor. -->
+        <details class="ek-alanlar">
+          <summary>İstersen şimdi doldur — konuşurken de sorabiliriz</summary>
+          <div class="row2">
+            <div class="field">
+              <label for="f-sehir">Şehir / ilçe</label>
+              <input id="f-sehir" name="sehir" type="text">
+            </div>
+            <div class="field">
+              <label for="f-siparis">Günlük ortalama sipariş</label>
+              <input id="f-siparis" name="gunluk_siparis" type="text" inputmode="numeric">
+            </div>
           </div>
           <div class="field">
-            <label for="f-siparis">Günlük ortalama sipariş</label>
-            <input id="f-siparis" name="gunluk_siparis" type="text" inputmode="numeric">
+            <label for="f-platform">Hangi platformlardan sipariş alıyorsun?</label>
+            <input id="f-platform" name="platformlar" type="text"
+                   placeholder="Uber Eats Trendyol Go, Yemeksepeti, kendi sitem…">
           </div>
-        </div>
-        <div class="field">
-          <label for="f-platform">Hangi platformlardan sipariş alıyorsun?</label>
-          <input id="f-platform" name="platformlar" type="text"
-                 placeholder="Uber Eats Trendyol Go, Yemeksepeti, kendi sitem…">
-        </div>
-        <div class="field">
-          <label for="f-not">Eklemek istediğin bir şey <span style="font-weight:400">(isteğe bağlı)</span></label>
-          <textarea id="f-not" name="mesaj"></textarea>
-        </div>
+          <div class="field">
+            <label for="f-not">Eklemek istediğin bir şey</label>
+            <textarea id="f-not" name="mesaj"></textarea>
+          </div>
+        </details>
 
         <!-- bot tuzagi: insan gormez, dolduran robottur -->
         <input type="checkbox" name="botcheck" tabindex="-1" aria-hidden="true"
