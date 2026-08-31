@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<meta name="description" content="Debi, restoran ve marketlerde yogun saatte siparis akisini kademe kademe kisarak gec teslimat ve iptal cezalarini olusmadan onler.">
+<meta name="description" content="Debi, restoran ve marketlerde yoğun saatte sipariş akışını kademe kademe kısarak geç teslimat ve iptal cezalarını oluşmadan önler.">
 <meta name="theme-color" content="#0B6E63">
 <link rel="canonical" href="https://getdebi.com/">
 <!-- Simge dosya olarak duruyor, yalnızca data URI olarak değil: mobil
@@ -25,7 +25,7 @@
 <meta property="og:image:width" content="600">
 <meta property="og:image:height" content="315">
 <meta property="og:image:type" content="image/png">
-<meta property="og:image:alt" content="Debi — yogun saatte siparis akisini otomatik kisar">
+<meta property="og:image:alt" content="Debi — yoğun saatte sipariş akışını otomatik kısar">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:image" content="https://getdebi.com/og.png">
 <title>Debi</title>
@@ -285,7 +285,8 @@
         </p>
         <p>
           Debi bu noktaya gelmeden devreye giriyor. Açık sipariş sayısını izliyor, eşiği aşınca
-          hazırlık ve teslimat sürelerini kademeli olarak uzatıyor. Gelen sipariş hızı düşüyor,
+          teslimat süresini kademeli olarak uzatıyor — siparişi Debi kabul ediyorsa hazırlık
+          süresini de. Gelen sipariş hızı düşüyor,
           mutfak açığı kapatıyor.
         </p>
         <p>
@@ -444,7 +445,7 @@
         Mağazan açık kaldığı için vazgeçmeyeni kaybetmiyorsun.
       </p>
       <p>
-        Debi'nin değiştirebildiği dört ayar var. Hepsi her restoranda açık değil; sistem hangisinin açık olduğunu
+        Debi'nin değiştirebildiği üç ayar var. Hepsi her restoranda açık değil; sistem hangisinin açık olduğunu
         deneyerek anlıyor ve elinde olmayanı zorlamıyor.
       </p>
     </div>
@@ -460,10 +461,6 @@
           <tr>
             <td>Teslimat süresi</td>
             <td>Mağazanın ilan ettiği teslimat aralığı yükseltilir. Kendi kuryesiyle çalışan restoranlarda geçerlidir.</td>
-          </tr>
-          <tr>
-            <td>Teslimat bölgesi</td>
-            <td>Yoğunlukta uzak bölgeler geçici olarak daraltılır; gelen sipariş azalır ve kalanlar daha yakın olur. Kendi kuryesiyle çalışan restoranlarda geçerlidir.</td>
           </tr>
           <tr>
             <td>Mağaza durumu</td>
@@ -586,15 +583,15 @@
               <strong>Hazırlık süresi</strong> ve <strong>mağaza aç/kapa.</strong>
               En etkilisi hazırlık süresi: siparişi kabul ederken bildiriliyor, böylece kurye
               kapıda beklemiyor ve müşterinin gördüğü teslimat süresi uzuyor. Kendi kuryenle
-              çalışıyorsan teslimat süresi ve bölgesi de ekleniyor.
+              çalışıyorsan teslimat süresi de ekleniyor.
             </td>
           </tr>
           <tr>
             <td>Kendi siten · QR · POS</td>
             <td><span class="durum hazir">Hazır</span></td>
             <td>
-              Hepsi. Senin kontrol ettiğin sistem olduğu için kısıt yok. Kendi market siten de
-              buraya giriyor.
+              Teslimat süresi ve mağaza aç/kapa. Sistem senin kontrolünde olduğu için kademeler
+              eksiksiz işliyor. Kendi market siten de buraya giriyor.
             </td>
           </tr>
           <tr>
@@ -886,8 +883,8 @@
             İkincisi <strong>mağaza durumu</strong>. Süre optimizasyonu yetmezse sipariş alımı durduruluyor.
           </p>
           <p>
-            Kendi kuryenle çalışıyorsan bunlara teslimat süresi ve teslimat bölgesi de ekleniyor.
-            O zaman daha ince ayar yapabiliyorsun.
+            Kendi kuryenle çalışıyorsan bunlara teslimat süresi de ekleniyor. O zaman daha ince
+            ayar yapabiliyorsun.
           </p>
         </div>
       </details>
@@ -1071,8 +1068,8 @@
       <h1>İlk ay bizden</h1>
       <p>
         Bir ay boyunca ücret almıyoruz. İlk hafta yalnızca izliyor, yani hiçbir şeye
-        dokunmadan sadece ölçüyor. Sonrasında Debi gerçekten devreye giriyor. Ayın sonunda potansiyel
-        olarak ne kadar cezadan kurtulabileceğini kendin görürsün.
+        dokunmadan sadece ölçüyor. Sonrasında Debi gerçekten devreye giriyor. Ayın sonunda ne kadar
+        cezanın önlenebileceğini kendi rakamlarınla görürsün.
       </p>
       <p>
         İlk haftanın sonunda eline geçecek belgeyi şimdiden görebilirsin:
@@ -1405,7 +1402,7 @@
     return (v && v.trim()) || fallback;
   }
 
-  var MAX_OPEN = 12, REOPEN = 7, CAPACITY = 2.1, BASE_IN = 3.0, DAMPING = 0.62, MIN_STEP = 2;
+  var MAX_OPEN = 12, REOPEN = 8, CAPACITY = 2.1, BASE_IN = 3.0, DAMPING = 0.62, MIN_STEP = 2;
   // Barın tavanı eşiğin iki katı: eşik tam ortada işaretli duruyor ve sayaç
   // eşiği aştığında bar tıkanmak yerine ilerlemeye devam ediyor.
   var GAUGE_MAX = MAX_OPEN * 2;
