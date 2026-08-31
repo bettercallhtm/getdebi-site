@@ -14,7 +14,11 @@
  .grid{display:grid;gap:12px;grid-template-columns:1fr 1fr;margin-bottom:24px}
  @media(min-width:640px){.grid{grid-template-columns:repeat(4,1fr)}}
  .k{border:1px solid var(--line);border-radius:11px;padding:14px;background:var(--soft)}
- .k .l{font-size:11px;text-transform:uppercase;letter-spacing:.08em;color:var(--ink3)}
+ /* min-height: etiketlerin biri iki satira sariyor ("sure optimizasyonu tek
+    basina yetmezdi"); sabit yukseklik olmadan o kutunun rakami digerlerinden
+    bir satir asagi kayiyor. */
+ .k .l{font-size:11px;text-transform:uppercase;letter-spacing:.08em;
+        color:var(--ink3);min-height:2.4em}
  .k .v{font-size:26px;font-weight:700;margin:6px 0 2px;letter-spacing:-.02em}
  .k .a{font-size:12px;color:var(--ink3)}
  table{width:100%;border-collapse:collapse;font-size:15px;margin-bottom:24px}
@@ -37,7 +41,7 @@ izleme haftası · hiçbir şey uygulanmadı</div>
 <div class="grid"><div class="k"><div class="l">Yoğunluk dönemi</div><div class="v">19</div><div class="a">günde ortalama 2,7</div></div>
 <div class="k"><div class="l">Ceza riski</div><div class="v">6.409 TL</div><div class="a">platform başına ayrı tarife</div></div>
 <div class="k"><div class="l">En yüksek yük</div><div class="v">26</div><div class="a">açık sipariş</div></div>
-<div class="k"><div class="l">Kapatma gerekirdi</div><div class="v">13</div><div class="a">ayrı yoğunluk döneminde</div></div></div>
+<div class="k"><div class="l">Süre optimizasyonu tek başına yetmezdi</div><div class="v">13</div><div class="a">dönemde — üst sınır</div></div></div>
 
 <div class="grafik">
   <div class="gb">Gün içinde baskı — en yüksek açık sipariş sayısı</div>
@@ -55,7 +59,7 @@ izleme haftası · hiçbir şey uygulanmadı</div>
  <tr><td>Baskının yoğunlaştığı saatler</td><td>20:00, 13:00, 21:00</td></tr>
  <tr><td>En yoğun gün</td><td>Cuma</td></tr>
 </table>
-<div class="uyari">Bu rakam ölçüm değil, risk dökümüdür. İzleme haftasında hiçbir şey uygulanmadı; Debi devrede olsaydı bu anlarda süreler uzatılacaktı.</div>
+<div class="uyari">Bu rakam ölçüm değil, risk dökümüdür. İzleme haftasında hiçbir şey uygulanmadı; Debi devrede olsaydı bu anlarda süreler uzatılacaktı. Süreler gerçekten uzatılsaydı gelen sipariş hızı düşecekti; bu dönemlerin bir kısmı kapatmaya hiç ulaşmazdı — yukarıdaki sayı bir tahmin değil, üst sınır.</div>
 <div class="alt">Debi · getdebi.com — Kayıtlar 334 olaydan üretildi.
 Kişisel veri içermez.</div>
 </div></body></html>
