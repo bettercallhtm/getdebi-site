@@ -404,9 +404,9 @@
 
     <div class="steps">
       <div class="step s0"><span class="k">kademe 0</span><span>Normal. Hiçbir şeye dokunulmuyor.</span></div>
-      <div class="step st"><span class="k">kademe 1</span><span>%34 yavaşlatma. Süreler biraz uzuyor, akış hafif kısılıyor.</span></div>
-      <div class="step st"><span class="k">kademe 2</span><span>%67 yavaşlatma. Uzun süre gören müşterilerin bir kısmı vazgeçiyor.</span></div>
-      <div class="step st"><span class="k">kademe 3</span><span>%100 yavaşlatma. En yüksek kademe. Mağaza hâlâ açık, sipariş gelmeye devam ediyor.</span></div>
+      <div class="step st"><span class="k">kademe 1</span><span>%34. Tahmini teslimat süresi biraz uzuyor, akış hafif kısılıyor.</span></div>
+      <div class="step st"><span class="k">kademe 2</span><span>%67. Uzun süre gören müşterilerin bir kısmı vazgeçiyor.</span></div>
+      <div class="step st"><span class="k">kademe 3</span><span>%100. En yüksek kademe. Mağaza hâlâ açık, sipariş gelmeye devam ediyor.</span></div>
       <div class="step sc"><span class="k">kapalı</span><span>Son çare. Bu kademeyi tamamen kapatabilirsin, o zaman mağaza hiç kapanmaz.</span></div>
     </div>
 
@@ -436,7 +436,7 @@
     </figure>
 
     <div class="prose">
-      <h2>Yavaşlatma ne demek</h2>
+      <h2>Tahmini teslimat süresi optimizasyonu ne demek</h2>
       <p>
         Sipariş platformlarında "kapasite" diye ayarlayabileceğin bir alan yok. Elindeki şey süreler.
         Hazırlık süresini uzattığında müşterinin gördüğü teslimat süresi artıyor, uzun süre gören
@@ -477,7 +477,7 @@
       <h2>Mağaza açılırken</h2>
       <p>
         Mağaza kapalıyken kuyruk erir. Açıldığı anda bütün süreleri normale çekersen kuyruk birkaç
-        dakika içinde tekrar dolar. Debi kapalıdan çıkarken en yüksek yavaşlatma kademesine dönüyor,
+        dakika içinde tekrar dolar. Debi kapalıdan çıkarken en yüksek optimizasyon kademesine dönüyor,
         sonra yük düştükçe gevşetiyor.
       </p>
       <h2 style="margin-top:12px">Yük tek yerden sayılır</h2>
@@ -611,7 +611,7 @@
             <td><span class="durum yolda">Yolda</span></td>
             <td>
               Bağlantı hazır, Yemeksepeti hesabından alınacak erişim bilgilerini bekliyor.
-              Buradaki tek fark: <strong>Yemeksepeti'nde yavaşlatma yok, sadece aç/kapa var.</strong>
+              Buradaki tek fark: <strong>Yemeksepeti'nde süre optimizasyonu yok, sadece aç/kapa var.</strong>
               Yoğunlukta süreyi uzatmak yerine mağaza kısa süreliğine kapanıp açılıyor.
             </td>
           </tr>
@@ -674,13 +674,13 @@
     </div>
     <div class="faq">
       <details>
-        <summary>Yavaşlatınca sipariş kaybetmiyor muyum?</summary>
+        <summary>Süreler uzayınca sipariş kaybetmiyor muyum?</summary>
         <div class="a">
           <p>
             Evet, bir miktar sipariş kaybediyorsun. Ama hangi siparişleri kaybettiğine bakmak gerek.
           </p>
           <p>
-            Yavaşlatma sadece mutfak dolduğunda devreye giriyor. O anda gelen siparişi kabul edersen
+            Optimizasyon sadece mutfak dolduğunda devreye giriyor. O anda gelen siparişi kabul edersen
             ne oluyor: geç çıkıyor, ceza yazılıyor, müşteri de memnun kalmıyor. Ya da iptal ediyorsun,
             onun da cezası var. Yani karşılaştırma "sipariş almak" ile "almamak" arasında değil.
             Cezasını ödeyeceğin bir sipariş ile hiç gelmeyen bir sipariş arasında.
@@ -840,7 +840,7 @@
         </div>
       </details>
       <details>
-        <summary>"%34 yavaşlatma" tam olarak ne demek?</summary>
+        <summary>Kademelerdeki "%34" tam olarak ne demek?</summary>
         <div class="a">
           <p>
             Buradaki yüzde, <strong>siparişin ne kadar azalacağı değil.</strong> Frenin ne kadar
@@ -883,7 +883,7 @@
             müşterinin gördüğü teslimat süresi uzuyor, akış kısılıyor.
           </p>
           <p>
-            İkincisi <strong>mağaza durumu</strong>. Yavaşlatma yetmezse sipariş alımı durduruluyor.
+            İkincisi <strong>mağaza durumu</strong>. Süre optimizasyonu yetmezse sipariş alımı durduruluyor.
           </p>
           <p>
             Kendi kuryenle çalışıyorsan bunlara teslimat süresi ve teslimat bölgesi de ekleniyor.
@@ -958,7 +958,7 @@
       <details>
         <summary>Mağazam hiç kapanmasın istiyorum, mümkün mü?</summary>
         <div class="a">
-          <p>Evet. Kapatma kademesini tamamen kapatabilirsin. Sistem o zaman en fazla yavaşlatmaya çıkıyor, mağazayı hiçbir durumda sipariş alımına kapatmıyor.</p>
+          <p>Evet. Kapatma kademesini tamamen kapatabilirsin. Sistem o zaman en yüksek optimizasyon kademesine çıkıyor, mağazayı hiçbir durumda sipariş alımına kapatmıyor.</p>
         </div>
       </details>
       <details>
@@ -1431,7 +1431,7 @@
     elFill.style.background = colour;
     elVerb.style.color = colour;
     elVerb.textContent = closed ? "KAPALI"
-      : (level === 0 ? "AÇIK" : "YAVAŞLAT %" + Math.round(throttleOf(level) * 100));
+      : (level === 0 ? "AÇIK" : "OPTİMİZE %" + Math.round(throttleOf(level) * 100));
     var active = closed ? 4 : level;
     rungs.forEach(function(r){
       r.classList.toggle("on", Number(r.getAttribute("data-rung")) === active);
@@ -1448,7 +1448,7 @@
     if (closed) {
       if (open <= REOPEN) {
         closed = false; level = 3; hold = MIN_STEP;
-        log("Kuyruk eridi. Mağaza açıldı, süreler en yüksek yavaşlatmada tutuluyor.");
+        log("Kuyruk eridi. Mağaza açıldı, süreler en yüksek kademede tutuluyor.");
       } else {
         log("Kapalı. Kuyruk eriyor; " + REOPEN + " siparişe inince açılacak.");
       }
@@ -1457,14 +1457,14 @@
         if (level < 3) {
           level++; hold = MIN_STEP;
           log("Yük yüksek — kademe " + level + " (%" + Math.round(throttleOf(level) * 100) +
-              " yavaşlatma). Süreler uzatıldı.");
+              "). Tahmini teslimat süresi uzatıldı.");
         } else {
           closed = true; hold = MIN_STEP;
-          log("Azami yavaşlatma yetmedi. Son çare: mağaza sipariş alımına kapatıldı.");
+          log("En yüksek kademe yetmedi. Son çare: mağaza sipariş alımına kapatıldı.");
         }
       } else if (open <= REOPEN && level > 0) {
         level--; hold = MIN_STEP;
-        log(level === 0 ? "Yük normale döndü. Yavaşlatma kaldırıldı."
+        log(level === 0 ? "Yük normale döndü. Süreler normale çekildi."
                         : "Yük düştü — kademe " + level + " (%" + Math.round(throttleOf(level) * 100) + ").");
       } else if (level === 0) {
         log("Yük normal. Sipariş akışına dokunulmuyor.");
@@ -1485,7 +1485,7 @@
 
   if (reduced) {
     open = 12; level = 2;
-    log("Yük yüksek — kademe 2 (%67 yavaşlatma). Süreler uzatıldı.");
+    log("Yük yüksek — kademe 2 (%67). Tahmini teslimat süresi uzatıldı.");
   }
   paint();
 
