@@ -711,10 +711,10 @@
   <!-- guvenlik -->
   <section class="page" data-page="/guvenlik">
     <div class="page-head">
-      <h1>Güvenlik önlemleri</h1>
+      <h1>Güvenlik ve gizlilik</h1>
       <p>
-        Mağazayı kapatabilen bir yazılımın yapabileceği en kötü hata, onu kapalı unutmak. Aşağıdaki
-        önlemler bunun için var.
+        Mağazayı kapatabilen bir yazılımın yapabileceği en kötü hata, onu kapalı unutmak. Önce
+        bunun önlemleri; ardından verilerinizin nerede durduğu.
       </p>
     </div>
     <div class="safety">
@@ -746,6 +746,83 @@
         <h3>Kişisel veri sınırda kalır</h3>
         <p>Platformdan gelen sipariş bilgisinde müşterinin adı, telefonu ve adresi var. Bunlar sisteme girmeden ayıklanıyor. Kayıtlara sadece sipariş numarası, durumu, saati ve ürün adedi yazılıyor.</p>
       </div>
+    </div>
+
+    <!-- Gizlilik politikası. Ayrı bir sayfa değil, bilerek: restoranın
+         "bu güvenli mi, verime ne oluyor" sorusu tek soru, cevabı da tek
+         yerde dursun. App Store ve Google Play gönderim formlarına verilecek
+         adres: https://getdebi.com/#/guvenlik -->
+    <div class="prose" style="margin-top:clamp(34px,5vw,52px)">
+      <h2 id="gizlilik">Gizlilik politikası</h2>
+      <p class="kvkk" style="margin-bottom:18px">Son güncelleme: 3 Eylül 2026</p>
+
+      <p>
+        <strong>Kısa hâli:</strong> Debi sizin bilgisayarınızda çalışır. Sipariş verileriniz bizim
+        sunucumuza gelmez. Telefon uygulaması hiçbir veri toplamaz, reklam ve analiz aracı
+        içermez, hesap açmanızı istemez.
+      </p>
+      <p>
+        Bu bölüm üç şeyi kapsıyor: işletmenizdeki bilgisayarda çalışan <strong>Debi
+        programı</strong>, App Store ve Google Play'den kurulan <strong>telefon
+        uygulaması</strong> ve bu sitedeki iletişim formu.
+      </p>
+
+      <h3>Telefon uygulaması</h3>
+      <p>
+        Uygulama hakkınızda hiçbir veri toplamıyor ve hiçbir yere göndermiyor. İçinde reklam ağı,
+        analiz aracı, çökme raporlayıcı ya da izleme kodu yok. Hesap açma ve giriş yok.
+      </p>
+      <p>
+        Bağlandığı tek adres <strong>sizin işletmenizdeki bilgisayar</strong>, sizin kendi ağınızın
+        içinden. Başka hiçbir yere bağlanmıyor — bizim sunucumuz dahil. Adresi ve parolayı siz
+        giriyorsunuz.
+      </p>
+      <p>
+        Telefonda saklanan tek şey bu ikisi: bilgisayarın ağ adresi ve bağlantı parolası. İşletim
+        sisteminin güvenli deposunda tutuluyorlar (iPhone'da Keychain, Android'de Keystore).
+        Ekranda gördüğünüz sipariş sayıları ve kararlar telefona kaydedilmiyor; uygulamayı
+        kapattığınızda gidiyorlar. <strong>Çıkış yap</strong> saklanan adresi ve parolayı siler;
+        uygulamayı kaldırmak da aynı sonucu verir.
+      </p>
+      <p>
+        Müşteri bilgisi telefona hiç ulaşmıyor. Platformdan gelen sipariş kaydındaki ad, telefon,
+        adres ve konum Debi'ye girmeden sınırda ayıklanıyor; uygulamanın gördüğü şey sayılardan
+        ibaret.
+      </p>
+      <p>
+        İstenen tek izin <strong>yerel ağ erişimi</strong>, tek sebebi aynı ağdaki bilgisayarınıza
+        bağlanabilmesi. Konum, kişiler, kamera, mikrofon ve fotoğraf izni istenmiyor.
+      </p>
+
+      <h3>Debi programı</h3>
+      <p>
+        Program işletmenizdeki bilgisayarda çalışıyor ve verisini o diskte tutuyor: ayarlar, olay
+        kaydı ve platform bağlantı bilgileri. Bunların hiçbiri bize gönderilmiyor. Bağlantı
+        bilgileriniz yalnızca o bilgisayardaki ayar dosyasında duruyor; program onlarla doğrudan
+        platformların kendi resmî bağlantılarına gidiyor, arada bizim sunucumuz yok.
+      </p>
+      <p>
+        Olay kaydı 90 gün saklanıyor ve içinde müşteri bilgisi bulunmuyor. Debi'yi kaldırmak ya da
+        veri klasörünü silmek bu kayıtları siler; bizde bir kopyası yok.
+      </p>
+
+      <h3>İletişim formu</h3>
+      <p>
+        Bu sitedeki formu doldurursanız verdiğiniz bilgiler yalnızca size dönüş yapmak için
+        kullanılır; pazarlama amacıyla kimseye satılmaz, verilmez. Formu bize ulaştıran e-posta
+        servisi dışında üçüncü kişiye aktarılmaz. Silinmesini istediğiniz an
+        <a href="mailto:info@getdebi.com">info@getdebi.com</a> adresine yazmanız yeterli.
+      </p>
+
+      <h3>Çocuklar ve değişiklikler</h3>
+      <p>
+        Debi işletmelere yönelik bir üründür, çocuklara yönelik değildir ve çocuklardan bilerek
+        veri toplamaz. Bu politika değişirse yukarıdaki tarih güncellenir; uygulamanın veri
+        davranışını değiştiren bir güncelleme yaparsak ayrıca duyururuz.
+      </p>
+      <p>
+        Gizlilikle ilgili her soru için: <a href="mailto:info@getdebi.com">info@getdebi.com</a>
+      </p>
     </div>
   </section>
 
@@ -1139,7 +1216,7 @@
             sipariş numarası, durumu, saati ve ürün adedi düşüyor.
           </p>
           <p>
-            Ayrıntılı anlatımı <a href="gizlilik.html">Gizlilik Politikası</a> sayfasında.
+            Ayrıntılı anlatımı <a href="#/guvenlik">Güvenlik ve gizlilik</a> sayfasında.
           </p>
         </div>
       </details>
@@ -1307,11 +1384,7 @@
 <footer>
   <div class="wrap foot">
     <p>Debi · Sipariş Akışı Kontrolü</p>
-    <!-- Gizlilik politikası ayrı bir dosya, sayfa yönlendiricisine dahil
-         değil: App Store ve Google Play gönderim formu sabit bir adres
-         istiyor ve karma (#) adresler oralarda güvenilir çalışmıyor. -->
     <nav id="foot-nav"></nav>
-    <p><a href="gizlilik.html">Gizlilik Politikası</a></p>
   </div>
 </footer>
 
@@ -1324,7 +1397,7 @@
     {path:"/nasil-calisir", label:"Nasıl Çalışır", title:"Nasıl Çalışır"},
     {path:"/neden",         label:"Neden",         title:"Neden bu işi yapıyoruz"},
     {path:"/platformlar",   label:"Platformlar",   title:"Platformlar"},
-    {path:"/guvenlik",      label:"Güvenlik",      title:"Güvenlik"},
+    {path:"/guvenlik",      label:"Güvenlik",      title:"Güvenlik ve gizlilik"},
     {path:"/sss",           label:"SSS",           title:"Sık sorulan sorular"},
     {path:"/iletisim",      label:"İletişim",      title:"İletişim"},
 
