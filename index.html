@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<meta name="description" content="Debi, restoran ve marketlerde yoğun saatte sipariş akışını kademe kademe kısarak geç teslimat ve iptal cezalarını oluşmadan önler.">
+<meta name="description" content="Debi, Uber Eats, GetirYemek ve Yemeksepeti siparişleri mutfağı zorladığında gecikme, iptal ve ceza riskini azaltır.">
 <meta name="theme-color" content="#0B6E63">
 <link rel="canonical" href="https://getdebi.com/">
 <!-- Simge dosya olarak duruyor, yalnızca data URI olarak değil: mobil
@@ -17,18 +17,18 @@
 
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="Debi">
-<meta property="og:title" content="Debi — Sipariş Akışı Kontrolü">
-<meta property="og:description" content="Debi, restoran ve marketlerde yogun saatte siparis akisini kademe kademe kisarak gec teslimat ve iptal cezalarini olusmadan onler.">
+<meta property="og:title" content="Debi — Yoğun saatlerin cezası kârınızdan çıkmasın">
+<meta property="og:description" content="Uber Eats, GetirYemek ve Yemeksepeti siparişleri mutfağı zorladığında Debi gecikme, iptal ve ceza riskini azaltır.">
 <meta property="og:url" content="https://getdebi.com/">
 <meta property="og:locale" content="tr_TR">
 <meta property="og:image" content="https://getdebi.com/og.png">
 <meta property="og:image:width" content="600">
 <meta property="og:image:height" content="315">
 <meta property="og:image:type" content="image/png">
-<meta property="og:image:alt" content="Debi — yoğun saatte sipariş akışını otomatik kısar">
+<meta property="og:image:alt" content="Debi — yoğun saatlerde mutfak yükünü dengeler">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:image" content="https://getdebi.com/og.png">
-<title>Debi</title>
+<title>Debi — Yoğun saatlerin cezası kârınızdan çıkmasın</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap">
@@ -158,9 +158,12 @@
 
   /* sekiller */
   .fig{margin:0; display:flex; flex-direction:column; gap:11px;}
-  /* Dar ekranda kucultup okunmaz hale getirmek yerine kendi kabinda kaydir. */
+  /* Ayrintili semalar dar ekranda kendi kabinda kayabilir. */
   .fig-scroll{overflow-x:auto; border:1px solid var(--line); border-radius:12px; background:var(--surface);}
   .fig svg{display:block; width:100%; min-width:600px; height:auto; color:var(--ink-2);}
+  /* Ana sayfa ozeti tek bakista gorulsun; yatay kaydirma istemesin. */
+  .capacity-chart .fig-scroll{overflow:hidden;}
+  .capacity-chart svg{min-width:0; width:100%;}
   .n-box{fill:var(--surface-2); stroke:currentColor; stroke-width:1;}
   .n-key{fill:var(--accent-soft); stroke:var(--accent); stroke-width:1.4;}
   .n-frame{fill:none; stroke:currentColor; stroke-width:1; stroke-dasharray:3 4; opacity:.5;}
@@ -235,6 +238,69 @@
   .rapor-kart h3{margin:0 0 6px; font-size:17px;}
   .rapor-kart p{margin:0; color:var(--ink-2); font-size:14px; line-height:1.6;}
   .rapor-kart .kucuk{margin-top:8px; font-size:12px; color:var(--ink-3);}
+  /* yeni ana sayfa: para odaklı anlatı, gerçek ürün görüntüsü */
+  .eyebrow{font-family:var(--mono); font-size:11px; font-weight:600; letter-spacing:.1em;
+    text-transform:uppercase; color:var(--accent);}
+  .hero-note{font-size:13px; color:var(--ink-3);}
+  .platform-line{display:flex; flex-wrap:wrap; gap:7px; margin-top:5px;}
+  .platform-line span{font-size:12px; font-weight:600; color:var(--ink-2); background:var(--surface);
+    border:1px solid var(--line); border-radius:999px; padding:5px 9px;}
+  .home-stack{margin-top:clamp(42px,7vw,76px); display:flex; flex-direction:column;
+    gap:clamp(44px,7vw,78px);}
+  .section-block{display:flex; flex-direction:column; gap:20px;}
+  .section-head{max-width:62ch; display:flex; flex-direction:column; gap:8px;}
+  .section-head p{color:var(--ink-2);}
+  .outcome-grid{display:grid; gap:12px;}
+  .outcome-card{background:var(--surface); border:1px solid var(--line); border-radius:13px;
+    padding:19px; box-shadow:var(--shadow);}
+  .outcome-card .no{font-family:var(--mono); font-size:11px; color:var(--accent); margin-bottom:8px;}
+  .outcome-card h3{font-size:17px; margin-bottom:6px;}
+  .outcome-card p{font-size:14px; color:var(--ink-2);}
+  .money-band{background:var(--accent); color:var(--accent-ink); border-radius:16px;
+    padding:clamp(22px,4vw,34px); display:grid; gap:20px; align-items:center;}
+  .money-band h2{font-size:clamp(22px,3vw,30px);}
+  .money-band p{opacity:.86; margin-top:8px; max-width:58ch;}
+  .money-points{display:grid; grid-template-columns:repeat(3,1fr); gap:8px;}
+  .money-points span{border:1px solid color-mix(in srgb, var(--accent-ink) 35%, transparent);
+    border-radius:10px; padding:11px; font-size:13px; font-weight:600; text-align:center;}
+  .product-pair{display:grid; gap:24px; align-items:center;}
+  .role-list{display:grid; gap:10px; margin-top:14px;}
+  .role{display:grid; grid-template-columns:34px 1fr; gap:10px; align-items:start;}
+  .role b{width:28px; height:28px; display:grid; place-items:center; border-radius:8px;
+    background:var(--accent-soft); color:var(--accent); font-family:var(--mono); font-size:12px;}
+  .role p{font-size:14px; color:var(--ink-2);}
+  .phone-shots{display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:10px;
+    max-width:520px; margin-inline:auto;}
+  .phone-shots figure{margin:0; min-width:0;}
+  .phone-shots img{display:block; width:100%; height:auto; border-radius:18px;
+    border:1px solid var(--line); box-shadow:var(--shadow);}
+  .phone-shots figcaption{font-size:11px; color:var(--ink-3); margin-top:7px; text-align:center;}
+  .trial-flow{display:grid; gap:10px; counter-reset:ay;}
+  .trial-step{background:var(--surface); border:1px solid var(--line); border-radius:12px;
+    padding:16px; display:grid; grid-template-columns:34px 1fr; gap:10px;}
+  .trial-step::before{counter-increment:ay; content:counter(ay); width:27px; height:27px;
+    display:grid; place-items:center; border-radius:50%; background:var(--accent); color:var(--accent-ink);
+    font-family:var(--mono); font-size:12px; font-weight:600;}
+  .trial-step p{font-size:13.5px; color:var(--ink-2); margin-top:3px;}
+  .proof-row{display:grid; gap:12px;}
+  .proof-card{background:var(--surface-2); border:1px solid var(--line); border-radius:12px; padding:17px;}
+  .proof-card h3{margin-bottom:5px;}
+  .proof-card p{font-size:14px; color:var(--ink-2);}
+  .final-cta{background:var(--surface); border:1px solid var(--line); border-radius:16px;
+    box-shadow:var(--shadow); padding:clamp(22px,4vw,34px); display:flex; flex-wrap:wrap;
+    gap:20px; justify-content:space-between; align-items:center;}
+  .final-cta > div{max-width:58ch;}
+  .final-cta p{color:var(--ink-2); margin-top:7px;}
+  @media(min-width:720px){
+    .outcome-grid,.proof-row{grid-template-columns:repeat(3,1fr);}
+    .trial-flow{grid-template-columns:repeat(4,1fr);}
+    .money-band{grid-template-columns:1.35fr .65fr;}
+  }
+  @media(min-width:860px){.product-pair{grid-template-columns:1fr 1fr;}}
+  @media(max-width:520px){
+    .money-points{grid-template-columns:1fr;}
+    .phone-shots{gap:7px;}
+  }
   /* Zorunlu olmayan alanlar katlanıyor: form yedi alanlık görünmesin. */
   .ek-alanlar{border:1px solid var(--line); border-radius:12px; background:var(--surface-2);}
   .ek-alanlar summary{position:relative; cursor:pointer; padding:13px 34px 13px 16px;
@@ -326,29 +392,31 @@
   <section class="page" data-page="/">
     <div class="hero">
       <div class="prose">
-        <h1>Yoğun saatte sipariş akışını otomatik kısar.</h1>
+        <p class="eyebrow">Restoran ve marketler için</p>
+        <h1>Yoğun saatlerin cezası kârınızdan çıkmasın.</h1>
         <p class="lead">
-          Cuma akşamı 20:30. Mutfakta 14 açık sipariş var, çoğu son yirmi dakikada düştü. Bir kısmı
-          geç çıkacak, bir kısmını iptal etmek zorunda kalacaksınız. İkisinin de cezası yazılıyor.
+          Uber Eats, GetirYemek ve Yemeksepeti siparişleri aynı anda mutfağı
+          doldurduğunda Debi yükü erkenden fark eder. Gecikme, iptal ve iade
+          riskini azaltmak için sipariş hızını mutfağınızın kaldırabileceği
+          seviyede tutar.
         </p>
         <p>
-          Debi bu noktaya gelmeden devreye giriyor. Açık sipariş sayısını izliyor, eşiği aşınca
-          teslimat süresini kademeli olarak uzatıyor — siparişi Debi kabul ediyorsa hazırlık
-          süresini de. Gelen sipariş hızı düşüyor,
-          mutfak açığı kapatıyor.
-        </p>
-        <p>
-          Mağazayı kapatmak en son yaptığı şey. Kapalı mağaza ceza almaz ama sipariş de almaz.
+          Yoğunluk bitince ayarları geri alır. Mağazayı durdurmak son çaredir;
+          isterseniz bu seçeneği tamamen kapatabilirsiniz.
         </p>
         <div class="cta-row">
-          <a class="btn btn-primary" href="#/deneme">Ücretsiz denemeyi başlat</a>
-          <a class="btn btn-ghost" href="#/nasil-calisir">Nasıl çalıştığını gör</a>
+          <a class="btn btn-primary" href="#/deneme">1 ay ücretsiz deneyin</a>
+          <a class="btn btn-ghost" href="ornek-rapor.html" target="_blank" rel="noopener">Örnek sonucu görün</a>
+        </div>
+        <p class="hero-note">İlk 7 gün yalnızca ölçüm. Onayınız olmadan hiçbir ayar değişmez.</p>
+        <div class="platform-line" aria-label="Desteklenen sipariş kanalları">
+          <span>Uber Eats</span><span>GetirYemek</span><span>Yemeksepeti</span><span>Site · QR · POS</span>
         </div>
       </div>
 
       <div class="gauge" id="gauge" aria-label="Canlı yoğunluk göstergesi">
         <div class="gauge-head">
-          <span class="lbl">Canlı gösterim</span>
+          <span class="lbl">Yoğun saat örneği</span>
           <span class="verb" id="g-verb">AÇIK</span>
         </div>
         <div class="gauge-body">
@@ -358,956 +426,317 @@
           </div>
           <div>
             <div class="track"><div class="fill" id="g-fill"></div><i class="track-mark" id="g-mark"></i></div>
-            <div class="track-cap"><span>0</span><span>devreye girme eşiği 12</span><span>24</span></div>
+            <div class="track-cap"><span>0</span><span>Devreye girme eşiği 12</span><span>24</span></div>
           </div>
         </div>
         <div class="ladder" id="g-ladder">
-          <div class="rung z" data-rung="0">normal</div>
-          <div class="rung" data-rung="1">%34</div>
-          <div class="rung" data-rung="2">%67</div>
-          <div class="rung" data-rung="3">%100</div>
-          <div class="rung c" data-rung="4">kapalı</div>
+          <div class="rung z" data-rung="0">Normal</div>
+          <div class="rung" data-rung="1">Hafif</div>
+          <div class="rung" data-rung="2">Orta</div>
+          <div class="rung" data-rung="3">Güçlü</div>
+          <div class="rung c" data-rung="4">Duraklat</div>
         </div>
         <div class="gauge-log" id="g-log">Yük normal. Sipariş akışına dokunulmuyor.</div>
       </div>
     </div>
 
-    <div style="margin-top:clamp(38px,5.5vw,58px); display:flex; flex-direction:column; gap:26px">
-      <figure class="fig">
-        <div class="fig-scroll"><svg viewBox="0 0 730 300" role="img" aria-label="Platformlardan gelen siparişler Debi üzerinden mutfağa geçer; Debi mutfaktaki açık sipariş sayısını ölçer ve platformlara hazırlık ile teslimat süresini uzatarak geri baskı uygular.">
-          <defs>
-            <marker id="ar" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
-              <path d="M0,1 L9,5 L0,9 z" fill="currentColor"></path>
-            </marker>
-            <marker id="ar-a" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
-              <path d="M0,1 L9,5 L0,9 z" fill="var(--accent)"></path>
-            </marker>
-          </defs>
-
-          <rect class="n-frame" x="14" y="94" width="162" height="126" rx="10"></rect>
-          <rect class="n-box" x="24" y="102" width="142" height="34" rx="7"></rect>
-          <text class="n-t" x="95" y="117" text-anchor="middle">Uber Eats</text>
-          <text class="n-s" x="95" y="129" text-anchor="middle">Trendyol Go</text>
-          <rect class="n-box" x="24" y="144" width="142" height="34" rx="7"></rect>
-          <text class="n-t" x="95" y="165" text-anchor="middle">Yemeksepeti</text>
-          <rect class="n-box" x="24" y="186" width="142" height="34" rx="7"></rect>
-          <text class="n-t" x="95" y="207" text-anchor="middle">Kendi siteniz · QR</text>
-
-          <line class="n-line" x1="176" y1="119" x2="296" y2="156" marker-end="url(#ar)"></line>
-          <line class="n-line" x1="176" y1="161" x2="296" y2="161" marker-end="url(#ar)"></line>
-          <line class="n-line" x1="176" y1="203" x2="296" y2="166" marker-end="url(#ar)"></line>
-
-          <rect class="n-key" x="300" y="126" width="130" height="70" rx="9"></rect>
-          <text class="n-t" x="365" y="155" text-anchor="middle">Debi</text>
-          <text class="n-s" x="365" y="172" text-anchor="middle">kademe 0–3</text>
-
-          <line class="n-line" x1="430" y1="161" x2="566" y2="161" marker-end="url(#ar)"></line>
-          <text class="n-l" x="498" y="152" text-anchor="middle">sipariş</text>
-
-          <rect class="n-box" x="570" y="126" width="146" height="70" rx="9"></rect>
-          <text class="n-t" x="643" y="155" text-anchor="middle">Mutfak</text>
-          <text class="n-s" x="643" y="172" text-anchor="middle">kapasite sabit</text>
-
-          <path class="n-ctrl" d="M365,124 L365,60 L95,60 L95,92" marker-end="url(#ar-a)"></path>
-          <text class="n-ac" x="230" y="43" text-anchor="middle">hazırlık ve teslimat süresi ↑</text>
-
-          <path class="n-line" d="M643,198 L643,268 L365,268 L365,200" marker-end="url(#ar)"></path>
-          <text class="n-l" x="504" y="284" text-anchor="middle">açık sipariş sayısı</text>
-        </svg></div>
-      </figure>
-
-      <div class="prose">
-        <h2>Ceza nereden geliyor</h2>
-        <p>
-          Mutfağın saatte çıkarabildiği sipariş sayısı bellidir. Yoğun saatte gelen sipariş bu sayıyı
-          aşınca kuyruk birikmeye başlar.
-        </p>
-        <p>
-          Bundan sonra iki şey olur. Siparişler geç çıkar ve <strong>geç teslimat cezası</strong>
-          yazılır. Ya da yetişemeyeceğini görüp iptal edersiniz, onun da <strong>ayrı bir cezası</strong>
-          vardır.
-        </p>
-        <p>
-          Çoğu restoran bunu elle yönetiyor: yoğunlukta mağazayı kapatıyor, iş hafifleyince açıyor.
-          İki sorunu var. Kapatma kararı genelde geç veriliyor, ceza çoktan oluşmuş oluyor. Bir de
-          açmayı unutma meselesi var. Akşam kapatılıp gece yarısı hâlâ kapalı duran mağaza az
-          rastlanan bir şey değil.
-        </p>
-      </div>
-
-      <!-- Örnek rapor ürünün en somut kanıtı ama yalnızca SSS'de gömülüydü.
-           Ana sayfada, problemin hemen ardında duruyor: "peki bunun bende ne
-           kadar olduğunu nereden bileceğim" sorusunun cevabı. -->
-      <div class="rapor-kart">
-        <div class="metin">
-          <h3>İlk hafta ne göreceksiniz</h3>
-          <p>
-            Debi ilk hafta hiçbir şeye dokunmadan yalnızca ölçüyor. Sonunda tek
-            sayfalık bir rapor çıkıyor: kaç ayrı yoğunlukta devreye girmek
-            gerekirdi, bu hangi saatlerde toplandı, o anlarda ne kadar ceza
-            riski birikti — hepsi kendi verinizden.
-          </p>
-          <p class="kucuk">Sayıları temsilî, biçimi gerçek.</p>
+    <div class="home-stack">
+      <section class="section-block" aria-labelledby="uc-adim">
+        <div class="section-head">
+          <p class="eyebrow">Üç adımda Debi</p>
+          <h2 id="uc-adim">Mutfak dolmadan harekete geçer.</h2>
+          <p>Çalışanınızın ekran başında yoğunluğu kollamasını beklemez. Yükü sayar, zamanında müdahale eder ve iş normale dönünce geri çekilir.</p>
         </div>
-        <a class="btn btn-ghost" href="ornek-rapor.html" target="_blank" rel="noopener">
-          Örnek raporu aç
-        </a>
-      </div>
-
-      <!-- Telefon uygulaması. "Sürekli açık bir bilgisayar gerekiyor" cümlesi
-           akla hemen "yani mutfaktan ayrılamıyor muyum" sorusunu getiriyor;
-           cevabı burada, kurulum anlatısının hemen ardında duruyor.
-           Uygulama henüz mağazalarda DEĞİL — metin bu yüzden "indirin"
-           demiyor, paketin bugün nasıl gittiğiyle aynı dili kullanıyor. -->
-      <div class="rapor-kart">
-        <div class="metin">
-          <h3>Bilgisayarın başında olmanıza gerek yok</h3>
-          <p>
-            Telefon uygulaması işletmedeki bilgisayarda çalışan Debi'ye
-            bağlanıyor: o anki açık sipariş sayısı, Debi'nin devreye girip
-            girmediği ve son kararlar elinizde.
-          </p>
-          <p class="kucuk">
-            Uygulama yalnızca <b>izler</b> — telefondan mağaza açılıp
-            kapatılamaz, ayar değiştirilemez. Telefonun işletmenin kablosuz
-            ağında olması gerekiyor. App Store ve Google Play için
-            hazırlanıyor.
-          </p>
+        <div class="outcome-grid">
+          <article class="outcome-card"><p class="no">01 · SAYAR</p><h3>Tüm siparişleri tek yükte görür</h3><p>Platformlar, siteniz, QR ve kasadan gelen işi aynı mutfağın yükü olarak izler.</p></article>
+          <article class="outcome-card"><p class="no">02 · DENGELER</p><h3>Yoğunluğu erken yakalar</h3><p>Eşik aşılınca süreleri kademe kademe artırır. Sipariş tamamen kesilmeden mutfağa nefes aldırır.</p></article>
+          <article class="outcome-card"><p class="no">03 · GERİ ALIR</p><h3>Yük düşünce normale döner</h3><p>Süreleri kendiliğinden geri çeker. Kısa duraklatma gerekiyorsa mağazayı zamanında yeniden açar.</p></article>
         </div>
-      </div>
+      </section>
+
+      <section class="money-band" aria-labelledby="kasada-kalan">
+        <div><h2 id="kasada-kalan">Daha az ceza. Daha az iptal. Kasada kalan daha fazla para.</h2><p>Yoğun saatte geç kalan sipariş yalnızca bir teslimat sorunu değildir. İade, iptal ve platform kesintileri doğrudan o günün kazancından çıkar.</p></div>
+        <div class="money-points" aria-label="Debi'nin azaltmaya yardımcı olduğu kayıplar"><span>Geç teslimat</span><span>İptal ve iade</span><span>Kapalı unutulan mağaza</span></div>
+      </section>
+
+      <section class="section-block" aria-labelledby="grafik-ozet">
+        <div class="section-head">
+          <p class="eyebrow">Yoğunluğun özeti</p>
+          <h2 id="grafik-ozet">Mutfak sınırı aşılınca ceza bölgesi büyür.</h2>
+          <p>Debi sipariş akışını daha erken yavaşlatarak açık sipariş yükünü mutfağın çıkarabileceği seviyeye yakın tutmayı amaçlar.</p>
+        </div>
+        <figure class="fig capacity-chart">
+          <div class="fig-scroll"><svg viewBox="0 0 730 300" role="img" aria-label="Akşam yoğunluğunda açık sipariş sayısı: müdahale edilmediğinde eğri mutfağın kapasitesini aşar ve aradaki alan ceza bölgesi olur; Debi devredeyken eğri kapasitenin hemen altında tutulur.">
+            <line class="c-axis" x1="70" y1="240" x2="700" y2="240"></line>
+            <line class="c-axis" x1="70" y1="40" x2="70" y2="240"></line>
+            <path class="c-zone" d="M236,152 L256,138 L318,94 L380,65 L442,79 L504,116 L532,152 Z"></path>
+            <line class="c-cap" x1="70" y1="152" x2="700" y2="152"></line>
+            <text class="n-l" x="700" y="147" text-anchor="end">Mutfağın çıkarabildiği</text>
+            <polyline class="c-bad" points="70,225 132,211 194,182 256,138 318,94 380,65 442,79 504,116 566,160 628,196 690,218"></polyline>
+            <polyline class="c-good" points="70,225 132,211 194,182 256,160 318,152 380,152 442,160 504,160 566,174 628,203 690,218"></polyline>
+            <text class="c-badt" x="384" y="120" text-anchor="middle">Ceza bölgesi</text>
+            <text class="c-badt" x="380" y="55" text-anchor="middle">Debi yokken</text>
+            <text class="n-ac" x="318" y="176" text-anchor="middle">Debi devrede</text>
+            <text class="n-l" x="70" y="258" text-anchor="start">18:00</text>
+            <text class="n-l" x="385" y="258" text-anchor="middle">Akşam zirvesi</text>
+            <text class="n-l" x="700" y="258" text-anchor="end">23:00</text>
+            <text class="n-l" x="62" y="46" text-anchor="end">Açık</text>
+            <text class="n-l" x="62" y="58" text-anchor="end">sipariş</text>
+          </svg></div>
+        </figure>
+      </section>
+
+      <section class="product-pair" aria-labelledby="iki-ekran">
+        <div class="section-head">
+          <p class="eyebrow">İki ekran, tek sistem</p>
+          <h2 id="iki-ekran">Karar bilgisayarda, durum telefonda.</h2>
+          <p>Debi'nin motoru işletmedeki bilgisayarda çalışır. Telefon uygulaması yalnızca izler; mağazayı açıp kapatamaz ve ayar değiştiremez.</p>
+          <div class="role-list">
+            <div class="role"><b>PC</b><p><strong>Bilgisayar:</strong> siparişleri toplar, yoğunluğa karar verir ve platform ayarlarını yönetir.</p></div>
+            <div class="role"><b>TEL</b><p><strong>Telefon:</strong> açık siparişi, mutfak doluluğunu, etkin kademeyi ve son kararları gösterir.</p></div>
+          </div>
+        </div>
+        <div class="phone-shots">
+          <figure><img src="mobil-optimizasyon.png" alt="Debi telefon uygulamasında optimizasyon, açık sipariş ve mutfak doluluğu ekranı" width="1080" height="1920" loading="lazy"><figcaption>Yoğunluk ve etkin kademe</figcaption></figure>
+          <figure><img src="mobil-olaylar.png" alt="Debi telefon uygulamasında mağaza ve kademe kararlarının olay geçmişi" width="1080" height="1920" loading="lazy"><figcaption>Son kararlar ve nedenleri</figcaption></figure>
+        </div>
+      </section>
+
+      <section class="section-block" aria-labelledby="ilk-ay">
+        <div class="section-head"><p class="eyebrow">İlk ay ücretsiz</p><h2 id="ilk-ay">Önce ölçeriz, sonra birlikte karar veririz.</h2><p>Debi ilk gün mağazanıza dokunmaz. Önce kendi verinizle nerede para kaybetme riski oluştuğunu gösterir.</p></div>
+        <div class="trial-flow">
+          <article class="trial-step"><div><h3>7 gün ölçüm</h3><p>Hiçbir ayar değişmeden açık sipariş yükü izlenir.</p></div></article>
+          <article class="trial-step"><div><h3>Tek sayfa rapor</h3><p>Yoğun günler, saatler ve hesaplanan ceza riski görünür.</p></div></article>
+          <article class="trial-step"><div><h3>Ayar onayı</h3><p>Eşikler ve kısa duraklatma tercihi birlikte belirlenir.</p></div></article>
+          <article class="trial-step"><div><h3>Canlı kullanım</h3><p>Yalnızca siz isterseniz otomatik müdahale başlar.</p></div></article>
+        </div>
+      </section>
+
+      <section class="section-block" aria-labelledby="neden-guven">
+        <div class="section-head"><p class="eyebrow">Kontrol sizde</p><h2 id="neden-guven">İşletmenizin verisi işletmenizde kalır.</h2></div>
+        <div class="proof-row">
+          <article class="proof-card"><h3>Yerel çalışır</h3><p>Kararlar restoranınızdaki bilgisayarda alınır; sipariş kayıtları bize gönderilmez.</p></article>
+          <article class="proof-card"><h3>Kişisel veriyi ayıklar</h3><p>Müşteri adı, telefonu ve adresi karar kayıtlarına alınmaz.</p></article>
+          <article class="proof-card"><h3>Elle kontrol korunur</h3><p>İstediğiniz anda bilgisayardan müdahale edebilir veya kapatmayı devre dışı bırakabilirsiniz.</p></article>
+        </div>
+        <div class="cta-row"><a class="btn btn-ghost" href="#/platformlar">Platform uyumluluğunu görün</a><a class="btn btn-ghost" href="#/guvenlik">Güvenlik ayrıntıları</a></div>
+      </section>
+
+      <section class="final-cta">
+        <div><h2>Kendi restoranınızda ne kadar risk olduğunu görün.</h2><p>İlk 7 gün yalnızca ölçüm. Raporu gördükten sonra devam edip etmeyeceğinize siz karar verin.</p></div>
+        <div class="cta-row"><a class="btn btn-primary" href="#/deneme">1 ay ücretsiz deneyin</a><a class="btn btn-ghost" href="ornek-rapor.html" target="_blank" rel="noopener">Örnek raporu açın</a></div>
+      </section>
     </div>
   </section>
 
-  <!-- nasil calisir -->
+<!-- nasil calisir -->
   <section class="page" data-page="/nasil-calisir">
     <div class="page-head">
-      <h1>Nasıl Çalışır</h1>
-      <p>
-        Debi açık sipariş sayısını sürekli izler. Belirlediğiniz eşiği aşınca bir kademe yukarı çıkar,
-        yük düşünce bir kademe aşağı iner. Kademeler arasında en az bir dakika bekler. Beklemese
-        eşiğin başında sürekli açıp kapatırdı.
-      </p>
+      <p class="eyebrow">Nasıl çalışır</p>
+      <h1>Siparişleri kesmeden önce mutfağa nefes aldırır.</h1>
+      <p>Debi bütün kanallardaki açık siparişleri tek yük olarak görür. Yoğunluk başladığında önce süreleri ayarlar; mağazayı kısa süre durdurmak her zaman son seçenektir.</p>
+    </div>
+
+    <div class="outcome-grid" style="margin-bottom:30px">
+      <article class="outcome-card"><p class="no">01 · TEK SAYI</p><h3>Açık siparişi sayar</h3><p>Uber Eats, GetirYemek, Yemeksepeti, site, QR ve POS siparişleri aynı mutfağın yükünde birleşir.</p></article>
+      <article class="outcome-card"><p class="no">02 · ERKEN KARAR</p><h3>Eşiği bekler</h3><p>Mutfağınıza göre belirlenen sınır aşılınca Debi bir sonraki kademeye geçer. Tek bir ani siparişle gereksiz müdahale etmez.</p></article>
+      <article class="outcome-card"><p class="no">03 · OTOMATİK DÖNÜŞ</p><h3>Yük düşünce geri alır</h3><p>Kuyruk eridikçe süreleri normale çeker. Kısa duraklatma olduysa mağazayı süresi dolunca yeniden açar.</p></article>
+    </div>
+
+    <div class="prose">
+      <h2>Önce süre, son çare kısa duraklatma</h2>
+      <p>Müşterinin gördüğü teslimat veya hazırlık süresi biraz uzadığında sipariş gelişi yavaşlar; mağazanız açık kalmaya devam eder. Mutfak hâlâ yetişemiyorsa bir üst kademeye geçilir.</p>
+      <p>En yüksek kademe de yetmezse Debi mağazayı kısa süre durdurabilir. Bu özelliği istemiyorsanız kapatabilirsiniz; Debi yalnızca süreleri yönetir.</p>
     </div>
 
     <div class="steps">
-      <div class="step s0"><span class="k">kademe 0</span><span>Normal. Hiçbir şeye dokunulmuyor.</span></div>
-      <div class="step st"><span class="k">kademe 1</span><span>%34. Tahmini teslimat süresi biraz uzuyor, akış hafif kısılıyor.</span></div>
-      <div class="step st"><span class="k">kademe 2</span><span>%67. Uzun süre gören müşterilerin bir kısmı vazgeçiyor.</span></div>
-      <div class="step st"><span class="k">kademe 3</span><span>%100. En yüksek kademe. Mağaza hâlâ açık, sipariş gelmeye devam ediyor.</span></div>
-      <div class="step sc"><span class="k">kapalı</span><span>Son çare. Bu kademeyi tamamen kapatabilirsiniz, o zaman mağaza hiç kapanmaz.</span></div>
-    </div>
-
-    <figure class="fig" style="margin-bottom:28px">
-      <div class="fig-scroll"><svg viewBox="0 0 730 300" role="img" aria-label="Akşam yoğunluğunda açık sipariş sayısı: müdahale edilmediğinde eğri mutfağın kapasitesini aşar ve aradaki alan ceza bölgesi olur; Debi devredeyken eğri kapasitenin hemen altında tutulur.">
-        <line class="c-axis" x1="70" y1="240" x2="700" y2="240"></line>
-        <line class="c-axis" x1="70" y1="40" x2="70" y2="240"></line>
-
-        <path class="c-zone" d="M236,152 L256,138 L318,94 L380,65 L442,79 L504,116 L532,152 Z"></path>
-
-        <line class="c-cap" x1="70" y1="152" x2="700" y2="152"></line>
-        <text class="n-l" x="700" y="147" text-anchor="end">mutfağın çıkarabildiği</text>
-
-        <polyline class="c-bad" points="70,225 132,211 194,182 256,138 318,94 380,65 442,79 504,116 566,160 628,196 690,218"></polyline>
-        <polyline class="c-good" points="70,225 132,211 194,182 256,160 318,152 380,152 442,160 504,160 566,174 628,203 690,218"></polyline>
-
-        <text class="c-badt" x="384" y="120" text-anchor="middle">ceza bölgesi</text>
-        <text class="c-badt" x="380" y="55" text-anchor="middle">Debi yokken</text>
-        <text class="n-ac" x="318" y="176" text-anchor="middle">Debi devrede</text>
-
-        <text class="n-l" x="70" y="258" text-anchor="start">18:00</text>
-        <text class="n-l" x="385" y="258" text-anchor="middle">akşam zirvesi</text>
-        <text class="n-l" x="700" y="258" text-anchor="end">23:00</text>
-        <text class="n-l" x="62" y="46" text-anchor="end">açık</text>
-        <text class="n-l" x="62" y="58" text-anchor="end">sipariş</text>
-      </svg></div>
-    </figure>
-
-    <div class="prose">
-      <h2>Tahmini teslimat süresi optimizasyonu ne demek</h2>
-      <p>
-        Sipariş platformlarında "kapasite" diye ayarlayabileceğiniz bir alan yok. Elinizdeki şey süreler.
-        Hazırlık süresini uzattığınızda müşterinin gördüğü teslimat süresi artıyor, uzun süre gören
-        müşterilerin bir kısmı sipariş vermekten vazgeçiyor. Gelen sipariş sayısı böyle düşüyor.
-        Mağazanız açık kaldığı için vazgeçmeyeni kaybetmiyorsunuz.
-      </p>
-      <p>
-        Debi'nin değiştirebildiği üç ayar var. Hepsi her restoranda açık değil; sistem hangisinin açık olduğunu
-        deneyerek anlıyor ve elinde olmayanı zorlamıyor.
-      </p>
-    </div>
-
-    <div class="table-scroll" style="margin-block:16px 26px">
-      <table>
-        <thead><tr><th>Ayar</th><th>Ne yapıyor</th></tr></thead>
-        <tbody>
-          <tr>
-            <td>Hazırlık süresi</td>
-            <td>Sipariş kabul edilirken mutfağın gerçek durumuna göre süre bildirilir. Kuryenin kapıda boşuna beklemesini önler ve müşterinin gördüğü süreyi uzatarak akışı kısar. Kuryesi kimin olursa olsun çalışır.</td>
-          </tr>
-          <tr>
-            <td>Teslimat süresi</td>
-            <td>Mağazanın ilan ettiği teslimat aralığı yükseltilir. Kendi kuryesiyle çalışan restoranlarda geçerlidir.</td>
-          </tr>
-          <tr>
-            <td>Mağaza durumu</td>
-            <td>Son çare olarak sipariş alımı durdurulur, yük düşünce geri açılır. Her restoranda geçerlidir.</td>
-          </tr>
-        </tbody>
-      </table>
+      <div class="step s0"><span class="k">Normal</span><span>Mutfak yetişiyor; hiçbir ayar değişmiyor.</span></div>
+      <div class="step st"><span class="k">Hafif</span><span>Süre küçük bir adımla artıyor.</span></div>
+      <div class="step st"><span class="k">Orta</span><span>Yoğunluk sürüyorsa süre yeniden artırılıyor.</span></div>
+      <div class="step st"><span class="k">Güçlü</span><span>Mağaza açık kalırken en yüksek süre uygulanıyor.</span></div>
+      <div class="step sc"><span class="k">Duraklat</span><span>Yalnızca gerekiyorsa ve belirlediğiniz süreyle sipariş alımı duruyor.</span></div>
     </div>
 
     <div class="prose">
-      <h2>Mağaza açılırken</h2>
-      <p>
-        Mağaza kapalıyken kuyruk erir. Açıldığı anda bütün süreleri normale çekerseniz kuyruk birkaç
-        dakika içinde tekrar dolar. Debi kapalıdan çıkarken en yüksek optimizasyon kademesine dönüyor,
-        sonra yük düştükçe gevşetiyor.
-      </p>
-      <h2 style="margin-top:12px">Yük tek yerden sayılır</h2>
-      <p>
-        Uber Eats Trendyol Go'dan gelen sipariş de kendi sitenizden gelen de aynı mutfağa giriyor. Bu yüzden açık
-        sipariş sayısı hepsinden toplanıyor. Müdahale ise her platforma ayrı uygulanıyor.
-      </p>
+      <h2>Çalışanınızın yerini almaz, tekrar eden işi üstlenir.</h2>
+      <p>Platformlarda süre ve yoğunluk ayarları zaten var. Sorun, mutfağın en yoğun anında doğru ayarı bütün kanallarda açıp sonra zamanında geri almaktır. Debi bu tekrarı otomatikleştirir.</p>
+      <p>Çalışanınız istediği anda bilgisayardan kontrolü devralabilir. Elle verilen kararın süresi dolunca sistem otomatiğe döner.</p>
+      <h2 style="margin-top:12px">İlk hafta yalnızca ölçer.</h2>
+      <p>İlk 7 gün Debi kararlarını kaydeder ama uygulamaz. Böylece eşikleriniz kendi sipariş geçmişinize göre kontrol edilir; canlı kullanıma ancak siz onay verirseniz geçilir.</p>
+      <div class="cta-row"><a class="btn btn-primary" href="#/deneme">1 ay ücretsiz deneyin</a><a class="btn btn-ghost" href="#/platformlar">Platformları görün</a></div>
     </div>
   </section>
 
-  <!-- neden -->
+<!-- neden -->
   <section class="page" data-page="/neden">
     <div class="page-head">
-      <h1>Neden bu işi yapıyoruz</h1>
-      <p>
-        Debi bir yazılım fikri olarak başlamadı. Tek bir soruyu çözmek için yazıldı:
-        yoğun saatte mutfak dolduğunda ne oluyor, kim ödüyor?
-      </p>
+      <p class="eyebrow">Neden Debi</p>
+      <h1>Kapasite sabit, sipariş hızı değil.</h1>
+      <p>Yoğun saat iyi giden işletmenin doğal sonucudur. Sorun yoğunluk değil; mutfak dolduktan sonra hâlâ aynı hızda sipariş almaya devam etmektir.</p>
     </div>
-
-    <h2 class="neden-b">Çözmek istediğimiz problem</h2>
-    <p>
-      Akşam saatinde gelen sipariş, mutfağın çıkarabileceğinden fazla oluyor. Bu bir yönetim
-      hatası değil; iyi çalışan restoranda da oluyor. Kapasite sabit, talep değil.
-    </p>
-    <p>
-      Platformlar bunun için gereken ayarları zaten veriyor: hazırlık süresi, teslimat süresi,
-      mağaza aç/kapa.
-      Ama bu ayarların değiştirilmesi gereken an, mutfağın en yoğun olduğu an. O dakikada
-      kimsenin eli boşta değil — zaten boşta olsa mutfak dolmamış olurdu.
-    </p>
-    <p>
-      Sonrası zincirleme: sipariş geç çıkıyor, ceza yazılıyor. Müşteri iptal ediyor, iade
-      geliyor. Puan düşüyor, ertesi gün daha az görünüyorsunuz. Bir akşamın yoğunluğu ertesi
-      günün siparişini de götürüyor.
-    </p>
-
-    <h2 class="neden-b">Kimsenin saymadığı kalem</h2>
-    <p>
-      Bu zincirde genelde atlanan bir şey var: <strong>yemek zaten yapılmış oluyor.</strong>
-    </p>
-    <p>
-      Geç çıkan ya da iptal edilen siparişin yemeği geri dönmüyor. Stoğa yazılamıyor, tekrar
-      satılamıyor, kuryenin elinden geri de gelmiyor. İmhaya gidiyor.
-    </p>
-    <p>
-      Restoran o siparişi iki kez ödüyor: bir kez malzemeye, bir kez cezaya. Ortada duran şeyse
-      pişmiş ama yenmemiş bir yemek. Cezanın rakamı faturada görünüyor; çöpe giden tabağın
-      karşılığını kimse tutmuyor bile.
-    </p>
-
-    <h2 class="neden-b">Nereye gidiyor</h2>
-    <p>
-      Türkiye'de yemek siparişi büyüyor. Daha çok restoran, daha çok zincir, daha çok platform.
-      Uber'in önce Trendyol GO'nun çoğunluğunu alması, sonra Getir'in teslimat işi için
-      anlaşması bu büyümenin işareti — bu pazar
-      küçülen bir pazar olsa kimse satın almazdı.
-    </p>
-    <p>
-      Sipariş sayısı büyüdükçe zirve saatinde kaybedilen de büyüyor. Aynı oran, çok daha büyük
-      bir toplamın üzerinde. Bir restoranda bu birkaç siparişlik fark; yüzlerce restoranda, her akşam, başka
-      bir şey.
-    </p>
-    <p>
-      İstediğimiz şey aslında mütevazı: <strong>zirve saatinin yönetilmesi, ona
-      katlanılması değil.</strong> Mutfak dolduğunda akışın o an kısılması — dolduktan sonra
-      cezayla, iadeyle, çöpe giden yemekle telafi edilmesi değil.
-    </p>
-
-    <h2 class="neden-b">Ne yapmıyoruz</h2>
-    <p>
-      Sipariş sayınızı artırmıyoruz. Debi'nin işi yeni sipariş getirmek değil, gelen siparişi mutfağın hızına göre ayarlamak. Bunu baştan söylüyoruz çünkü
-      beklentiyi yanlış kuran bir araç, ilk ay iyi görünüp ikinci ay geri teper.
-    </p>
-    <p>
-      "Şu kadar tasarruf ettiniz" da demiyoruz. Ölçebildiğimiz şeyi ölçüyoruz, ölçemediğimizi
-      rakam diye satmıyoruz.
-    </p>
-    <p>
-      Eşikleri de size bırakmıyoruz. Geçmiş satış kaydını veriyorsunuz, mutfağınızın saatlik
-      kapasitesini ve cezanın hangi yükte başladığını <strong>sizin kendi verinizden</strong>
-      çıkarıyoruz; izleme haftası da üstüne ölçüyor. Kutudan çıkan rakamla çalışmıyorsunuz.
-      Ama son söz sizde: her eşik panelden değiştirilebiliyor, istediğiniz an elle
-      devralabiliyorsunuz.
-    </p>
+    <div class="prose">
+      <h2>En pahalı karar, geç verilen karardır.</h2>
+      <p>Geç kalan sipariş iptal, iade ve platform kesintisi riski yaratır. Ürün hazırlanmışsa malzeme ve emek de geri gelmez. Debi yükü daha erken görüp süreleri mutfağın hızına yaklaştırır.</p>
+      <h2 style="margin-top:12px">Sipariş getirmez; kazandığınızı korumaya yardım eder.</h2>
+      <p>Debi bir reklam veya satış aracı değildir. Gelen işi daha sağlıklı yöneterek yoğun saatin kazancının gecikme ve iptallerle erimesini azaltmayı amaçlar.</p>
+      <p>Ne kadar fark yaratacağını ilk haftanın sonunda kendi veriniz söyler.</p>
+      <div class="cta-row"><a class="btn btn-primary" href="#/deneme">Ücretsiz ölçümü başlatın</a></div>
+    </div>
   </section>
 
-  <!-- platformlar -->
+<!-- platformlar -->
   <section class="page" data-page="/platformlar">
     <div class="page-head">
-      <h1>Platformlar</h1>
-      <p>
-        Hangi platformlardan sipariş alıyorsanız hepsi tek panelde toplanıyor. Aşağıdaki tabloda
-        bugün hangi bağlantının çalıştığı ve her platformda hangi ayarların değiştirilebildiği
-        yazıyor.
-      </p>
+      <p class="eyebrow">Platformlar</p>
+      <h1>Bütün siparişler aynı mutfağı doldurur.</h1>
+      <p>Debi her kanaldaki siparişi tek yükte toplar, fakat müdahaleyi o platformun izin verdiği şekilde yapar.</p>
+      <p class="kvkk">Son güncelleme: 6 Eylül 2026</p>
     </div>
     <div class="table-scroll">
       <table class="t-platform">
-        <thead><tr><th>Platform</th><th>Durum</th><th>Kontrol edilenler</th></tr></thead>
+        <thead><tr><th>Kanal</th><th>Durum</th><th>Debi ne yapabilir?</th></tr></thead>
         <tbody>
           <tr>
-            <td>Uber Eats Trendyol Go</td>
+            <td>Uber Eats</td>
             <td><span class="durum hazir">Hazır</span></td>
-            <td>
-              <strong>Hazırlık süresi</strong> ve <strong>mağaza aç/kapa.</strong>
-              En etkilisi hazırlık süresi: siparişi kabul ederken bildiriliyor, böylece kurye
-              kapıda beklemiyor ve müşterinin gördüğü teslimat süresi uzuyor. Kendi kuryenizle
-              çalışıyorsanız teslimat süresi de ekleniyor.
-            </td>
-          </tr>
-          <tr>
-            <td>Kendi siteniz · QR · POS</td>
-            <td><span class="durum hazir">Hazır</span></td>
-            <td>
-              Teslimat süresi ve mağaza aç/kapa. Sistem sizin kontrolünüzde olduğu için kademeler
-              eksiksiz işliyor. Kendi market siteniz de buraya giriyor.
-            </td>
+            <td>Siparişleri sayar. Sipariş kabul biçiminize göre hazırlık süresini, kendi kuryeniz varsa teslimat süresini ve mağaza durumunu yönetebilir.</td>
           </tr>
           <tr>
             <td>GetirYemek</td>
-            <td><span class="durum hazir">Uber Eats'te</span></td>
-            <td>
-              Getir, GetirYemek'i Uber Eats'e taşıdı ve kendi bağlantısını kapattı.
-              Siparişleriniz artık üstteki <strong>Uber Eats Trendyol Go</strong> satırından
-              geliyor — ayrıca bir şey yapmanız gerekmiyor.
-            </td>
+            <td><span class="durum hazir">Hazır</span></td>
+            <td>Siparişleri yük hesabına alır. Kullanılabilecek süre ve mağaza ayarları, hesabınızın bağlantı yetkilerine göre kurulum sırasında doğrulanır.</td>
           </tr>
           <tr>
             <td>Yemeksepeti</td>
             <td><span class="durum yolda">Ek kurulum</span></td>
-            <td>
-              Bağlantı hazır ve <strong>burada da başvuru ya da onay yok</strong> — erişim
-              bilgileri sizin kendi Partner Portal hesabınızdan alınıyor. Ek kurulum şundan:
-              Yemeksepeti siparişi bize <em>gönderiyor</em>, biz çekmiyoruz. Bunun için
-              dışarıdan erişilebilir bir adres kuruyoruz; o kurulmadan aç/kapa çalışır ama
-              Yemeksepeti siparişleri yük sayımına girmez. Kurulumu biz yapıyoruz, sizden
-              bir şey istemiyor.
-              Buradaki tek fark: <strong>Yemeksepeti'nde süre optimizasyonu yok, sadece aç/kapa var.</strong>
-              Yoğunlukta süreyi uzatmak yerine mağaza kısa süreliğine kapanıp açılıyor.
-            </td>
+            <td><strong>Neden ek kurulum?</strong> Yemeksepeti siparişleri Debi tarafından çekilmez; sipariş bildirimlerinin Debi'nin güvenli sipariş adresine gönderilmesi ve mağaza yetkilerinin tanımlanması gerekir. Bu bağlantıyı kurulumda birlikte tamamlarız. Ardından Debi siparişleri yük hesabına alır ve mağazayı kısa süreli açıp kapatabilir. Bu platformda süre artırma bağlantısı olmadığı için kademeler mağaza durumu üzerinden çalışır.</td>
+          </tr>
+          <tr>
+            <td>Kendi siteniz · QR · POS</td>
+            <td><span class="durum hazir">Hazır</span></td>
+            <td>Siparişleri sayar; sisteminiz destekliyorsa teslimat süresini ve mağaza durumunu yönetir. Restoran ve marketlerde kullanılabilir.</td>
           </tr>
         </tbody>
       </table>
     </div>
+    <div class="rapor-kart">
+      <div class="metin"><h3>Tabletten kabul etmeye devam edebilirsiniz.</h3><p>Siparişi siz kabul ediyorsanız Debi hazırlık süresine dokunmaz; kullanılabilen diğer ayarlar çalışmaya devam eder. Otomatik kabul isteğe bağlıdır ve kurulumda kapalı gelir.</p></div>
+    </div>
+    <div class="cta-row"><a class="btn btn-primary" href="#/deneme">İşletmenizi birlikte kontrol edelim</a></div>
   </section>
 
-  <!-- guvenlik -->
+<!-- guvenlik -->
   <section class="page" data-page="/guvenlik">
     <div class="page-head">
-      <h1>Güvenlik ve Gizlilik</h1>
-      <p>
-        Mağazayı kapatabilen bir yazılımın yapabileceği en kötü hata, onu kapalı unutmak. Önce
-        bunun önlemleri; ardından verilerinizin nerede durduğu.
-      </p>
-    </div>
-    <div class="safety">
-      <div>
-        <h3>Kapalı unutulmaz</h3>
-        <p>Mağazanın kapalı kalabileceği en uzun süre baştan belli. Bu süre dolunca yoğunluk hâlâ yüksek olsa bile mağaza açılıyor. İnternet gitmişse sayaç yine de işliyor: bağlantı döndüğü ilk turda mağaza açılır.</p>
-      </div>
-      <div>
-        <h3>Elektrik giderse</h3>
-        <p>Bilgisayar aniden kapanırsa mağaza kapalı kalabilir. Debi mağazayı kendisinin kapattığını not ediyor; bilgisayar açılır açılmaz bunu görüp mağazayı hemen açıyor.</p>
-      </div>
-      <div>
-        <h3>Sizin kapattığınızı açmaz</h3>
-        <p>Mağazayı siz kapattıysanız sistem ona karışmıyor. Sadece kendi kapattığı mağazayı açıyor.</p>
-      </div>
-      <div>
-        <h3>Bir platform çökerse</h3>
-        <p>Diğerleri çalışmaya devam ediyor, sipariş sayısı ayakta olanlardan toplanıyor. Bir platformdaki arıza bütün sistemi durdurmuyor.</p>
-      </div>
-      <div>
-        <h3>Kontrol sizde kalır</h3>
-        <p>Panelden süresini kendiniz yazıp "açık kalsın" veya "kapalı kalsın" diyebilirsiniz. Süre dolunca otomatiğe kendisi dönüyor, yani yanlışlıkla kalıcı kapalıda unutulmuyor.</p>
-      </div>
-      <div>
-        <h3>Telefon sadece izler</h3>
-        <p>Telefon uygulamasından mağaza açılıp kapatılamıyor, hiçbir ayar değiştirilemiyor; kararları veren tek yer işletmedeki bilgisayar. Telefonunuz kaybolsa bile mağazaya dokunulamaz. Bağlantıyı panelde ürettiğiniz bir parola açıyor, istediğiniz an yenileyebiliyorsunuz.</p>
-      </div>
-      <div>
-        <h3>Kişisel veri sınırda kalır</h3>
-        <p>Platformdan gelen sipariş bilgisinde müşterinin adı, telefonu ve adresi var. Bunlar sisteme girmeden ayıklanıyor. Kayıtlara sadece sipariş numarası, durumu, saati ve ürün adedi yazılıyor.</p>
-      </div>
+      <p class="eyebrow">Güvenlik ve veriler</p>
+      <h1>Kontrol sizde, sipariş verisi işletmenizde kalır.</h1>
+      <p>Debi karar verirken mümkün olan en az veriyi kullanır. Müşteri bilgileri kayda alınmaz; telefon uygulaması mağazanızı yönetemez.</p>
     </div>
 
-    <!-- Gizlilik politikası. Ayrı bir sayfa değil, bilerek: restoranın
-         "bu güvenli mi, verime ne oluyor" sorusu tek soru, cevabı da tek
-         yerde dursun. App Store ve Google Play gönderim formlarına verilecek
-         adres: https://getdebi.com/#/guvenlik -->
+    <div class="safety">
+      <div><h3>Kapalı unutulmaz</h3><p>Kısa duraklatmanın üst süresi bellidir. Süre dolunca Debi mağazayı yeniden açmayı dener.</p></div>
+      <div><h3>Sizin kararınıza dokunmaz</h3><p>Mağazayı siz kapattıysanız Debi açmaz. Yalnızca kendi verdiği kararları geri alır.</p></div>
+      <div><h3>Elektrik sonrası toparlanır</h3><p>Bilgisayar yeniden açıldığında Debi son durumu okur ve kendi kapattığı mağazayı açmayı dener.</p></div>
+      <div><h3>Platformlar birbirinden ayrıdır</h3><p>Bir bağlantı sorun yaşarsa diğer kanallar çalışmaya devam eder.</p></div>
+      <div><h3>Telefon yalnızca izler</h3><p>Mağaza açılamaz, kapatılamaz ve eşikler değiştirilemez. Parolayı bilgisayardan istediğiniz an yenileyebilirsiniz.</p></div>
+      <div><h3>Kişisel veri ayıklanır</h3><p>Müşteri adı, telefonu, adresi ve konumu karar motoruna veya olay kayıtlarına yazılmaz.</p></div>
+    </div>
+
     <div class="prose" style="margin-top:clamp(34px,5vw,52px)">
       <h2 id="gizlilik">Gizlilik politikası</h2>
-      <p class="kvkk" style="margin-bottom:18px">Son güncelleme: 3 Eylül 2026</p>
-
-      <p>
-        <strong>Kısa hâli:</strong> Debi sizin bilgisayarınızda çalışır. Sipariş verileriniz bizim
-        sunucumuza gelmez. Telefon uygulaması hiçbir veri toplamaz, reklam ve analiz aracı
-        içermez, hesap açmanızı istemez.
-      </p>
-      <p>
-        Bu bölüm üç şeyi kapsıyor: işletmenizdeki bilgisayarda çalışan <strong>Debi
-        programı</strong>, App Store ve Google Play'den kurulan <strong>telefon
-        uygulaması</strong> ve bu sitedeki iletişim formu.
-      </p>
+      <p class="kvkk">Son güncelleme: 6 Eylül 2026</p>
+      <p><strong>Kısa hâli:</strong> Debi işletmenizdeki bilgisayarda çalışır. Sipariş kayıtlarınız bizim sunucumuza gelmez. Telefon uygulaması reklam, analiz veya izleme aracı içermez ve hesap açmanızı istemez.</p>
 
       <h3>Telefon uygulaması</h3>
-      <p>
-        Uygulama hakkınızda hiçbir veri toplamıyor ve hiçbir yere göndermiyor. İçinde reklam ağı,
-        analiz aracı, çökme raporlayıcı ya da izleme kodu yok. Hesap açma ve giriş yok.
-      </p>
-      <p>
-        Bağlandığı tek adres <strong>sizin işletmenizdeki bilgisayar</strong>, sizin kendi ağınızın
-        içinden. Başka hiçbir yere bağlanmıyor — bizim sunucumuz dahil. Adresi ve parolayı siz
-        giriyorsunuz.
-      </p>
-      <p>
-        Telefonda saklanan tek şey bu ikisi: bilgisayarın ağ adresi ve bağlantı parolası. İşletim
-        sisteminin güvenli deposunda tutuluyorlar (iPhone'da Keychain, Android'de Keystore).
-        Ekranda gördüğünüz sipariş sayıları ve kararlar telefona kaydedilmiyor; uygulamayı
-        kapattığınızda gidiyorlar. <strong>Çıkış yap</strong> saklanan adresi ve parolayı siler;
-        uygulamayı kaldırmak da aynı sonucu verir.
-      </p>
-      <p>
-        Müşteri bilgisi telefona hiç ulaşmıyor. Platformdan gelen sipariş kaydındaki ad, telefon,
-        adres ve konum Debi'ye girmeden sınırda ayıklanıyor; uygulamanın gördüğü şey sayılardan
-        ibaret.
-      </p>
-      <p>
-        İstenen tek izin <strong>yerel ağ erişimi</strong>, tek sebebi aynı ağdaki bilgisayarınıza
-        bağlanabilmesi. Konum, kişiler, kamera, mikrofon ve fotoğraf izni istenmiyor.
-      </p>
+      <p>Telefon, işletmenizdeki bilgisayara yerel ağ üzerinden bağlanır. Telefonda yalnızca bilgisayarın ağ adresi ve bağlantı parolası işletim sisteminin güvenli deposunda saklanır. Ekrandaki sipariş sayıları ve kararlar kalıcı olarak kaydedilmez.</p>
+      <p>“Çıkış yap” seçeneği kayıtlı adresi ve parolayı siler. Telefon kaybolursa bilgisayardaki parolayı yenilemek eski bağlantıyı geçersiz kılar.</p>
+      <p>Uygulama müşteri adı, telefon, adres veya konum bilgisi almaz. Kamera, mikrofon, kişiler, fotoğraflar ve konum izni istemez.</p>
 
-      <h3>Debi programı</h3>
-      <p>
-        Program işletmenizdeki bilgisayarda çalışıyor ve verisini o diskte tutuyor: ayarlar, olay
-        kaydı ve platform bağlantı bilgileri. Bunların hiçbiri bize gönderilmiyor. Bağlantı
-        bilgileriniz yalnızca o bilgisayardaki ayar dosyasında duruyor; program onlarla doğrudan
-        platformların kendi resmî bağlantılarına gidiyor, arada bizim sunucumuz yok.
-      </p>
-      <p>
-        Olay kaydı 90 gün saklanıyor ve içinde müşteri bilgisi bulunmuyor. Debi'yi kaldırmak ya da
-        veri klasörünü silmek bu kayıtları siler; bizde bir kopyası yok.
-      </p>
+      <h3>Bilgisayardaki Debi programı</h3>
+      <p>Ayarlar, olay kayıtları ve platform bağlantı bilgileri işletmedeki bilgisayarda tutulur. Debi bu bilgilerle platformların kendi bağlantılarına gider; arada Debi'ye ait bir veri sunucusu bulunmaz.</p>
+      <p>Olay kayıtları 90 gün saklanır ve müşteri kişisel verisi içermez. Programı kaldırdığınızda veya veri klasörünü sildiğinizde bizde tutulmuş ikinci bir kopya bulunmaz.</p>
 
-      <h3>İletişim formu</h3>
-      <p>
-        Bu sitedeki formu doldurursanız verdiğiniz bilgiler yalnızca size dönüş yapmak için
-        kullanılır; pazarlama amacıyla kimseye satılmaz, verilmez. Formu bize ulaştıran e-posta
-        servisi dışında üçüncü kişiye aktarılmaz. Silinmesini istediğiniz an
-        <a href="mailto:info@getdebi.com">info@getdebi.com</a> adresine yazmanız yeterli.
-      </p>
+      <h3>Başvuru formu</h3>
+      <p>Formda verdiğiniz işletme ve iletişim bilgileri yalnızca size dönüş yapmak için kullanılır. Form iletim hizmeti dışında üçüncü kişilere pazarlama amacıyla aktarılmaz veya satılmaz. Silinmesini istediğinizde <a href="mailto:info@getdebi.com">info@getdebi.com</a> adresine yazabilirsiniz.</p>
 
-      <h3>Çocuklar ve değişiklikler</h3>
-      <p>
-        Debi işletmelere yönelik bir üründür, çocuklara yönelik değildir ve çocuklardan bilerek
-        veri toplamaz. Bu politika değişirse yukarıdaki tarih güncellenir; uygulamanın veri
-        davranışını değiştiren bir güncelleme yaparsak ayrıca duyururuz.
-      </p>
-      <p>
-        Gizlilikle ilgili her soru için: <a href="mailto:info@getdebi.com">info@getdebi.com</a>
-      </p>
+      <h3>Değişiklikler</h3>
+      <p>Debi'nin veri kullanımı değişirse bu politika ve güncelleme tarihi değiştirilir. Yeni bir veri toplama amacı eklenirse açıkça belirtilir.</p>
     </div>
   </section>
 
-  <!-- sss -->
+<!-- sss -->
   <section class="page" data-page="/sss">
     <div class="page-head">
-      <h1>Sık sorulan sorular</h1>
+      <p class="eyebrow">Sık sorulanlar</p>
+      <h1>Karar vermeden önce bilmeniz gerekenler.</h1>
+      <p>Kısa cevaplar burada. Platform ayrıntıları ve veri politikası kendi sayfalarında daha kapsamlıdır.</p>
     </div>
     <div class="faq">
       <details>
-        <summary>Süreler uzayınca sipariş kaybetmiyor muyum?</summary>
-        <div class="a">
-          <p>
-            Evet, bir miktar sipariş kaybediyorsunuz. Ama hangi siparişleri kaybettiğinize bakmak gerek.
-          </p>
-          <p>
-            Optimizasyon sadece mutfak dolduğunda devreye giriyor. O anda gelen siparişi kabul ederseniz
-            ne oluyor: geç çıkıyor, ceza yazılıyor, müşteri de memnun kalmıyor. Ya da iptal ediyorsunuz,
-            onun da cezası var. Yani karşılaştırma "sipariş almak" ile "almamak" arasında değil.
-            Cezasını ödeyeceğiniz bir sipariş ile hiç gelmeyen bir sipariş arasında.
-          </p>
-          <p>
-            Geç çıkan siparişin maliyeti de tek kalem değil. Cezanın üstüne çoğu zaman iade geliyor,
-            puanınız düşüyor, o müşteri bir daha sipariş vermiyor.
-          </p>
-          <p>
-            Bir de ertesi güne kalan tarafı var. Platformlar mağazaları teslimat performansına göre
-            sıralıyor. Sürekli geciken restoran listede aşağı düşüyor, bu da sonraki günlerin
-            siparişini etkiliyor. Zirvede kaybettiğiniz birkaç sipariş, gün boyu kaybedeceğiniz
-            görünürlüğün yerine geçiyor.
-          </p>
-          <p>
-            Sistemin kademeli olmasının sebebi de bu. Doğrudan kapatmıyor, önce %34 kısıyor. Yetmezse
-            artırıyor. Yük düşer düşmez gevşetiyor. Yani ihtiyacınız kadar sipariş kaybediyorsunuz.
-          </p>
-        </div>
+        <summary>Debi yoğunluk başladığında ne yapar?</summary>
+        <div class="a"><p>Bütün kanallardaki açık siparişleri tek yükte toplar. Mutfağınıza göre belirlenen eşik aşılınca önce süreleri artırır; yük düşünce geri alır. Platformların yoğunluk ayarlarından farkı, doğru anda bütün kanallarda devreye girip kararı kendiliğinden geri almasıdır.</p></div>
       </details>
       <details>
-        <summary>Hesap gerçekten tutuyor mu? Kaybettiğim kâr mı büyük, önlediğim ceza mı?</summary>
-        <div class="a">
-          <p>
-            Bunu sizin rakamlarınızı görmeden söyleyemeyiz, uyduracak da değiliz. Ama hesabın nasıl
-            kurulduğunu gösterebiliriz; sayıları siz koyarsınız.
-          </p>
-          <p>
-            İki taraf var. <strong>Kazanç:</strong> zamanında çıkan sipariş başına ödemediğiniz ceza.
-            <strong>Maliyet:</strong> uzun süre görüp vazgeçen müşterinin size bırakacağı kâr.
-          </p>
-          <p>
-            Buradaki asıl soru "ne kadar kazanırım" değil. Onu ancak ölçtükten sonra
-            söyleyebiliriz. Cevaplanabilir soru şu: <strong>bir siparişi cezadan kurtarmak için
-            kaç sipariş kaybetmeyi göze alabilirim?</strong> Onun cevabı basit bir bölme:
-          </p>
-          <p class="formul">
-            ceza tutarı ÷ sipariş başına kâr
-          </p>
-          <p>
-            Cezanız 50 ₺, sipariş başına kârınız 40 ₺ ise sonuç 1,25. Yani cezadan kurtardığınız her
-            sipariş için bir buçuğa yakın sipariş kaybetseniz bile başa baştasınız. Cezanız yüksekse ya da
-            sipariş başına kârınız düşükse bu sayı büyüyor; tersi olursa küçülüyor.
-          </p>
-          <p>
-            Şunu da açıkça söyleyelim: bu hesap yalnızca <em>cezayı</em> sayıyor. Geç çıkan
-            siparişin faturası gerçekte daha kabarık — iade, düşen puan, sıralamada geriye düşmek.
-            Bunları ölçemediğimiz için hesaba hiç katmıyoruz. Yani gerçek sınır bu hesabın
-            verdiğinden daha yüksek, daha düşük değil.
-          </p>
-          <p>
-            İzleme haftası tam olarak bunun için var. Bir hafta hiçbir şeye dokunmadan, kaç siparişin
-            cezaya gireceğini kendi verinizle sayıyoruz — yani hesabın ceza tarafı ölçülmüş oluyor.
-            Öbür tarafı, yani kaç müşterinin vazgeçtiğini, ancak canlıya geçince görebiliyoruz.
-            İlk ayın ücretsiz olmasının sebebi de bu: ölçmeden söylenen rakamın kıymeti yok.
-          </p>
-        </div>
+        <summary>Siparişleri yavaşlatmak daha az kazanmama yol açmaz mı?</summary>
+        <div class="a"><p>Yoğun anda bazı müşteriler daha uzun süre görüp vazgeçebilir. Debi'nin amacı her siparişi almak değil; yetişmeyecek siparişin gecikme, iptal veya iade olarak daha büyük kayıp yaratmasını azaltmaktır.</p><p>Bu dengenin işletmenizde nasıl sonuç vereceğini ilk ücretsiz ayda ölçeriz.</p></div>
       </details>
       <details>
-        <summary>Platformdaki sıralamama etkisi olur mu?</summary>
-        <div class="a">
-          <p>
-            Yukarıdaki hesapta bilerek yalnızca cezayı saydık. Geç çıkan siparişin faturası
-            aslında oradan büyük ve büyüyen kısmı ertesi güne kalıyor.
-          </p>
-          <p>
-            <strong>İade en pahalısı.</strong> Ceza yazıldığında parayı ödersiniz ama yemeği zaten
-            satmışsınızdır. İade geldiğinde üçü birden gider: malzeme, kurye ve ciro. Aynı olay
-            için üç ayrı kayıp.
-          </p>
-          <p>
-            <strong>Puan geri gelmiyor.</strong> Bir gecelik yoğunlukta düşen puan, ertesi hafta
-            iyi çalışsanız bile eski yerine kolay dönmüyor. Ortalama, geçmişi de taşıyor.
-          </p>
-          <p>
-            <strong>Sıralama asıl mesele.</strong> Platformlar restoranları teslimat
-            performansına göre sıralıyor. Listede aşağı düşen restoran, ertesi gün <em>bütün
-            gün</em> daha az görünüyor. Yani zirvede kaybettiğiniz birkaç sipariş, ertesi gün
-            sabahtan gece yarısına kadar kaybedeceğiniz görünürlüğün yerine geçiyor.
-          </p>
-          <p>
-            Peki bunu neden hesaba katmıyoruz? Çünkü <strong>ölçemiyoruz.</strong> Hiçbir
-            platform "sıralamanız şu kadar düştü, sebebi de şu" diye bir rakam vermiyor. Ölçemediğimiz
-            bir şeyi size rakam olarak satmamız doğru olmaz.
-          </p>
-          <p>
-            Söyleyebileceğimiz şu: üçünü de belirleyen tek şey var — <strong>siparişin zamanında
-            çıkması.</strong> Debi'nin koruduğu şey de tam olarak o. Yani ceza hesabı işin
-            görünen ve ölçülebilen kısmı; sıralama tarafı onun üstüne ekleniyor, ondan
-            düşmüyor.
-          </p>
-        </div>
+        <summary>Kademeler ve eşikler nasıl belirlenir?</summary>
+        <div class="a"><p>Varsayılan değerlerle başlamayız. Varsa geçmiş sipariş ve ceza kayıtlarını inceler, ilk 7 günlük ölçümle mutfağınızın hangi yükte zorlandığını kontrol ederiz. Son ayarlar sizin onayınızla kullanılır.</p></div>
       </details>
       <details>
-        <summary>Bunu bir çalışanım da yapamaz mı? Neden yazılım?</summary>
-        <div class="a">
-          <p>
-            Yapabilir. Zaten çoğu restoran bunu elle yapıyor: yoğunlukta mağazayı kapatıyor, iş
-            hafifleyince açıyor. Soru "yapılabilir mi" değil, <strong>"tam o dakikada
-            yapılabiliyor mu"</strong>.
-          </p>
-          <p>
-            Müdahalenin gerektiği an, mutfağın en yoğun olduğu an. Tam o dakikada birinin elini
-            işten çekip tableti açması, açık sipariş sayısını sayması, üç platformda ayrı ayrı
-            süre değiştirmesi gerekiyor. O el, o dakikada boşta değil. Zaten boşta olsa mutfak
-            dolmamış olurdu.
-          </p>
-          <p>
-            Bir de sıklık meselesi var. Tipik bir haftada üç aşağı beş yukarı
-            <strong>yirmi ayrı yoğunluk dönemi</strong> çıkıyor, yani günde üçe yakın. Her biri
-            tek bir karar da değil: kademeyi tırmandır, her platforma ayrı uygula, yük düşünce
-            hepsini geri al.
-          </p>
-          <p>
-            <strong>Asıl fark geri almakta.</strong> Kapatmak akılda kalıyor, çünkü o an acil.
-            Açmak akılda kalmıyor, çünkü o sırada ortalık zaten sakinlemiş oluyor. Akşam
-            kapatılıp gece yarısı hâlâ kapalı duran mağaza az rastlanan bir şey değil — ve o
-            saatlerin faturası bazen önlenen cezadan büyük.
-          </p>
-          <p>
-            Kademe de insan işi değil. Baskı altında verilen karar ikilidir: açık ya da kapalı.
-            Debi araya üç basamak koyuyor. Kimse yemek yaparken önce %34, sonra %67, sonra %100
-            diye süre ayarlayıp yük düşünce aynı sırayla geri inmiyor.
-          </p>
-          <p>
-            Ama tersi de doğru: <strong>yazılım sizin bildiğiniz şeyleri bilmiyor.</strong> Yarın
-            gelecek kırk kişilik toplu sipariş, hasta olan aşçı, bozulan fritöz — bunları Debi
-            görmüyor. Panelde elle müdahale tam bunun için var: süresini siz yazıyorsunuz,
-            "açık kalsın" ya da "kapalı kalsın" diyorsunuz. Süre dolunca kendiliğinden
-            otomatiğe dönüyor.
-          </p>
-          <p>
-            Yani ikisi arasında seçim yapmıyorsunuz. Tekrar eden, hep aynı olan kısmı Debi üstleniyor;
-            sizin bildiğiniz, onun bilemeyeceği şeyler için kontrol sizde kalıyor.
-          </p>
-        </div>
+        <summary>Debi mağazayı kapatır mı?</summary>
+        <div class="a"><p>Yalnızca süre artışları yetmezse ve siz izin verdiyseniz kısa süreli duraklatabilir. Kapatmayı tamamen devre dışı bırakabilirsiniz; bu durumda mağaza açık kalır ve Debi yalnızca süreleri yönetir.</p></div>
       </details>
       <details>
-        <summary>Platformların zaten bir yoğunluk modu var. Debi ne fark ediyor?</summary>
-        <div class="a">
-          <p>
-            Doğru, çoğu platformda mağazanın sürelerini uzatmanın ya da kapatmanın bir yolu var.
-            Debi onların yerine geçmiyor; <strong>siz yine o platformlardasınız.</strong>
-            Fark, o düğmeye kimin, ne zaman ve nasıl bastığında.
-          </p>
-          <p>
-            <strong>Tetikleme hâlâ sizde.</strong> Platformun modu da birinin tam o dakikada
-            açmasını, yük düşünce de geri almasını bekliyor. Yani "yapılabilir mi" değil,
-            "mutfağın en yoğun anında birinin elini işten çekip bunu yapması" sorunu. Üstelik
-            Debi tek bir aç/kapa değil, yükü gördükçe kademe kademe ayarlıyor — bunun ayrıntısı
-            bir üstteki soruda.
-          </p>
-          <p>
-            <strong>Bir de tek platform değil.</strong> Her platformun kendi modu yalnızca kendi
-            içinde çalışıyor. Ama yoğunluk hepsine aynı anda vuruyor; üçünü ayrı ayrı açıp kapamak
-            yine elle iş demek. Debi hepsini tek yerden, aynı anda yönetiyor.
-          </p>
-          <p>
-            Kısacası platformun düğmesi <em>var</em>; eksik olan, o düğmeyi doğru dakikada ve her
-            platformda birden çeviren şey. Debi o boşluğu dolduruyor.
-          </p>
-        </div>
+        <summary>Hangi platformlarda ve çalışma biçimlerinde kullanılır?</summary>
+        <div class="a"><p>Uber Eats, GetirYemek, Yemeksepeti ve kendi site/QR/POS kanalınız desteklenir. Her platformun izin verdiği ayar farklıdır. Siparişleri tabletten kendiniz kabul etmeye devam edebilirsiniz.</p><p>Güncel ayrıntılar <a href="#/platformlar">Platformlar</a> sayfasında.</p></div>
       </details>
       <details>
-        <summary>Ücretsiz ay bitince ne oluyor, fiyatı ne?</summary>
-        <div class="a">
-          <p>
-            Debi satılmıyor, <strong>aylık kullanım</strong> şeklinde çalışıyor. Sebebi basit:
-            sistem her ay çalışıyor, her ay ceza önlüyor. Bir kere alınıp unutulan bir yazılım
-            değil; her akşam mutfağınızı izleyen ve müdahale eden bir şey.
-          </p>
-          <p>
-            Aylık tutarı görüşmede belirliyoruz. Tek bir liste fiyatı vermiyoruz çünkü
-            restoranlar birbirine benzemiyor: bir şubeyle on şube, günde otuz siparişle günde
-            üç yüz sipariş aynı işi gerektirmiyor. Kaç şubeniz ve hangi platformlarda olduğunuzu
-            konuşup net bir rakam söylüyoruz.
-          </p>
-          <p>
-            Ücretsiz ay kendiliğinden ücretli aya dönmüyor. Ay bitince elinize raporunuz geçiyor,
-            rakamları görüyorsunuz, ondan sonra devam edip etmeyeceğinize karar veriyorsunuz. Devam
-            etmezseniz kimse bir şey tahsil etmiyor.
-          </p>
-        </div>
+        <summary>Bunu bir çalışanım yapamaz mı?</summary>
+        <div class="a"><p>Evet, dikkatli bir çalışan yapabilir. Bunun için yoğun servis sırasında bütün platform ekranlarını izlemesi, toplam mutfak yükünü doğru değerlendirmesi, ayarları tek tek değiştirmesi ve yük düşünce hepsini zamanında geri alması gerekir.</p><p>Debi çalışanınızın yerini almaz; bu tekrar eden takibi üstlenir. Tek platformla ve düşük hacimle çalışıyorsanız Debi'ye ihtiyaç duymayabilirsiniz. Birden fazla kanal aynı mutfağı dolduruyorsa unutulan her ayarın maliyeti büyür.</p></div>
       </details>
       <details>
-        <summary>İlk gün mağazamı kapatmaya başlar mı?</summary>
-        <div class="a">
-          <p>Hayır. İlk hafta yalnızca izliyor. Kararını veriyor ama uygulamıyor, sadece "şu anda şunu yapardım" diye kaydediyor. Hafta sonunda eşiklerin sizin restoranınıza uyup uymadığını, kaç kez devreye girmek gerekeceğini ve ne kadar cezanın önlenebileceğini kendi verinizle görüyorsunuz.</p>
-        </div>
+        <summary>Uber Eats Yoğun Modu bu işi yapamaz mı?</summary>
+        <div class="a"><p>Uber Eats Yoğun Modu kendi platformundaki hazırlık süresini artırabilir ve siparişleri duraklatabilir. Yalnızca Uber Eats kullanıyor ve ayarı doğru anda elle açıp kapatabiliyorsanız bu özellik yeterli olabilir.</p><p>Debi yalnızca diğer kanalları bir araya getirmez. Kurulumda yüklediğiniz geçmiş sipariş raporundan restoranınızın yoğun günlerini, sıkıştığı saatleri ve personel düzeyine göre yaklaşık kapasitesini çıkarır; ilk 7 gün bunu gerçek sipariş akışıyla sınar. Böylece eşikler genel bir restoran varsayımına değil, sizin mutfağınıza göre belirlenir.</p><p>Ardından Uber Eats, GetirYemek, Yemeksepeti, site, QR ve POS yükünü tek mutfak olarak izler. Toplam yük restoranınıza özel sınırı aşınca kademeyi otomatik değiştirir; yoğunluk bitince ayarı geri alır.</p></div>
       </details>
       <details>
-        <summary>İzleme haftasının sonunda elime ne geçiyor?</summary>
-        <div class="a">
-          <p>
-            Yazdırılabilir tek sayfalık bir rapor. Kaç ayrı yoğunlukta devreye girmek gerekeceğini,
-            bunun hangi saatlerde toplandığını, kaç kez kapatma gerekeceğini ve o anlarda ne
-            kadar ceza riski biriktiğini <strong>kendi verinizle</strong> gösteriyor. Tahmin değil,
-            sizin restoranınızın o haftası.
-          </p>
-          <p>
-            Rapor "şu kadar ceza önlendi" demiyor, <strong>"önlenebilirdi" diyor</strong> — ve
-            izleme haftasında üretildiğini kendi üstünde yazıyor. O hafta Debi hiçbir şeye
-            dokunmadığı için gerçekte ne olacağını kimse bilmiyor. Şişirilmiş bir rakam ilk ayda
-            iyi görünür, ikinci ayda geri teper.
-          </p>
-          <p>
-            Mağazanın ne kadar kapalı kalacağını bu rapor <em>söylemiyor</em>, çünkü
-            söyleyemez: Debi gerçekten kapatsaydı sipariş akışı durur ve kuyruk çok daha hızlı
-            erirdi. İzleme haftasında akış devam ettiği için ölçülen süre gerçeği kat kat aşardı.
-          </p>
-          <p>
-            <a href="ornek-rapor.html" target="_blank" rel="noopener">Örnek bir raporu buradan
-            görebilirsiniz</a> — sayıları temsilî, biçimi gerçek.
-          </p>
-        </div>
+        <summary>Marketlerde ve birden fazla şubede çalışır mı?</summary>
+        <div class="a"><p>Kendi site, QR veya POS siparişlerini aktarabilen marketlerde çalışabilir. Her şubenin mutfağı ve yoğunluğu ayrı olduğu için her şubeye ayrı Debi kurulumu gerekir; bütün şubeleri tek ekrandan yönetme özelliği henüz yoktur.</p></div>
       </details>
       <details>
-        <summary>Kademelerdeki "%34" tam olarak ne demek?</summary>
-        <div class="a">
-          <p>
-            Buradaki yüzde, <strong>siparişin ne kadar azalacağı değil.</strong> Sürelerin ne kadar
-            uzatıldığını gösteriyor: normal ile en yüksek kademe arasındaki yolun ne kadarını kat ettiğini.
-          </p>
-          <p>Somut karşılığı sürelerdir:</p>
-          <div class="table-scroll" style="margin:4px 0 4px">
-            <table>
-              <thead><tr><th>Kademe</th><th>Teslimat süresi</th><th>Hazırlık süresi</th></tr></thead>
-              <tbody>
-                <tr><td>Normal</td><td>20–30 dk</td><td>15 dk</td></tr>
-                <tr><td>%34</td><td>30–45 dk</td><td>24 dk</td></tr>
-                <tr><td>%67</td><td>45–55 dk</td><td>32 dk</td></tr>
-                <tr><td>%100</td><td>55–70 dk</td><td>40 dk</td></tr>
-              </tbody>
-            </table>
-          </div>
-          <p>
-            Yukarıdakiler varsayılan değerler; sizin restoranınızın gerçek sürelerine göre ayarlanır.
-            Kapatma bunların hiçbiri değil, ayrı ve son basamaktır.
-          </p>
-          <p>
-            Siparişin ne kadar azalacağını ise <strong>söyleyemiyoruz.</strong> Uzun süre gören
-            müşterilerin bir kısmı vazgeçiyor, ama bu oran restorana, saate ve o an rakiplerinin
-            gösterdiği süreye göre değişiyor. Ücretsiz ayda ölçülecek ilk şey bu.
-          </p>
-        </div>
+        <summary>Kurulum için ne gerekir?</summary>
+        <div class="a"><p>İşletmede sürekli açık kalan bir Windows bilgisayar ve kullandığınız platformların bağlantı bilgileri gerekir. Kurulum paketini siz açabilirsiniz; isterseniz kurulumu birlikte yaparız.</p></div>
       </details>
       <details>
-        <summary>Eşikler benim restoranıma göre mi ayarlanıyor?</summary>
-        <div class="a">
-          <p>
-            Hazır gelen eşikler tahmindir; hiçbir restorana tam uymaz. Elinizde geçmiş kayıt varsa
-            — saat başına gelen sipariş, o gün çalışan personel, yenen cezalar — eşikler sizin
-            restoranınıza göre hesaplanıyor. Excel dosyanızı verip bir düğmeye basıyorsunuz; başlıkları
-            program kendisi tanıyor.
-          </p>
-          <p>
-            Üç şey çıkıyor: mutfağın saatte kaç sipariş çıkarabildiği, cezaların hangi yoğunlukta
-            başladığı ve buna göre önerilen eşikler. Debi'nin devreye girdiği nokta, cezaların
-            başladığı noktanın biraz altına alınıyor — ceza oluşmadan girmek gerekiyor.
-          </p>
-          <p>
-            Bunlar da başlangıç değeri. Geçmiş kayıt neyin ceza yazdığını gösteriyor, o an
-            devreye girilseydi ne olacağını göstermiyor; izleme haftası bunun için var.
-          </p>
-        </div>
+        <summary>Bilgisayar veya internet kesilirse ne olur?</summary>
+        <div class="a"><p>Mağaza zaten açıksa kesinti onu kapatmaz. Debi'nin kısa süreli duraklattığı anda bağlantı kesilirse mağaza, bağlantı dönene kadar kapalı kalabilir. Bilgisayar yeniden açıldığında Debi yalnızca kendi kapattığı mağazayı açmayı dener.</p><p>Bu riski istemiyorsanız kapatma özelliğini devre dışı bırakabilirsiniz.</p></div>
       </details>
       <details>
-        <summary>Kurulum ne gerektiriyor?</summary>
-        <div class="a">
-          <p>İki şey: platformun satıcı panelinden alınan bağlantı bilgileri ve işletmede sürekli açık kalan bir bilgisayar. Mutfağı izleyen ve süreleri ayarlayan taraf o bilgisayar; kapalıyken sistem çalışmıyor.</p>
-          <p>Kurulum tek dosya: gönderdiğimiz paketi çift tıklıyorsunuz, gereken her şey içinde geliyor. Kendiniz kurmak istemezseniz biz gelip kuruyoruz — tercih sizin.</p>
-          <p>Bilgiler Debi'nin kendi kurulum ekranına giriliyor: her platform için ayrı bir bölüm, her kutunun altında o bilginin platformda nerede yazdığı ve doğru girilip girilmediğini yerinde söyleyen bir deneme düğmesi var. Bilgiler o bilgisayarda kalıyor, bize gönderilmiyor.</p>
-        </div>
+        <summary>Ücretsiz ay nasıl ilerler ve sonrasında ne olur?</summary>
+        <div class="a"><p>İlk ay ücretsizdir; ilk 7 gün yalnızca ölçüm yapılır. Raporu ve önerilen eşikleri gördükten sonra canlı kullanıma geçip geçmemeye siz karar verirsiniz. Ücretsiz dönem kendiliğinden ücretli aboneliğe dönüşmez.</p></div>
       </details>
       <details>
-        <summary>Teslimatı platformun kuryesi yapıyor, yine işe yarar mı?</summary>
-        <div class="a">
-          <p>
-            Evet. Kuryesi platformun olsa da elinizde iki şey kalıyor.
-          </p>
-          <p>
-            Birincisi <strong>hazırlık süresi</strong>. Siparişi kabul ederken mutfağın o anki
-            durumuna göre süre bildiriliyor. Bunun iki faydası var. Kurye siparişin hazır olacağı
-            saatte geliyor, kapıda beklemiyor; kurye beklemesi zaten ceza sebeplerinden biri. Bir de
-            müşterinin gördüğü teslimat süresi uzuyor, akış kısılıyor.
-          </p>
-          <p>
-            İkincisi <strong>mağaza durumu</strong>. Süre optimizasyonu yetmezse sipariş alımı durduruluyor.
-          </p>
-          <p>
-            Kendi kuryenizle çalışıyorsanız bunlara teslimat süresi de ekleniyor. O zaman daha ince
-            ayar yapabiliyorsunuz.
-          </p>
-        </div>
-      </details>
-      <details>
-        <summary>Siparişleri tabletten ben kabul ediyorum, olur mu?</summary>
-        <div class="a">
-          <p>Olur. Ama burada sizin vereceğiniz bir karar var.</p>
-          <p>
-            Hazırlık süresi platforma <strong>siparişi kabul ederken</strong> bildiriliyor. Yani bu
-            ayarı kullanabilmek için siparişi Debi'nin kabul etmesi gerekiyor. Tabletten siz
-            kabul ediyorsanız araya girecek bir an kalmıyor.
-          </p>
-          <p>İki seçenek de açık, ikisi de çalışıyor:</p>
-          <div class="table-scroll" style="margin:4px 0 4px">
-            <table>
-              <thead><tr><th>Siparişi kim kabul ediyor</th><th>Ne değişiyor</th></tr></thead>
-              <tbody>
-                <tr>
-                  <td>Debi</td>
-                  <td>Hazırlık süresi de devreye giriyor. Kurye siparişin hazır olacağı saatte geliyor, kapıda beklemiyor.</td>
-                </tr>
-                <tr>
-                  <td>Siz, tabletten</td>
-                  <td>Hazırlık süresine dokunulmuyor. Teslimat süresi ve mağaza aç/kapa kademeleri aynen çalışıyor.</td>
-                </tr>
-              </tbody>
-            </table>
-          </div>
-          <p>
-            Kurulumda bu ayar <strong>kapalı geliyor:</strong> hiç kimse, haberi olmadan
-            siparişlerini bir yazılıma kabul ettirmek istemez. Açmak isteyip istemediğinize ücretsiz
-            ayın sonunda karar verirsiniz; izleme haftasında zaten hiçbir sipariş kabul edilmiyor.
-          </p>
-        </div>
-      </details>
-      <details>
-        <summary>Mağazam hiç kapanmasın istiyorum, mümkün mü?</summary>
-        <div class="a">
-          <p>Evet. Kapatma kademesini tamamen kapatabilirsiniz. Sistem o zaman en yüksek optimizasyon kademesine çıkıyor, mağazayı hiçbir durumda sipariş alımına kapatmıyor.</p>
-        </div>
-      </details>
-      <details>
-        <summary>Market işletiyorum, restoran değil. İşe yarar mı?</summary>
-        <div class="a">
-          <p>
-            Kendi siteniz, QR ya da kasa sisteminizden sipariş alıyorsanız evet. Bu kanalda küçük
-            bir ekleme gerekiyor ve o ekleme Debi'de değil, sizin sipariş sisteminizde
-            yapılıyor: tarifi biz hazırlıyoruz, sitenizi ya da kasa yazılımınızı kuran firmaya
-            iletiliyor. Sonrasında market siparişi de restoran siparişi gibi sayılıyor ve
-            aynı kademeler işliyor.
-          </p>
-          <p>
-            Hangi bağlantının bugün hazır olduğu
-            <a href="#/platformlar">Platformlar</a> sayfasında yazıyor.
-          </p>
-        </div>
-      </details>
-      <details>
-        <summary>Birden fazla şubem var, hepsi tek yerden yönetilir mi?</summary>
-        <div class="a">
-          <p>
-            Şu an hayır. Debi tek mağaza için çalışıyor, her şube kendi kurulumunu istiyor. Bu
-            aslında doğru davranış: mutfaklar ayrı olduğu için bir şubenin yoğunluğu diğerinin
-            siparişini kısmamalı.
-          </p>
-          <p>
-            Eksik olan, bütün şubeleri tek ekrandan izleyebilmek. Onu henüz yapmadık.
-          </p>
-        </div>
-      </details>
-      <details>
-        <summary>Bilgisayar ya da internet giderse mağazam kapalı mı kalır?</summary>
-        <div class="a">
-          <p>
-            Önce şunu ayıralım: <strong>mağaza o an açıksa hiçbir şey olmuyor.</strong> Ne
-            elektrik kesintisi ne internet, açık bir mağazayı kapatmıyor. Soru yalnızca Debi'nin
-            mağazayı kapattığı o birkaç dakika için geçerli. Cevabı da dürüstçe: evet, o aralığa
-            denk gelirse kapalı kalmaya devam eder.
-          </p>
-          <p>
-            <strong>İnternet giderse</strong> Debi çalışmaya devam ediyor, açma vaktinin geldiğini
-            görüyor ama platforma ulaşamıyor. Mağaza, bağlantı gelene kadar kapalı kalır; internet
-            döndüğü anda ilk turda açılıyor.
-          </p>
-          <p>
-            <strong>Bilgisayar kapanırsa</strong> aynı şey, üstüne Debi de durmuş oluyor. Bilgisayar
-            açıldığında durumu diskten okuyup mağazayı ilk turda açıyor — kurulumda bilgisayarla
-            birlikte otomatik başlaması bunun için ayarlanıyor.
-          </p>
-          <p>
-            İki durumda da elinizde kalan şey aynı ve beş saniye sürüyor:
-            <strong>mağazayı platformun kendi uygulamasından telefonunuzdan açarsınız.</strong>
-            İşletmenizin internetinin gitmesi telefonunuzun hattını etkilemiyor.
-          </p>
-          <p>
-            Bu pencerenin kısalığı da işinize yarıyor: mağazanın kapalı kalma süresinin üst sınırı
-            varsayılan olarak 15 dakika. Kesintinin tam o aralığa denk gelmesi gerekiyor. Kapatma
-            kademesini hiç istemiyorsanız zaten tamamen kapatabilirsiniz — o zaman bu sorunun konusu
-            da kalmıyor.
-          </p>
-        </div>
-      </details>
-      <details>
-        <summary>Telefondan takip edebilir miyim?</summary>
-        <div class="a">
-          <p>
-            Evet. Telefon uygulaması, işletmedeki bilgisayarda çalışan Debi'ye aynı kablosuz ağdan
-            bağlanıyor: o anki açık sipariş sayısını, Debi'nin devreye girip girmediğini ve son
-            kararları gösteriyor. Telefonun işletmenin kablosuz ağında olması gerekiyor; işletme
-            dışından bakmak isterseniz bunu kurulumda ayrıca ayarlıyoruz.
-          </p>
-          <p>
-            Uygulama yalnızca izliyor. Telefondan mağaza açılıp kapatılamıyor, eşikler
-            değiştirilemiyor — bunlar işletmedeki bilgisayarda kalıyor. Bağlantıyı panelde
-            ürettiğiniz bir parola açıyor; telefonunuzu kaybederseniz parolayı yenilemeniz yetiyor,
-            eski parola o anda geçersiz oluyor.
-          </p>
-          <p>
-            Uygulama App Store ve Google Play için hazırlanıyor. Mağazalara çıkana kadar Android
-            telefonlara kurulum bağlantısını gönderebiliyoruz; iPhone'da mağaza çıkışını
-            bekliyoruz.
-          </p>
-        </div>
-      </details>
-      <details>
-        <summary>Sipariş verilerim nereye gidiyor?</summary>
-        <div class="a">
-          <p>
-            Hiçbir yere. Debi işletmenizdeki bilgisayarda çalışıyor, paneli yalnızca o bilgisayardan
-            açılıyor ve kayıtlar o diskte duruyor. Telefon uygulaması da işletmenin kendi kablosuz
-            ağının içinden bağlanıyor. Bizim sunucumuza sipariş verisi gitmiyor.
-          </p>
-          <p>
-            Platformdan gelen sipariş bilgisinde müşterinin adı, telefonu, adresi ve konumu var.
-            Bunlar sisteme girmeden ayıklanıyor: karar veren tarafa, kayıtlara ve diske sadece
-            sipariş numarası, durumu, saati ve ürün adedi düşüyor.
-          </p>
-          <p>
-            Ayrıntılı anlatımı <a href="#/guvenlik">Güvenlik ve Gizlilik</a> sayfasında.
-          </p>
-        </div>
+        <summary>Telefondan neyi görebilirim; verilerim nereye gider?</summary>
+        <div class="a"><p>Telefon uygulaması açık siparişi, mutfak doluluğunu, etkin kademeyi ve son kararları gösterir. Mağazayı yönetemez ve ayar değiştiremez. Varsayılan kullanımda telefon, işletmedeki bilgisayarla aynı ağda olmalıdır.</p><p>Sipariş kayıtları işletmedeki bilgisayarda kalır; müşteri adı, telefonu ve adresi kaydedilmez. Ayrıntılar <a href="#/guvenlik">Güvenlik ve Veriler</a> sayfasında.</p></div>
       </details>
     </div>
   </section>
 
   <!-- ucretsiz deneme basvurusu: yesil butonun sayfasi, menude yok -->
-  <section class="page" data-page="/deneme">
+<section class="page" data-page="/deneme">
     <div class="page-head">
-      <h1>İlk ay bizden</h1>
-      <p>
-        Bir ay boyunca ücret almıyoruz. İlk hafta yalnızca izliyor, yani hiçbir şeye
-        dokunmadan sadece ölçüyor. Sonrasında Debi gerçekten devreye giriyor. Ayın sonunda ne kadar
-        cezanın önlenebileceğini kendi rakamlarınızla görürsünüz.
-      </p>
-      <p>
-        İlk haftanın sonunda elinize geçecek belgeyi şimdiden görebilirsiniz:
-        <a href="ornek-rapor.html" target="_blank" rel="noopener">örnek rapor</a>.
-        Sayıları temsilî, biçimi gerçek.
-      </p>
+      <p class="eyebrow">1 ay ücretsiz</p>
+      <h1>Önce kaybınızı ölçelim.</h1>
+      <p>İlk 7 gün Debi hiçbir ayarı değiştirmeden işletmenizi izler. Yoğunluğun hangi gün ve saatlerde oluştuğunu, hesaplanan ceza riskini ve önerilen başlangıç ayarlarını tek sayfalık raporda görürsünüz.</p>
+      <p>Raporu gördükten sonra devam edip etmeyeceğinize siz karar verirsiniz. Ücretsiz dönem kendiliğinden ücretli kullanıma dönüşmez.</p>
+      <div class="cta-row"><a class="btn btn-ghost" href="ornek-rapor.html" target="_blank" rel="noopener">Örnek raporu görün</a></div>
     </div>
-
-    <!-- "Denemeyi başlat" düğmesine basınca ne olacağı belirsizdi: düğme
-         anında bir şey olacağını ima ediyor, gerçekte form bırakılıyor ve
-         kurulumu biz yapıyoruz. Adımları yazmak vaadi büyütmüyor, sadece
-         belirsizliği kaldırıyor. -->
     <ol class="adimlar">
-      <li><b>Formu bırakın.</b> İşletme adı ve e-posta yeterli.</li>
-      <li><b>Biz dönüyoruz.</b> Hangi platformlarda olduğunuzu ve mutfağınızın nasıl
-        çalıştığını konuşuyoruz.</li>
-      <li><b>Kurulum tek dosya.</b> Gönderdiğimiz kurulum paketini çift
-        tıklıyorsunuz; gereken her şey içinde. İsterseniz biz gelip kuruyoruz —
-        hangisi size uygunsa. Tek şart: işletmede sürekli açık kalan bir
-        bilgisayar.</li>
-      <li><b>İlk hafta sadece izliyor.</b> Debi hiçbir şeye dokunmadan ölçüyor;
-        haftanın sonunda raporu görüyorsunuz ve devam edip etmeyeceğinize
-        karar veriyorsunuz.</li>
+      <li><b>Formu bırakın.</b> İşletme adı ve e-posta başlangıç için yeterli.</li>
+      <li><b>Kısa bir görüşme yapalım.</b> Kullandığınız platformları ve mutfağınızın çalışma biçimini anlayalım.</li>
+      <li><b>Debi'yi kuralım.</b> İşletmede sürekli açık kalan Windows bilgisayara kurulum yapılır.</li>
+      <li><b>7 gün ölçelim.</b> Rapor ve önerilen ayarlar hazır olunca birlikte karar verelim.</li>
     </ol>
     <div class="contact">
       <form class="form" id="basvuru" method="POST" novalidate>
@@ -1343,7 +772,7 @@
           <div class="field">
             <label for="f-platform">Hangi platformlardan sipariş alıyorsunuz?</label>
             <input id="f-platform" name="platformlar" type="text"
-                   placeholder="Uber Eats Trendyol Go, Yemeksepeti, kendi sitem…">
+                   placeholder="Uber Eats, GetirYemek, Yemeksepeti, kendi sitem…">
           </div>
           <div class="field">
             <label for="f-not">Eklemek istediğiniz bir şey</label>
@@ -1355,7 +784,7 @@
         <input type="checkbox" name="botcheck" tabindex="-1" aria-hidden="true"
                style="display:none" autocomplete="off">
 
-        <button class="btn btn-primary" type="submit" id="f-gonder">Ücretsiz denemeyi başlat</button>
+        <button class="btn btn-primary" type="submit" id="f-gonder">Ücretsiz ölçümü başlatın</button>
         <p class="sonuc" id="f-sonuc" role="status" aria-live="polite"></p>
         <p class="kvkk">
           Bıraktığınız bilgiler yalnızca size dönüş yapmak için kullanılır; pazarlama amacıyla
@@ -1371,7 +800,7 @@
         <span class="live" data-bayrak="mail" role="status" aria-live="polite"></span>
       </div>
       <p class="kvkk">
-        Telefon numarası ve diğer bilgiler <a href="#/iletisim">iletişim sayfasında</a>.
+        Telefon numarası ve doğrudan iletişim için <a href="#/iletisim">İletişim sayfasına</a> bakabilirsiniz.
       </p>
     </div>
   </section>
@@ -1420,7 +849,7 @@
   var PAGES = [
     {path:"/",              label:"Ana sayfa",     title:"Debi"},
     {path:"/nasil-calisir", label:"Nasıl Çalışır", title:"Nasıl Çalışır"},
-    {path:"/neden",         label:"Neden",         title:"Neden bu işi yapıyoruz"},
+    {path:"/neden",         label:"Neden",         title:"Neden bu işi yapıyoruz", gizli:true},
     {path:"/platformlar",   label:"Platformlar",   title:"Platformlar"},
     {path:"/guvenlik",      label:"Güvenlik ve Gizlilik", title:"Güvenlik ve Gizlilik"},
     {path:"/sss",           label:"SSS",           title:"Sık sorulan sorular"},
