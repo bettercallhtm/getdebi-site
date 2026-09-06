@@ -3,61 +3,106 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Örnek Restoran — Debi</title>
 <style>
- :root{--ink:#111A19;--ink2:#495A56;--ink3:#71827D;--line:#DFE4E2;
-       --paper:#fff;--soft:#EFF2F1;--accent:#0B6E63;}
- *{box-sizing:border-box}
- body{margin:0;padding:40px 24px;background:var(--paper);color:var(--ink);
-   font:16px/1.6 "Segoe UI",system-ui,sans-serif;}
- .wrap{max-width:760px;margin:0 auto}
- h1{font-size:26px;margin:0 0 4px;letter-spacing:-.02em}
- .dnm{color:var(--ink3);font-size:14px;margin-bottom:28px}
- .grid{display:grid;gap:12px;grid-template-columns:1fr 1fr;margin-bottom:24px}
- @media(min-width:640px){.grid{grid-template-columns:repeat(4,1fr)}}
- .k{border:1px solid var(--line);border-radius:11px;padding:14px;background:var(--soft)}
- /* Etiketler tek satira siginiyor; min-height hilesine gerek kalmadi. */
- .k .l{font-size:11px;text-transform:uppercase;letter-spacing:.08em;
-        color:var(--ink3)}
- .k .v{font-size:26px;font-weight:700;margin:6px 0 2px;letter-spacing:-.02em}
- .k .a{font-size:12px;color:var(--ink3)}
- table{width:100%;border-collapse:collapse;font-size:15px;margin-bottom:24px}
- td{padding:10px 0;border-bottom:1px solid var(--line)}
- td:last-child{text-align:right;font-weight:600}
- .grafik{margin:0 0 24px;padding:18px;border:1px solid var(--line);
-   border-radius:12px}
- .grafik .gb{font-size:14px;font-weight:600;margin-bottom:10px}
- .grafik .ga{font-size:12px;color:var(--ink3);margin-top:8px;line-height:1.5}
- .uyari{border-left:3px solid var(--accent);background:var(--soft);
-   padding:14px 16px;border-radius:0 10px 10px 0;font-size:14px;color:var(--ink2)}
- .sonraki{margin-top:18px;font-size:14px;color:var(--ink2)}
- .sonraki b{color:var(--ink)}
- .alt{margin-top:28px;font-size:12px;color:var(--ink3);border-top:1px solid var(--line);padding-top:14px}
- @media print{body{padding:0} .k{background:none}}
-</style></head><body><div style="max-width:760px;margin:0 auto 22px;padding:13px 16px;border:1px solid #E0A33E;background:#FBF3E3;border-radius:9px;color:#6B4E12;font-size:14px;line-height:1.55;"><b>ÖRNEK</b> — Sayılar temsilîdir, gerçek bir restoranın verisi değildir. Belgenin biçimi ve hesabı gerçek raporun aynısıdır.</div><div class="wrap">
-<h1>Örnek Restoran</h1>
-<div class="dnm">27.08.2026 – 02.09.2026 · 7 gün ·
-izleme haftası · hiçbir şey uygulanmadı</div>
-<div class="grid"><div class="k"><div class="l">Ceza riski</div><div class="v">6.491 TL</div><div class="a">platform başına ayrı tarife</div></div>
-<div class="k"><div class="l">Yoğunluk dönemi</div><div class="v">17</div><div class="a">günde ortalama 2,4</div></div>
-<div class="k"><div class="l">En yüksek yük</div><div class="v">21</div><div class="a">açık sipariş</div></div>
-<div class="k"><div class="l">Kapatma gerekirdi</div><div class="v">12</div><div class="a">dönemde — süre optimizasyonu tek başına yetmezdi</div></div></div>
+ :root{--ink:#10201d;--muted:#60716c;--line:#dce5e1;--paper:#fff;
+   --soft:#f3f7f5;--green:#0b6e63;--green2:#dff2ec;--amber:#a9610a;
+   --amber2:#fff0cf;--red:#b84432;--red2:#f8dcd5}
+ *{box-sizing:border-box} body{margin:0;padding:34px 20px;background:#edf2f0;
+   color:var(--ink);font:14px/1.5 "Segoe UI",system-ui,sans-serif}
+ .wrap{max-width:900px;margin:auto;background:var(--paper);padding:38px 42px;
+   border-radius:18px;box-shadow:0 12px 36px rgba(16,32,29,.08)}
+ .top{display:flex;justify-content:space-between;gap:24px;align-items:flex-start;
+   border-bottom:1px solid var(--line);padding-bottom:20px}
+ .brand{font-weight:800;color:var(--green);letter-spacing:.08em}
+ h1{font-size:30px;line-height:1.12;margin:10px 0 7px;letter-spacing:-.035em}
+ .meta,.sub,.section-title p,.note,.footer{color:var(--muted)}
+ .sub{max-width:590px;margin:0} .mode{background:var(--green2);color:var(--green);
+   border-radius:999px;padding:7px 11px;font-weight:700;white-space:nowrap}
+ .lead{font-size:19px;line-height:1.45;margin:24px 0}
+ .lead b{color:var(--green)} .cards{display:grid;grid-template-columns:repeat(4,1fr);
+   gap:10px;margin-bottom:18px} .card{border:1px solid var(--line);border-radius:13px;
+   padding:14px;background:var(--soft)} .badge{display:inline-block;font-size:10px;
+   font-weight:700;letter-spacing:.02em;border-radius:999px;padding:4px 8px}
+ .measured{background:var(--green2);color:var(--green)}
+ .calculated{background:var(--amber2);color:var(--amber)}
+ .scenario{background:var(--red2);color:var(--red)}
+ .value{font-size:25px;font-weight:800;line-height:1.1;margin:9px 0 4px}
+ .label{font-size:12px;color:var(--muted)} .panel{border:1px solid var(--line);
+   border-radius:14px;padding:17px;margin-top:14px;break-inside:avoid}
+ .section-title{display:flex;justify-content:space-between;gap:18px;align-items:flex-start}
+ h2{font-size:17px;margin:6px 0 10px} .section-title p{font-size:11px;
+   max-width:260px;margin:5px 0;text-align:right}
+ table{width:100%;border-collapse:collapse} .heat table{table-layout:fixed}
+ .heat th,.heat td{font-size:9px;text-align:center;padding:3px;border:2px solid white;
+   height:24px;border-radius:5px} .heat th[scope=row]{text-align:left;width:34px}
+ .heat td span{font-size:8px;font-weight:700} .h0{background:#f2f5f4;color:#97a39f}
+ .h1{background:#dff2ec} .h2{background:#b8dfd4} .h3{background:#ffd992}
+ .h4{background:#de765f;color:white} .legend{display:flex;align-items:center;gap:6px;
+   color:var(--muted);font-size:10px;margin-top:8px} .legend i{width:14px;height:10px;
+   border-radius:3px;display:inline-block;margin-left:8px} .risk th,.risk td{padding:9px 8px;
+   border-bottom:1px solid var(--line);text-align:left} .risk th{font-size:10px;
+   color:var(--muted);text-transform:uppercase;letter-spacing:.07em}
+ .risk td:last-child,.risk th:last-child{text-align:right;font-weight:700}
+ .split{display:grid;grid-template-columns:1.1fr .9fr;gap:14px}
+ .plain{margin:4px 0 0;padding-left:18px} .plain li{margin:6px 0}
+ .settings{background:var(--green);color:white;border:0}
+ .settings .badge{background:rgba(255,255,255,.16);color:white}
+ .settings h2,.settings b{color:white} .settings p,.settings li{color:#d9efea}
+ .next{margin-top:14px;padding:17px 19px;border-radius:14px;background:#10201d;color:white;
+   display:flex;justify-content:space-between;gap:18px;align-items:center}
+ .next b{font-size:17px} .next span{color:#c9d5d2}
+ .footer{font-size:10px;margin-top:18px;border-top:1px solid var(--line);padding-top:12px}
+ @media(max-width:700px){.wrap{padding:25px 20px;border-radius:0} .cards{grid-template-columns:1fr 1fr}
+   .split{grid-template-columns:1fr} .top,.section-title,.next{display:block}
+   .section-title p{text-align:left} .mode{display:inline-block;margin-top:12px}
+   .heat-scroll{overflow:auto} .heat table{min-width:560px}}
+ @media print{@page{size:A4;margin:9mm} body{padding:0;background:white;font-size:11px}
+   .wrap{box-shadow:none;padding:0;max-width:none} .panel{padding:11px;margin-top:9px}
+   .lead{font-size:15px;margin:14px 0} h1{font-size:24px} .card{padding:10px}
+   .value{font-size:20px} .next{padding:12px}}
+</style></head><body><main class="wrap"><div style="margin:0 0 22px;padding:13px 16px;border:1px solid #E0A33E;background:#FBF3E3;border-radius:9px;color:#6B4E12;font-size:14px;line-height:1.55;"><b>ÖRNEK</b> — Sayılar temsilîdir, gerçek bir restoranın verisi değildir. Belgenin biçimi ve hesabı gerçek raporun aynısıdır.</div>
+<header class="top"><div><div class="brand">DEBİ</div><h1>Örnek Restoran için 7 günlük yoğunluk özeti</h1>
+<p class="meta">31.08.2026 – 06.09.2026 · Uber Eats, Yemeksepeti, Kendi sitem</p></div>
+<div class="mode">Yalnızca izleme</div></header>
+<p class="lead">Bu dönemde yoğun saatlerin oluşturduğu tahmini ceza riski
+<b>6.582 TL</b>. Debi, sipariş akışını mutfak zorlanmadan dengeleyerek
+bu tutarın kârınızdan çıkma ihtimalini azaltmayı amaçlar.</p>
+<section class="cards">
+ <article class="card"><span class="badge measured">Kayıtlardan</span><div class="value">21</div><div class="label">en yüksek açık sipariş</div></article>
+ <article class="card"><span class="badge measured">Kayıtlardan</span><div class="value">21</div><div class="label">ayrı yoğunluk dönemi</div></article>
+ <article class="card"><span class="badge calculated">Tarifenizle</span><div class="value">6.582 TL</div><div class="label">platform başına girilen ceza tarifesi</div></article>
+ <article class="card"><span class="badge scenario">Debi açık olsaydı</span><div class="value">12</div><div class="label">kapatma eşiğine ulaşan dönem</div></article>
+</section>
 
-<div class="grafik">
-  <div class="gb">Gün içinde baskı — saat başına en yüksek açık sipariş</div>
-  <svg viewBox="0 0 700 190" width="100%" role="img"
-       aria-label="Saat saat en yüksek açık sipariş sayısı">
-    <line x1="34" y1="82.0" x2="690" y2="82.0" stroke="#D6533C" stroke-width="1" stroke-dasharray="4 4"/><text x="34" y="77.0" font-size="10" fill="#D6533C">devreye girme eşiği 12</text>
-    <text x="47.7" y="177" text-anchor="middle" font-size="10" fill="#71827D">00</text><text x="129.7" y="177" text-anchor="middle" font-size="10" fill="#71827D">03</text><text x="211.7" y="177" text-anchor="middle" font-size="10" fill="#71827D">06</text><text x="293.7" y="177" text-anchor="middle" font-size="10" fill="#71827D">09</text><rect x="363.0" y="122.0" width="25.3" height="40.0" rx="2" fill="#C4CDC9"/><text x="375.7" y="177" text-anchor="middle" font-size="10" fill="#71827D">12</text><rect x="390.3" y="115.3" width="25.3" height="46.7" rx="2" fill="#C4CDC9"/><rect x="417.7" y="135.3" width="25.3" height="26.7" rx="2" fill="#C4CDC9"/><rect x="445.0" y="142.0" width="25.3" height="20.0" rx="2" fill="#C4CDC9"/><text x="457.7" y="177" text-anchor="middle" font-size="10" fill="#71827D">15</text><rect x="527.0" y="135.3" width="25.3" height="26.7" rx="2" fill="#C4CDC9"/><text x="539.7" y="177" text-anchor="middle" font-size="10" fill="#71827D">18</text><rect x="554.3" y="115.3" width="25.3" height="46.7" rx="2" fill="#C4CDC9"/><rect x="581.7" y="42.0" width="25.3" height="120.0" rx="2" fill="#D6533C"/><rect x="609.0" y="22.0" width="25.3" height="140.0" rx="2" fill="#D6533C"/><text x="621.7" y="177" text-anchor="middle" font-size="10" fill="#71827D">21</text><rect x="636.3" y="22.0" width="25.3" height="140.0" rx="2" fill="#D6533C"/><rect x="663.7" y="75.3" width="25.3" height="86.7" rx="2" fill="#D6533C"/>
-  </svg>
-  <div class="ga">Kırmızı: eşiğe ulaşan saatler · turuncu: eşiğe yaklaşan
-    saatler. Çubuklar bu raporun kendi kaydından.</div>
+<section class="panel heat">
+  <div class="section-title"><div><span class="badge measured">Kayıtlardan</span>
+    <h2>Mutfak en çok ne zaman zorlandı?</h2></div>
+    <p>Kutudaki sayı o saatte görülen en yüksek açık sipariştir.</p></div>
+  <div class="heat-scroll"><table aria-label="Mutfak yoğunluğunun gün ve saatlere göre dağılımı">
+    <thead><tr><th></th><th>11</th><th>12</th><th>13</th><th>14</th><th>15</th><th>16</th><th>17</th><th>18</th><th>19</th><th>20</th><th>21</th><th>22</th><th>23</th></tr></thead>
+    <tbody><tr><th scope="row">Paz</th><td class="h0" title="Pazartesi 11:00 — 0 açık sipariş"><span></span></td><td class="h1" title="Pazartesi 12:00 — 5 açık sipariş"><span>5</span></td><td class="h1" title="Pazartesi 13:00 — 5 açık sipariş"><span>5</span></td><td class="h0" title="Pazartesi 14:00 — 0 açık sipariş"><span></span></td><td class="h0" title="Pazartesi 15:00 — 0 açık sipariş"><span></span></td><td class="h0" title="Pazartesi 16:00 — 0 açık sipariş"><span></span></td><td class="h0" title="Pazartesi 17:00 — 0 açık sipariş"><span></span></td><td class="h1" title="Pazartesi 18:00 — 3 açık sipariş"><span>3</span></td><td class="h1" title="Pazartesi 19:00 — 7 açık sipariş"><span>7</span></td><td class="h4" title="Pazartesi 20:00 — 18 açık sipariş"><span>18</span></td><td class="h4" title="Pazartesi 21:00 — 21 açık sipariş"><span>21</span></td><td class="h4" title="Pazartesi 22:00 — 18 açık sipariş"><span>18</span></td><td class="h4" title="Pazartesi 23:00 — 13 açık sipariş"><span>13</span></td></tr><tr><th scope="row">Sal</th><td class="h0" title="Salı 11:00 — 0 açık sipariş"><span></span></td><td class="h1" title="Salı 12:00 — 3 açık sipariş"><span>3</span></td><td class="h0" title="Salı 13:00 — 0 açık sipariş"><span></span></td><td class="h0" title="Salı 14:00 — 0 açık sipariş"><span></span></td><td class="h0" title="Salı 15:00 — 0 açık sipariş"><span></span></td><td class="h0" title="Salı 16:00 — 0 açık sipariş"><span></span></td><td class="h0" title="Salı 17:00 — 0 açık sipariş"><span></span></td><td class="h0" title="Salı 18:00 — 0 açık sipariş"><span></span></td><td class="h1" title="Salı 19:00 — 4 açık sipariş"><span>4</span></td><td class="h3" title="Salı 20:00 — 11 açık sipariş"><span>11</span></td><td class="h4" title="Salı 21:00 — 13 açık sipariş"><span>13</span></td><td class="h3" title="Salı 22:00 — 11 açık sipariş"><span>11</span></td><td class="h1" title="Salı 23:00 — 2 açık sipariş"><span>2</span></td></tr><tr><th scope="row">Çar</th><td class="h0" title="Çarşamba 11:00 — 0 açık sipariş"><span></span></td><td class="h1" title="Çarşamba 12:00 — 3 açık sipariş"><span>3</span></td><td class="h1" title="Çarşamba 13:00 — 5 açık sipariş"><span>5</span></td><td class="h1" title="Çarşamba 14:00 — 3 açık sipariş"><span>3</span></td><td class="h0" title="Çarşamba 15:00 — 0 açık sipariş"><span></span></td><td class="h0" title="Çarşamba 16:00 — 0 açık sipariş"><span></span></td><td class="h0" title="Çarşamba 17:00 — 0 açık sipariş"><span></span></td><td class="h0" title="Çarşamba 18:00 — 0 açık sipariş"><span></span></td><td class="h1" title="Çarşamba 19:00 — 3 açık sipariş"><span>3</span></td><td class="h1" title="Çarşamba 20:00 — 6 açık sipariş"><span>6</span></td><td class="h3" title="Çarşamba 21:00 — 9 açık sipariş"><span>9</span></td><td class="h4" title="Çarşamba 22:00 — 12 açık sipariş"><span>12</span></td><td class="h1" title="Çarşamba 23:00 — 4 açık sipariş"><span>4</span></td></tr><tr><th scope="row">Per</th><td class="h0" title="Perşembe 11:00 — 0 açık sipariş"><span></span></td><td class="h0" title="Perşembe 12:00 — 0 açık sipariş"><span></span></td><td class="h1" title="Perşembe 13:00 — 3 açık sipariş"><span>3</span></td><td class="h1" title="Perşembe 14:00 — 3 açık sipariş"><span>3</span></td><td class="h0" title="Perşembe 15:00 — 0 açık sipariş"><span></span></td><td class="h0" title="Perşembe 16:00 — 0 açık sipariş"><span></span></td><td class="h0" title="Perşembe 17:00 — 0 açık sipariş"><span></span></td><td class="h1" title="Perşembe 18:00 — 4 açık sipariş"><span>4</span></td><td class="h3" title="Perşembe 19:00 — 9 açık sipariş"><span>9</span></td><td class="h4" title="Perşembe 20:00 — 19 açık sipariş"><span>19</span></td><td class="h4" title="Perşembe 21:00 — 21 açık sipariş"><span>21</span></td><td class="h4" title="Perşembe 22:00 — 20 açık sipariş"><span>20</span></td><td class="h4" title="Perşembe 23:00 — 16 açık sipariş"><span>16</span></td></tr><tr><th scope="row">Cum</th><td class="h0" title="Cuma 11:00 — 0 açık sipariş"><span></span></td><td class="h1" title="Cuma 12:00 — 4 açık sipariş"><span>4</span></td><td class="h1" title="Cuma 13:00 — 5 açık sipariş"><span>5</span></td><td class="h1" title="Cuma 14:00 — 3 açık sipariş"><span>3</span></td><td class="h0" title="Cuma 15:00 — 0 açık sipariş"><span></span></td><td class="h0" title="Cuma 16:00 — 0 açık sipariş"><span></span></td><td class="h0" title="Cuma 17:00 — 0 açık sipariş"><span></span></td><td class="h1" title="Cuma 18:00 — 3 açık sipariş"><span>3</span></td><td class="h1" title="Cuma 19:00 — 3 açık sipariş"><span>3</span></td><td class="h3" title="Cuma 20:00 — 10 açık sipariş"><span>10</span></td><td class="h4" title="Cuma 21:00 — 18 açık sipariş"><span>18</span></td><td class="h4" title="Cuma 22:00 — 19 açık sipariş"><span>19</span></td><td class="h1" title="Cuma 23:00 — 6 açık sipariş"><span>6</span></td></tr><tr><th scope="row">Cum</th><td class="h0" title="Cumartesi 11:00 — 0 açık sipariş"><span></span></td><td class="h1" title="Cumartesi 12:00 — 8 açık sipariş"><span>8</span></td><td class="h1" title="Cumartesi 13:00 — 6 açık sipariş"><span>6</span></td><td class="h1" title="Cumartesi 14:00 — 4 açık sipariş"><span>4</span></td><td class="h1" title="Cumartesi 15:00 — 3 açık sipariş"><span>3</span></td><td class="h0" title="Cumartesi 16:00 — 0 açık sipariş"><span></span></td><td class="h0" title="Cumartesi 17:00 — 0 açık sipariş"><span></span></td><td class="h1" title="Cumartesi 18:00 — 3 açık sipariş"><span>3</span></td><td class="h1" title="Cumartesi 19:00 — 5 açık sipariş"><span>5</span></td><td class="h3" title="Cumartesi 20:00 — 11 açık sipariş"><span>11</span></td><td class="h4" title="Cumartesi 21:00 — 16 açık sipariş"><span>16</span></td><td class="h4" title="Cumartesi 22:00 — 18 açık sipariş"><span>18</span></td><td class="h4" title="Cumartesi 23:00 — 12 açık sipariş"><span>12</span></td></tr><tr><th scope="row">Paz</th><td class="h0" title="Pazar 11:00 — 0 açık sipariş"><span></span></td><td class="h1" title="Pazar 12:00 — 5 açık sipariş"><span>5</span></td><td class="h1" title="Pazar 13:00 — 5 açık sipariş"><span>5</span></td><td class="h0" title="Pazar 14:00 — 0 açık sipariş"><span></span></td><td class="h0" title="Pazar 15:00 — 0 açık sipariş"><span></span></td><td class="h0" title="Pazar 16:00 — 0 açık sipariş"><span></span></td><td class="h0" title="Pazar 17:00 — 0 açık sipariş"><span></span></td><td class="h0" title="Pazar 18:00 — 0 açık sipariş"><span></span></td><td class="h1" title="Pazar 19:00 — 3 açık sipariş"><span>3</span></td><td class="h3" title="Pazar 20:00 — 9 açık sipariş"><span>9</span></td><td class="h4" title="Pazar 21:00 — 13 açık sipariş"><span>13</span></td><td class="h3" title="Pazar 22:00 — 10 açık sipariş"><span>10</span></td><td class="h1" title="Pazar 23:00 — 1 açık sipariş"><span>1</span></td></tr></tbody>
+  </table></div>
+  <div class="legend"><i class="h1"></i>Düşük <i class="h3"></i>Eşiğe yakın
+    <i class="h4"></i>Eşik ve üzeri</div>
+</section>
+<div class="split">
+ <section class="panel risk"><span class="badge measured">Kayıtlardan çıkarıldı</span><h2>Ciroyu riske atan üç dönem</h2>
+ <table><thead><tr><th>Zaman</th><th>Akış</th><th>Risk</th></tr></thead><tbody><tr><td>31.08 · 18:55–23:43</td><td>Kapatma eşiği</td><td>1.004 TL</td></tr><tr><td>03.09 · 18:44–23:49</td><td>Kapatma eşiği</td><td>896 TL</td></tr><tr><td>04.09 · 19:53–23:23</td><td>Kapatma eşiği</td><td>872 TL</td></tr></tbody></table></section>
+ <section class="panel"><span class="badge scenario">Debi açık olsaydı</span><h2>Debi bu anlarda nasıl yardımcı olurdu?</h2>
+ <ul class="plain"><li><b>9 dönemde</b> hazırlık süresini kademeli uzatırdı.</li>
+ <li>Müdahalesiz akışta kapatma eşiğine ulaşan dönem: <b>12</b></li>
+ <li>En yoğun zaman: <b>Cumartesi · 22:00, 20:00, 13:00</b></li></ul></section>
 </div>
-<table>
- <tr><td>Yalnızca süre optimizasyonu yeterdi</td><td>5 yoğunlukta</td></tr>
- <tr><td>Baskının yoğunlaştığı saatler</td><td>13:00, 20:00, 21:00</td></tr>
- <tr><td>En yoğun gün</td><td>Pazar</td></tr>
-</table>
-<div class="uyari">Bu rakam ölçüm değil, risk dökümüdür. İzleme haftasında hiçbir şey uygulanmadı; Debi devrede olsaydı bu anlarda süreler uzatılacaktı. Süreler gerçekten uzatılsaydı gelen sipariş hızı düşecekti; bu dönemlerin bir kısmı kapatmaya hiç ulaşmazdı — yukarıdaki sayı bir tahmin değil, üst sınır.</div>
-<div class="sonraki"><b>Sıradaki adım:</b> yukarıdaki gerçek rakamlarla eşikleri güncelleyip canlıya geçin. Debi o günden itibaren bu anlarda süreleri kendisi uzatır.</div>
-<div class="alt">Debi · getdebi.com — Kayıtlar 332 olaydan üretildi.
-Kişisel veri içermez.</div>
-</div></body></html>
+<div class="split">
+ <section class="panel"><span class="badge calculated">Hesabın dayanağı</span><h2>Bu rakamları nasıl okumalı?</h2>
+ <p class="note">İzleme boyunca hiçbir platform ayarı değiştirilmedi. Bu nedenle <b>“kesinti kesin olarak engellendi”</b> veya <b>“şu kadar para kazanıldı”</b>
+ denmez. 6.582 TL, her yoğunluk dönemindeki en yüksek riskin platform başına girilen ceza tarifesi
+ ile hesaplanan toplamıdır; sonuç restoranın gerçek tarifesi ve sipariş akışına bağlıdır.</p></section>
+ <section class="panel settings"><span class="badge">İlk öneri</span><h2>Restoranınız için başlangıç ayarı</h2>
+ <ul class="plain"><li><b>12 açık sipariş</b>te devreye gir</li>
+ <li><b>3 yavaşlatma kademesi</b> kullan</li><li><b>otomatik kapatma açık</b></li></ul>
+ <p>Bu rapor bu ayarlarla hesaplandı; canlıya geçmeden önce birlikte onaylanır.</p></section>
+</div>
+<div class="next"><div><b>Canlı ayarları birlikte netleştirelim</b><br>
+<span>Gerçek ceza tarifenizi ve mutfak sınırınızı netleştirip canlı başlangıcı birlikte kararlaştıralım.</span></div></div>
+<footer class="footer">Debi · getdebi.com · 336 kayıttan üretildi · Kişisel veri içermez</footer>
+</main></body></html>
