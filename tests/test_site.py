@@ -66,10 +66,14 @@ class SiteContracts(unittest.TestCase):
         self.assertIn("Devreye girme eşiği 12", home)
         self.assertIn('class="fig capacity-chart"', home)
 
-    def test_contact_page_keeps_owner_name_and_phone(self):
-        contact = page(site_html(), "/iletisim")
-        self.assertIn("", contact)
-        self.assertIn("tel:+9", contact)
+    def test_contact_page_has_no_personal_name_or_phone(self):
+        # Kişisel isim ve telefon kaldırıldı (profesyonel dursun); iletişim
+        # e-posta üzerinden. Site geneline de sızmadığını doğrula.
+        html = site_html()
+        self.assertNotIn("", html)
+        self.assertNotIn("tel:+9", html)
+        contact = page(html, "/iletisim")
+        self.assertIn("info@getdebi.com", contact)
 
     def test_phone_screenshots_are_local_and_accessible(self):
         sources = re.findall(
