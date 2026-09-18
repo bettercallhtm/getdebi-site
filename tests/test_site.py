@@ -68,10 +68,12 @@ class SiteContracts(unittest.TestCase):
 
     def test_contact_page_has_no_personal_name_or_phone(self):
         # Kişisel isim ve telefon kaldırıldı (profesyonel dursun); iletişim
-        # e-posta üzerinden. Site geneline de sızmadığını doğrula.
+        # e-posta üzerinden. Hassas değeri dosyaya GÖMMEDEN yapısal yokluğu
+        # sınıyoruz (aksi halde geçmiş-temizleme script'i bu satırı da bozar):
+        # hiç "tel:" linki ve "Telefon ·" kanal etiketi olmamalı.
         html = site_html()
-        self.assertNotIn("", html)
-        self.assertNotIn("tel:+9", html)
+        self.assertNotIn("tel:", html)
+        self.assertNotIn("Telefon ·", html)  # "Telefon ·" kanal basligi
         contact = page(html, "/iletisim")
         self.assertIn("info@getdebi.com", contact)
 
