@@ -1,0 +1,64 @@
+<!doctype html>
+<!-- og.png'nin kaynağı (1200x630). Yeniden üretmek için, depo kökünden:
+  "C:\Program Files (x86)\Microsoft\Edge\Application\msedge.exe" --headless=new
+    --hide-scrollbars --force-device-scale-factor=1 --window-size=1200,630
+    --allow-file-access-from-files --virtual-time-budget=3000
+    --screenshot=og.png file:///<depo>/docs/og.html
+  Sonra index.html'deki og:image ?v= sürümünü artır (WhatsApp önbelleği). -->
+<html lang="tr">
+<head>
+<meta charset="utf-8">
+<style>
+@font-face{font-family:'Plus Jakarta Sans'; font-weight:400 700;
+  src:url(../fonts/plus-jakarta-sans-latin.woff2) format('woff2');}
+@font-face{font-family:'Plus Jakarta Sans'; font-weight:400 700;
+  src:url(../fonts/plus-jakarta-sans-latin-ext.woff2) format('woff2');
+  unicode-range:U+0100-02BA;}
+@font-face{font-family:'JetBrains Mono'; font-weight:400 600;
+  src:url(../fonts/jetbrains-mono-latin.woff2) format('woff2');}
+@font-face{font-family:'JetBrains Mono'; font-weight:400 600;
+  src:url(../fonts/jetbrains-mono-latin-ext.woff2) format('woff2');
+  unicode-range:U+0100-02BA;}
+:root{
+  --bg:#111A19; --ink:#E9EFED; --ink-2:#AEBDB8; --ink-3:#82918C;
+  --accent:#4FBFAE; --go:#5BBF69; --slow:#E8B45C; --stop:#E4705C; --off:#3A4844;
+}
+*{margin:0; box-sizing:border-box;}
+html,body{width:1200px; height:630px; overflow:hidden; background:var(--bg);}
+body{font-family:'Plus Jakarta Sans',sans-serif; color:var(--ink);
+  padding:64px 76px 0; position:relative;}
+.top{display:flex; align-items:center; justify-content:space-between;}
+.brand{display:flex; align-items:center; gap:22px; font-weight:700; font-size:44px; letter-spacing:-.5px;}
+.brand svg{width:76px; height:76px; display:block;}
+.site{font-family:'JetBrains Mono',monospace; font-size:27px; color:var(--accent);}
+h1{margin-top:66px; font-size:74px; line-height:1.14; font-weight:700; letter-spacing:-1.5px;}
+h1 em{font-style:normal; color:var(--accent);}
+p.alt{margin-top:26px; font-size:32px; color:var(--ink-2); font-weight:500;}
+.bars{position:absolute; left:76px; right:76px; bottom:62px;
+  display:grid; grid-template-columns:repeat(5,1fr); gap:24px;}
+.bar i{display:block; height:14px; border-radius:7px;}
+.bar span{display:block; margin-top:16px; font-family:'JetBrains Mono',monospace;
+  font-size:22px; color:var(--ink-3);}
+</style>
+</head>
+<body>
+  <div class="top">
+    <div class="brand">
+      <svg viewBox="0 0 32 32" aria-hidden="true"><rect width="32" height="32" rx="7" fill="#4FBFAE"/>
+        <g fill="none" stroke="#111A19" stroke-width="3" stroke-linecap="round">
+          <path d="M6 10.5q5-4.2 10 0t10 0"/><path d="M6 16q5-4.2 10 0t10 0"/><path d="M6 21.5q5-4.2 10 0t10 0"/></g></svg>
+      Debi
+    </div>
+    <div class="site">getdebi.com</div>
+  </div>
+  <h1>Yoğun saatte sipariş<br>akışını <em>otomatik kısar.</em></h1>
+  <p class="alt">Mutfak dolunca geç teslimat, iptal ve ceza riskini azaltır.</p>
+  <div class="bars">
+    <div class="bar"><i style="background:var(--go)"></i><span>Normal</span></div>
+    <div class="bar"><i style="background:var(--slow)"></i><span>Hafif</span></div>
+    <div class="bar"><i style="background:var(--slow)"></i><span>Orta</span></div>
+    <div class="bar"><i style="background:var(--stop)"></i><span>Güçlü</span></div>
+    <div class="bar"><i style="background:var(--off)"></i><span>Duraklat</span></div>
+  </div>
+</body>
+</html>
