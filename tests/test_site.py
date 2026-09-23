@@ -1,9 +1,14 @@
+import importlib.util
 import re
 import unittest
 from pathlib import Path
 
 
 ROOT = Path(__file__).resolve().parents[1]
+
+_spec = importlib.util.spec_from_file_location("sayfalar", ROOT / "tools" / "sayfalar.py")
+sayfalar = importlib.util.module_from_spec(_spec)
+_spec.loader.exec_module(sayfalar)
 
 
 def site_html():
@@ -12,8 +17,8 @@ def site_html():
 
 def page(html, route):
     match = re.search(
-        rf'<section class="page" data-page="{re.escape(route)}">(.*?)'
-        rf'(?=<section class="page" data-page=|</main>)',
+        rf'<section class="page(?: active)?" data-page="{re.escape(route)}">(.*?)'
+        rf'(?=<section class="page(?: active)?" data-page=|</main>)',
         html,
         re.S,
     )
@@ -85,7 +90,7 @@ class SiteContracts(unittest.TestCase):
         self.assertGreaterEqual(len(sources), 2)
         for source, alt in sources:
             with self.subTest(source=source):
-                self.assertTrue((ROOT / source).is_file())
+                self.assertTrue((ROOT / source.lstrip("/")).is_file())
                 self.assertTrue(alt.strip())
 
     def test_fonts_are_self_hosted(self):
@@ -96,11 +101,52 @@ class SiteContracts(unittest.TestCase):
                 text = (ROOT / name).read_text(encoding="utf-8")
                 self.assertNotIn("fonts.googleapis.com", text)
                 self.assertNotIn("fonts.gstatic.com", text)
-        for source in re.findall(r"url\((fonts/[^)]+\.woff2)\)", site_html()):
+        fonts = re.findall(r"url\(/?(fonts/[^)]+\.woff2)\)", site_html())
+        self.assertEqual(len(fonts), 4, "@font-face kuralları bulunamadı")
+        for source in fonts:
             with self.subTest(font=source):
                 self.assertTrue((ROOT / source).is_file())
         for family in ("plus-jakarta-sans", "jetbrains-mono"):
             self.assertTrue((ROOT / "fonts" / f"{family}-OFL.txt").is_file())
+
+    # ---- gerçek sayfa adresleri ----
+
+    def test_generated_pages_are_up_to_date(self):
+        # index.html düzenlenip tools/sayfalar.py çalıştırılmazsa alt sayfalar
+        # eski içerikle yayına çıkar. Bu test onu yakalıyor.
+        html = site_html()
+        for yol in sayfalar.ACIKLAMALAR:
+            with self.subTest(page=yol):
+                dosya = sayfalar.hedef(yol)
+                self.assertTrue(dosya.is_file(), f"{dosya} yok: python tools/sayfalar.py")
+                self.assertEqual(dosya.read_text(encoding="utf-8"),
+                                 sayfalar.uret(html, yol),
+                                 "güncel değil: python tools/sayfalar.py")
+
+    def test_each_page_has_own_address_title_and_open_section(self):
+        for yol in sayfalar.ACIKLAMALAR:
+            with self.subTest(page=yol):
+                text = sayfalar.hedef(yol).read_text(encoding="utf-8")
+                self.assertIn(f'<link rel="canonical" href="https://getdebi.com{yol}/">', text)
+                self.assertNotIn("<title>Debi — ", text)
+                acik = re.findall(r'<section class="page active" data-page="([^"]+)"', text)
+                self.assertEqual(acik, [yol])
+        home = re.findall(r'<section class="page active" data-page="([^"]+)"', site_html())
+        self.assertEqual(home, ["/"])
+
+    def test_internal_links_use_real_addresses(self):
+        html = site_html()
+        self.assertNotIn('href="#/', html)
+        self.assertNotIn('"#" + p.path', html)
+        # Alt sayfadan açılınca göreli yol bozulur: dosyalar kökten istenmeli.
+        for rel in re.findall(r'(?:src|href)="([^"/#:][^":]*\.(?:webp|png|html|woff2))"', html):
+            self.fail(f"göreli yol: {rel}")
+
+    def test_sitemap_lists_every_page(self):
+        sitemap = (ROOT / "sitemap.xml").read_text(encoding="utf-8")
+        for yol in ["/", *(f"{y}/" for y in sayfalar.ACIKLAMALAR)]:
+            with self.subTest(page=yol):
+                self.assertIn(f"<loc>https://getdebi.com{yol}</loc>", sitemap)
 
     def test_third_party_requests_match_privacy_policy(self):
         # Gizlilik politikası "sayaç ve form iletim hizmeti dışında site başka
