@@ -88,6 +88,20 @@ class SiteContracts(unittest.TestCase):
                 self.assertTrue((ROOT / source).is_file())
                 self.assertTrue(alt.strip())
 
+    def test_fonts_are_self_hosted(self):
+        # Google Fonts her ziyaretçinin IP adresini Google'a gönderiyordu;
+        # gizlilik politikası bunu söylemiyordu. Yazı tipleri yerelde kalmalı.
+        for name in ("index.html", "ornek-rapor.html"):
+            with self.subTest(file=name):
+                text = (ROOT / name).read_text(encoding="utf-8")
+                self.assertNotIn("fonts.googleapis.com", text)
+                self.assertNotIn("fonts.gstatic.com", text)
+        for source in re.findall(r"url\((fonts/[^)]+\.woff2)\)", site_html()):
+            with self.subTest(font=source):
+                self.assertTrue((ROOT / source).is_file())
+        for family in ("plus-jakarta-sans", "jetbrains-mono"):
+            self.assertTrue((ROOT / "fonts" / f"{family}-OFL.txt").is_file())
+
     def test_phone_screenshots_share_the_same_top_edge(self):
         html = site_html()
         self.assertNotRegex(
