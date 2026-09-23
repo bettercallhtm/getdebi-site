@@ -102,6 +102,21 @@ class SiteContracts(unittest.TestCase):
         for family in ("plus-jakarta-sans", "jetbrains-mono"):
             self.assertTrue((ROOT / "fonts" / f"{family}-OFL.txt").is_file())
 
+    def test_third_party_requests_match_privacy_policy(self):
+        # Gizlilik politikası "sayaç ve form iletim hizmeti dışında site başka
+        # bir hizmete bağlanmaz" diyor. Yeni bir dış kaynak eklenirse bu test
+        # düşer; politikayı da güncellemeden geçirme.
+        izinli = {"static.cloudflareinsights.com", "api.web3forms.com"}
+        desen = r'(?:src=["\']|fetch\(["\']|url\()(https?://[^"\')]+)'
+        for name in ("index.html", "ornek-rapor.html"):
+            text = (ROOT / name).read_text(encoding="utf-8")
+            for url in re.findall(desen, text):
+                with self.subTest(file=name, url=url):
+                    self.assertIn(re.match(r"https?://([^/]+)", url).group(1), izinli)
+        policy = site_html()
+        self.assertIn("Cloudflare Web Analytics", policy)
+        self.assertIn("çerez kullanmaz", policy)
+
     def test_phone_screenshots_share_the_same_top_edge(self):
         html = site_html()
         self.assertNotRegex(
