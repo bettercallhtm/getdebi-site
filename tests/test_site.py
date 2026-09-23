@@ -109,6 +109,18 @@ class SiteContracts(unittest.TestCase):
         for family in ("plus-jakarta-sans", "jetbrains-mono"):
             self.assertTrue((ROOT / "fonts" / f"{family}-OFL.txt").is_file())
 
+    def test_customer_copy_avoids_retired_words(self):
+        # Ürün dili: bu kelimeler müşteri yüzeyinde kullanılmıyor ("yavaşlatma"
+        # olumsuz çağrışım yapıyor; diğerleri yazılım jargonu). Yerine: süre
+        # optimizasyonu / süreleri uzatmak, izleme modu, ayar, risk, son karar.
+        yasak = ("yavaşlat", "fren", "gölge mod", "gölge hafta", "kaldıraç",
+                 "maruziyet", "kontrolcü", "webhook", "onboarding", "endpoint")
+        for name in ("index.html", "ornek-rapor.html"):
+            text = (ROOT / name).read_text(encoding="utf-8").lower()
+            for kelime in yasak:
+                with self.subTest(file=name, kelime=kelime):
+                    self.assertNotIn(kelime, text)
+
     # ---- gerçek sayfa adresleri ----
 
     def test_generated_pages_are_up_to_date(self):
